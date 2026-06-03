@@ -34,11 +34,14 @@ jobs:
           pnpm -r run lint
           pnpm exec tsx tools/lint-components.ts
 
-      - name: Unit tests
-        run: pnpm -r run test
-
+      # build packages before tests so tokens-veil's brand-leak and
+      # pairings tests can see the dist files. without this they race
+      # the e2e test's beforeAll build hook and fail on a fresh checkout.
       - name: Build packages
         run: pnpm -r --filter "./packages/**" run build
+
+      - name: Unit tests
+        run: pnpm -r run test
 
       - name: Build Veil site
         run: pnpm --filter @veil-ncss/site-veil run build
