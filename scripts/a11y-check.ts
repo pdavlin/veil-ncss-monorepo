@@ -16,10 +16,15 @@ import http from 'node:http';
 import path from 'node:path';
 import process from 'node:process';
 
+interface ViolationNode {
+  target: string[];
+  failureSummary?: string;
+}
 interface Violation {
   id: string;
   impact: 'minor' | 'moderate' | 'serious' | 'critical' | null;
   description: string;
+  nodes?: ViolationNode[];
 }
 
 const MIME: Record<string, string> = {
@@ -142,6 +147,20 @@ async function main(): Promise<void> {
         console.error(`${rel}: ${blocking.length} blocking violation(s)`);
         for (const v of blocking) {
           console.error(`  - [${v.impact}] ${v.id}: ${v.description}`);
+          // surface the first failing node so CI logs actually tell you what
+          // selector + failure summary to fix. without this you just know the
+          // rule id and have to bisect locally.
+          if (v.nodes && v.nodes.length) {
+            const n = v.nodes[0];
+            console.error(`      target: ${n.target?.join(' ')}`);
+            if (n.failureSummary) {
+              const summary = n.failureSummary.replace(/\n/g, ' ');
+              console.error(`      detail: ${summary}`);
+            }
+            if (v.nodes.length > 1) {
+              console.error(`      (${v.nodes.length - 1} additional node(s))`);
+            }
+          }
         }
         failed += blocking.length;
       }

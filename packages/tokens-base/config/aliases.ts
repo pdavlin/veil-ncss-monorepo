@@ -44,6 +44,10 @@ export const aliases: Record<string, AliasDecl> = {
     fallback: '#2f6fa1',
     description: 'Brand accent for highlights and interactive states.',
   },
+  '--color-accent-text': {
+    fallback: '#1f4e7a',
+    description: 'Accent used for body-sized text on a light surface. Darkened so WCAG 2 AA contrast (4.5:1) holds for small text — the standard --color-accent is tuned for graphical and large-text use.',
+  },
   '--color-link': {
     fallback: '#1056b3',
     description: 'Inline link text.',

@@ -10,6 +10,9 @@ export const palette: Record<string, string> = {
   '--color-veil-stone-light': '#a0a09f',
   '--color-veil-tan': '#b0a986',
   '--color-veil-rust': '#de5021',
+  // Darker shade of rust used for body-sized accent text on white. Matches
+  // the rust brand voice but darkened to clear WCAG 2 AA contrast (4.5:1).
+  '--color-veil-rust-deep': '#a83a16',
   '--color-veil-pink': '#ed1566',
   '--color-veil-link': '#0000ee',
 };
@@ -35,6 +38,7 @@ export const aliasMap: Record<string, string> = {
   '--color-border-strong': 'var(--color-veil-stone)',
   '--color-divider': 'var(--color-veil-stone-light)',
   '--color-accent': 'var(--color-veil-rust)',
+  '--color-accent-text': 'var(--color-veil-rust-deep)',
   '--color-link': 'var(--color-veil-link)',
   '--font-sans': fonts.body,
   '--font-display': fonts.display,

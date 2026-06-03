@@ -20,7 +20,10 @@
     font-size: var(--text-step--1);
     line-height: 1;
     text-transform: lowercase;
-    color: var(--color-accent);
+    /* accent-text is the wcag-safe darker shade of the brand accent —
+       --color-accent is tuned for graphical/large-text use and falls below
+       4.5:1 contrast on white at small-text sizes. */
+    color: var(--color-accent-text);
     margin: 0 0 var(--space-2xs);
   }
   .article-card__category::after { content: ":"; }
