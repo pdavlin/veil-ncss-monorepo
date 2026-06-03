@@ -1,0 +1,11 @@
+@layer components {
+  .parallax-band {
+    display: block;
+    width: 100%;
+    height: var(--parallax-band-height, var(--space-3xl));
+    background-color: var(--color-surface-brand);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@veil-ncss/site-veil",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "veilengineering.com — Eleventy site consuming tokens-base + tokens-veil + components.",
+  "scripts": {
+    "build": "eleventy",
+    "dev": "eleventy --serve --port=8080",
+    "clean": "rm -rf _site",
+    "typecheck": "echo 'no typecheck — Eleventy site'",
+    "lint": "echo 'lint runs at monorepo root'",
+    "test": "echo 'no unit tests — covered by build + a11y check'"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^5.0.0",
+    "nunjucks": "^3.2.4",
+    "@veil-ncss/components": "workspace:*",
+    "@veil-ncss/tokens-base": "workspace:*",
+    "@veil-ncss/tokens-veil": "workspace:*",
+    "@veil-ncss/tokens-ncss": "workspace:*"
+  }
+}

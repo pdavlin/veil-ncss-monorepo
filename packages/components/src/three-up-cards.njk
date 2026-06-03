@@ -1,0 +1,29 @@
+{#
+  three-up-cards — three-up image + heading + blurb card grid. Used on sustainability.
+  Expects: cards = [{ image: {src, alt}, heading, body, href? }]
+#}
+<section class="three-up-cards" data-component="three-up-cards">
+  <ul class="three-up-cards__list">
+    {% for card in cards %}
+      <li class="three-up-cards__item">
+        <article class="three-up-card">
+          {% if card.image %}
+            <div class="three-up-card__media">
+              {% if card.href %}
+                <a href="{{ card.href }}" tabindex="-1" aria-hidden="true">
+                  <img src="{{ card.image.src }}" alt="{{ card.image.alt }}" loading="lazy" decoding="async" />
+                </a>
+              {% else %}
+                <img src="{{ card.image.src }}" alt="{{ card.image.alt }}" loading="lazy" decoding="async" />
+              {% endif %}
+            </div>
+          {% endif %}
+          <h3 class="three-up-card__heading">
+            {% if card.href %}<a href="{{ card.href }}">{{ card.heading }}</a>{% else %}{{ card.heading }}{% endif %}
+          </h3>
+          <div class="three-up-card__body">{{ card.body | safe }}</div>
+        </article>
+      </li>
+    {% endfor %}
+  </ul>
+</section>

@@ -1,0 +1,18 @@
+{#
+  technical-drawing — illustrated drawing tile with optional label + caption.
+  Used in services left rail.
+  Expects: drawing = {
+    image: { src, alt }
+    label?: string           e.g. "Integrated Roller Shade Detail:"
+    caption?: string         long-form description below the label
+  }
+#}
+<figure class="technical-drawing" data-component="technical-drawing">
+  <img class="technical-drawing__image" src="{{ drawing.image.src }}" alt="{{ drawing.image.alt }}" loading="lazy" decoding="async" />
+  {% if drawing.label or drawing.caption %}
+    <figcaption class="technical-drawing__caption">
+      {% if drawing.label %}<p class="technical-drawing__label">{{ drawing.label }}</p>{% endif %}
+      {% if drawing.caption %}<p class="technical-drawing__text">{{ drawing.caption }}</p>{% endif %}
+    </figcaption>
+  {% endif %}
+</figure>

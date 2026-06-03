@@ -1,0 +1,77 @@
+{#
+  site-nav — standard header used on every page except home.
+  Logo at left, single horizontal row of links at right.
+
+  Mobile: a Menu button toggles the nav open/closed via a tiny inline script.
+  The toggle gracefully degrades to JS-disabled: the nav element has hidden
+  state by default, so without JS the button does nothing and the nav stays
+  hidden. The audit's #6 recommendation (one responsive document) is honored;
+  if no-JS support becomes critical we can wire a checkbox-only fallback.
+
+  Expects:
+    site.name           string
+    site.shortName?     string
+    site.wordmark?      string
+    site.logo?          { src, alt, width?, height? }   replaces text wordmark
+    site.nav.full       [{ label, href }]               flat list of links
+#}
+<header class="site-nav" data-component="site-nav" data-nav-open="false">
+  <div class="site-nav__inner">
+    {# Prefer the header-specific logo (wordmark + tagline) when provided;
+       fall back to the generic site logo or text wordmark. #}
+    {% set _navLogo = site.headerLogo or site.logo %}
+    <a class="site-nav__brand" href="/" aria-label="{{ site.shortName or site.name }} — home">
+      {% if _navLogo and _navLogo.src %}
+        <img
+          class="site-nav__logo"
+          src="{{ _navLogo.src }}"
+          alt="{{ _navLogo.alt or site.shortName or site.name }}"
+          {% if _navLogo.width %}width="{{ _navLogo.width }}"{% endif %}
+          {% if _navLogo.height %}height="{{ _navLogo.height }}"{% endif %}
+          loading="eager"
+          decoding="async"
+        />
+      {% else %}
+        <span class="site-nav__wordmark">{{ site.wordmark or site.shortName or site.name }}</span>
+      {% endif %}
+    </a>
+    <button
+      class="site-nav__toggle"
+      type="button"
+      aria-controls="site-nav-list"
+      aria-expanded="false"
+      aria-label="Toggle menu"
+    >
+      Menu
+    </button>
+    <nav class="site-nav__nav" aria-label="Primary">
+      <ul class="site-nav__list" id="site-nav-list">
+        {% for item in site.nav.full %}
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="{{ item.href }}"{% if item.href == page.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+  <script>
+    (function () {
+      var host = document.currentScript && document.currentScript.closest('.site-nav');
+      if (!host) return;
+      var btn = host.querySelector('.site-nav__toggle');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var open = host.dataset.navOpen === 'true';
+        host.dataset.navOpen = String(!open);
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+      // close when a nav link is clicked (mobile UX)
+      host.querySelectorAll('.site-nav__link').forEach(function (a) {
+        a.addEventListener('click', function () {
+          host.dataset.navOpen = 'false';
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+  </script>
+</header>

@@ -1,0 +1,64 @@
+{#
+  contact-form — name + email + phone + message form. Wired to Netlify Forms by default.
+  Expects: contactForm = {
+    heading?: string                  e.g. "we'll respond within 12 hours, time us"
+    intro?: string                    HTML allowed
+    formName?: string                 default 'contact'
+    action?: string                   default '/thank-you/'
+    successMessage?: string           shown on ?submitted=true (rendered server-side via static include)
+    fields?: { firstName?: bool, lastName?: bool, email?: bool, phone?: bool, message?: bool }
+                                      all true by default
+  }
+#}
+{% set _form = contactForm.formName or 'contact' %}
+{% set _fields = contactForm.fields or { firstName: true, lastName: true, email: true, phone: true, message: true } %}
+<section class="contact-form" data-component="contact-form"{% if contactForm.heading %} aria-labelledby="contact-form-heading"{% else %} aria-label="Contact form"{% endif %}>
+  {% if contactForm.heading %}
+    <p id="contact-form-heading" class="contact-form__heading">{{ contactForm.heading }}</p>
+  {% endif %}
+  {% if contactForm.intro %}<div class="contact-form__intro">{{ contactForm.intro | safe }}</div>{% endif %}
+  <form
+    class="contact-form__form"
+    action="{{ contactForm.action or '/thank-you/' }}"
+    method="POST"
+    name="{{ _form }}"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+  >
+    <input type="hidden" name="form-name" value="{{ _form }}" />
+    <p class="contact-form__hp" hidden>
+      <label>Don't fill this out: <input name="bot-field" /></label>
+    </p>
+    {% if _fields.firstName %}
+      <label class="contact-form__field">
+        <span>First name</span>
+        <input type="text" name="firstName" required autocomplete="given-name" />
+      </label>
+    {% endif %}
+    {% if _fields.lastName %}
+      <label class="contact-form__field">
+        <span>Last name</span>
+        <input type="text" name="lastName" autocomplete="family-name" />
+      </label>
+    {% endif %}
+    {% if _fields.email %}
+      <label class="contact-form__field">
+        <span>Email</span>
+        <input type="email" name="email" required autocomplete="email" />
+      </label>
+    {% endif %}
+    {% if _fields.phone %}
+      <label class="contact-form__field">
+        <span>Phone</span>
+        <input type="tel" name="phone" autocomplete="tel" />
+      </label>
+    {% endif %}
+    {% if _fields.message %}
+      <label class="contact-form__field contact-form__field--full">
+        <span>Message</span>
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+    {% endif %}
+    <button class="button button--primary contact-form__submit" type="submit">Send</button>
+  </form>
+</section>

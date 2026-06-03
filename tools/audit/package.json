@@ -1,0 +1,39 @@
+{
+  "name": "@veil/audit",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Playwright-driven design-token, template, and a11y audit pipeline.",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts",
+    "test": "vitest run",
+    "audit:urls": "tsx scripts/crawl.ts",
+    "audit:tokens": "tsx scripts/extract-tokens.ts",
+    "audit:cluster": "tsx scripts/cluster-tokens.ts",
+    "audit:screenshots": "tsx scripts/screenshot.ts",
+    "audit:a11y": "tsx scripts/audit-a11y.ts",
+    "audit:curate": "tsx scripts/curate.ts",
+    "audit:report": "tsx scripts/report.ts",
+    "audit:report-davlin": "tsx scripts/report-davlin.ts",
+    "audit:report-pdf": "tsx scripts/report-pdf.ts",
+    "audit:all": "tsx scripts/run-all.ts"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "chrome-launcher": "^1.2.1",
+    "fast-xml-parser": "^4.5.0",
+    "lighthouse": "^13.3.0",
+    "marked": "^18.0.4",
+    "playwright": "^1.49.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "eslint": "^9.17.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

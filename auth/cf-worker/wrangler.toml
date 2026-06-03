@@ -1,0 +1,14 @@
+name = "veil-ncss-auth"
+main = "index.ts"
+compatibility_date = "2024-12-01"
+
+# Set secrets via: wrangler secret put GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET / OAUTH_STATE_SECRET
+# Set non-secret env via wrangler.toml [vars].
+[vars]
+ALLOWED_ORIGINS = "https://veilengineering.com,https://veil-ncss.netlify.app,https://ncss.org,https://ncss.netlify.app"
+GITHUB_SCOPES = "repo,user"
+
+# Custom domain (configure after deploy):
+# routes = [
+#   { pattern = "auth.example.dev/*", custom_domain = true }
+# ]

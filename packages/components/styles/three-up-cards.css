@@ -1,0 +1,48 @@
+@layer components {
+  .three-up-cards__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-l);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .three-up-cards__list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .three-up-card {
+    display: grid;
+    gap: var(--space-s);
+  }
+  .three-up-card__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-s);
+  }
+  .three-up-card__heading {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-step-1);
+    line-height: var(--leading-snug);
+    margin: 0;
+  }
+  .three-up-card__heading a {
+    color: var(--color-text-default);
+    text-decoration: none;
+  }
+  .three-up-card__heading a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.2em;
+  }
+  .three-up-card__body {
+    color: var(--color-text-default);
+  }
+  .three-up-card__body > * + * { margin-block-start: var(--space-s); }
+}

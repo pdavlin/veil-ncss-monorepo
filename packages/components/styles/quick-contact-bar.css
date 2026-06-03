@@ -1,0 +1,50 @@
+@layer components {
+  /* Hidden on desktop; sticky-fixed at the bottom of the viewport on mobile.
+     Pages that include this bar need bottom padding equal to the bar height
+     so footer content doesn't sit under the bar (handled in site CSS). */
+  .quick-contact-bar {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .quick-contact-bar {
+      display: block;
+      position: fixed;
+      inset-inline: 0;
+      inset-block-end: 0;
+      z-index: 50;
+      background-color: var(--color-surface-default);
+      border-top: 1px solid var(--color-border-subtle);
+      padding-block: var(--space-2xs);
+      padding-inline: var(--space-m);
+      /* respect iOS home indicator / safe-area */
+      padding-block-end: max(var(--space-2xs), env(safe-area-inset-bottom));
+    }
+
+    .quick-contact-bar__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: var(--space-m);
+    }
+
+    .quick-contact-bar a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: var(--target-size-min);
+      min-height: var(--target-size-min);
+      padding: var(--space-2xs) var(--space-s);
+      color: var(--color-text-default);
+      text-decoration: none;
+    }
+
+    .quick-contact-bar svg {
+      width: var(--space-l);
+      height: var(--space-l);
+    }
+  }
+}

@@ -1,0 +1,133 @@
+@layer components {
+  .bio-block {
+    display: grid;
+    gap: var(--space-l);
+    align-items: start;
+  }
+
+  .bio-block__media {
+    width: 100%;
+  }
+  .bio-block__portrait {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-s);
+  }
+
+  .bio-block__name {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: var(--text-step-2);
+    line-height: var(--leading-tight);
+    margin: 0;
+  }
+  .bio-block__role {
+    color: var(--color-text-muted);
+    font-size: var(--text-step--1);
+    font-style: italic;
+    margin-block-start: var(--space-3xs);
+    margin-block-end: var(--space-m);
+  }
+  .bio-block__credentials {
+    color: var(--color-text-muted);
+    font-size: var(--text-step--1);
+    white-space: pre-line;
+    margin-block-start: var(--space-l);
+    margin-block-end: var(--space-m);
+  }
+  .bio-block__prose > * + * {
+    margin-block-start: var(--space-s);
+  }
+  .bio-block__signature {
+    margin-block-start: var(--space-l);
+    margin-block-end: var(--space-2xs);
+    max-width: var(--measure-narrow);
+    width: auto;
+    height: auto;
+    max-height: 3rem; /* lint-allow: explicit 48px cap so dense signatures don't blow up the bio cell */
+    /* the bio body becomes a flex column at desktop; stretch would force this
+       img to the column's full width and break its aspect ratio against the
+       capped height. start-align keeps the intrinsic ratio. */
+    align-self: start;
+    object-fit: contain;
+  }
+  .bio-block__contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3xs);
+    color: var(--color-text-default);
+  }
+  /* plain dark contact entries — live renders email/phone as body text,
+     not blue underlined links. removing underline + matching body color. */
+  .bio-block__contact a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .bio-block__contact a:hover,
+  .bio-block__contact a:focus-visible {
+    text-decoration: underline;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.2em;
+  }
+  .bio-block__social {
+    margin-block-start: var(--space-s);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--target-size-min);
+    height: var(--target-size-min);
+    color: var(--color-text-default);
+  }
+  .bio-block__social svg {
+    width: var(--space-l);
+    height: var(--space-l);
+  }
+
+  @media (min-width: 768px) {
+    /* desktop: each bio is one row of a 2-column grid. zero gap +
+       cell borders draw the crisp 2x2 separator lines on live. */
+    .bio-block {
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: stretch;
+      border-block-start: 2px solid var(--color-divider); /* lint-allow: 2px brand-spec divider */
+    }
+    .bio-block:last-child {
+      border-block-end: 2px solid var(--color-divider); /* lint-allow: 2px brand-spec divider */
+    }
+    .bio-block__body {
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    /* media cell: zero-padding so the portrait fills the full cell
+       edge-to-edge. cover crop keeps the cell perfectly filled
+       regardless of the body cell's height. */
+    .bio-block__media {
+      padding: 0;
+      display: flex;
+    }
+    .bio-block__portrait {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 0;
+    }
+    /* vertical separator: border on whichever cell sits in column 2.
+       default (side=left): body is column 2. */
+    .bio-block__body {
+      border-inline-start: 2px solid var(--color-divider); /* lint-allow: 2px brand-spec divider */
+    }
+    .bio-block--right .bio-block__media {
+      order: 2;
+      border-inline-start: 2px solid var(--color-divider); /* lint-allow: 2px brand-spec divider */
+    }
+    .bio-block--right .bio-block__body {
+      border-inline-start: 0;
+    }
+  }
+}

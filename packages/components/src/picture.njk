@@ -1,0 +1,34 @@
+{#
+  picture — responsive image wrapper, brand-agnostic.
+  Expects: picture = {
+    src       string (path relative to site, or absolute)
+    alt       string
+    sizes?    string (default '100vw')
+    loading?  'lazy' | 'eager' (default 'lazy')
+    sources?  [{ srcset, type }]    (optional pre-built alternate formats)
+  }
+  When `sources` is present, renders a full <picture> element. Otherwise renders <img>.
+#}
+{% if picture.sources and picture.sources.length %}
+  <picture data-component="picture">
+    {% for source in picture.sources %}
+      <source srcset="{{ source.srcset }}" type="{{ source.type }}"{% if picture.sizes %} sizes="{{ picture.sizes }}"{% endif %} />
+    {% endfor %}
+    <img
+      src="{{ picture.src }}"
+      alt="{{ picture.alt }}"
+      loading="{{ picture.loading or 'lazy' }}"
+      decoding="async"
+      {% if picture.sizes %}sizes="{{ picture.sizes }}"{% endif %}
+    />
+  </picture>
+{% else %}
+  <img
+    data-component="picture"
+    src="{{ picture.src }}"
+    alt="{{ picture.alt }}"
+    loading="{{ picture.loading or 'lazy' }}"
+    decoding="async"
+    {% if picture.sizes %}sizes="{{ picture.sizes }}"{% endif %}
+  />
+{% endif %}

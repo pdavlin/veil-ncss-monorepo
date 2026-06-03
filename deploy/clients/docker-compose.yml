@@ -1,0 +1,21 @@
+services:
+  clients:
+    image: nginx:alpine
+    restart: unless-stopped
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - traefik_public
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik_public
+      - traefik.http.routers.clients.rule=Host(`clients.davlin.io`)
+      - traefik.http.routers.clients.entrypoints=https
+      - traefik.http.routers.clients.tls.certresolver=main
+      - traefik.http.routers.clients.middlewares=oidc-auth@file
+      - traefik.http.services.clients.loadbalancer.server.port=80
+
+networks:
+  traefik_public:
+    external: true

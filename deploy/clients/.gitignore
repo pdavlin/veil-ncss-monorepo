@@ -1,0 +1,4 @@
+# Built artifacts copied in for deployment — checked in as deploy snapshots are
+# fine, but the audit report is large. If you want to keep the repo lean,
+# uncomment the next line.
+# html/ncss/

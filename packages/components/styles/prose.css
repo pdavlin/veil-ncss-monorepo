@@ -1,0 +1,74 @@
+@layer components {
+  .prose {
+    padding-block: var(--space-section);
+    padding-inline: var(--space-m);
+    background-color: var(--color-surface-default);
+  }
+
+  .prose__inner {
+    width: 100%;
+    max-width: var(--measure-prose);
+    margin-inline: auto;
+  }
+
+  .prose__eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-step--1);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-block-end: var(--space-s);
+  }
+
+  .prose__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-step-3);
+    line-height: var(--leading-tight);
+    margin-block-end: var(--space-l);
+  }
+
+  .prose__body {
+    font-size: var(--text-body);
+    color: var(--color-text-default);
+  }
+
+  .prose__body > * + * {
+    margin-block-start: var(--space-s);
+  }
+
+  /* match the brand's title-mark treatment — lowercase, light weight display
+     so markdown h2/h3 inside prose blocks read as the same family as page titles */
+  .prose__body h2 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: var(--text-step-3);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+    margin-block-start: var(--space-l);
+    margin-block-end: var(--space-s);
+  }
+
+  .prose__body h3 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: var(--text-step-1);
+    line-height: var(--leading-snug);
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+    margin-block-start: var(--space-l);
+    margin-block-end: var(--space-s);
+  }
+
+  .prose__body p,
+  .prose__body ul,
+  .prose__body ol {
+    max-width: 100%;
+  }
+
+  .prose__body ul,
+  .prose__body ol {
+    padding-inline-start: var(--space-l);
+  }
+}

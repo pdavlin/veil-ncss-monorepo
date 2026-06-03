@@ -1,0 +1,56 @@
+{#
+  project-media — adaptive slot for portfolio-detail.
+  - 0 items: render nothing.
+  - 1 item: render the single image or video directly.
+  - 2+ items: render as a horizontally-scrollable carousel with prev/next.
+    Uses native scroll-snap; prev/next are anchor jumps so the page works without JS.
+
+  Expects: media = [
+    { type: 'image', src, alt },
+    { type: 'video', src, poster?, alt }
+  ]
+#}
+{% if media and media.length %}
+  {% if media.length == 1 %}
+    {% set item = media[0] %}
+    <div class="project-media project-media--single" data-component="project-media">
+      {% if item.type == 'video' %}
+        <video
+          class="project-media__video"
+          controls
+          {% if item.poster %}poster="{{ item.poster }}"{% endif %}
+          aria-label="{{ item.alt }}"
+        >
+          <source src="{{ item.src }}" type="video/mp4" />
+        </video>
+      {% else %}
+        <img class="project-media__image" src="{{ item.src }}" alt="{{ item.alt }}" loading="lazy" decoding="async" />
+      {% endif %}
+    </div>
+  {% else %}
+    <section class="project-media project-media--carousel" data-component="project-media" aria-roledescription="carousel" aria-label="Project images">
+      <div class="project-media__viewport" role="group" aria-label="Slides">
+        {% for item in media %}
+          <figure class="project-media__slide" id="project-media-slide-{{ loop.index }}" aria-roledescription="slide" aria-label="{{ loop.index }} of {{ media.length }}">
+            {% if item.type == 'video' %}
+              <video
+                controls
+                {% if item.poster %}poster="{{ item.poster }}"{% endif %}
+                aria-label="{{ item.alt }}"
+              >
+                <source src="{{ item.src }}" type="video/mp4" />
+              </video>
+            {% else %}
+              <img src="{{ item.src }}" alt="{{ item.alt }}" loading="lazy" decoding="async" />
+            {% endif %}
+          </figure>
+        {% endfor %}
+      </div>
+      <nav class="project-media__controls" aria-label="Carousel controls">
+        {% for item in media %}
+          <a class="project-media__dot" href="#project-media-slide-{{ loop.index }}" aria-label="Go to slide {{ loop.index }} of {{ media.length }}"><span aria-hidden="true">{{ loop.index }}</span></a>
+        {% endfor %}
+      </nav>
+    </section>
+  {% endif %}
+{% endif %}

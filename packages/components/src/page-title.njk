@@ -1,0 +1,9 @@
+{#
+  page-title — lowercase + trailing-period identity treatment.
+  Expects: pageTitle = { text: string, as?: 'h1' | 'h2' }
+  Default tag is h1.
+#}
+{% set _tag = pageTitle.as or 'h1' %}
+<{{ _tag }} class="title-mark" data-component="page-title">
+  <span class="title-mark__text">{{ pageTitle.text }}</span><span class="title-mark__dot" aria-hidden="true">.</span>
+</{{ _tag }}>

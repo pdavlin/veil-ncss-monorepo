@@ -1,0 +1,16 @@
+{#
+  button — call-as-include macro substitute.
+  Expects: button = { label, href?, type?, variant?, ariaLabel? }
+    variant: 'primary' | 'ghost' | 'link' (default 'primary')
+  If href is set, renders <a>; otherwise <button type="...">.
+#}
+{% set _variant = button.variant or 'primary' %}
+{% if button.href %}
+  <a class="button button--{{ _variant }}" href="{{ button.href }}"{% if button.ariaLabel %} aria-label="{{ button.ariaLabel }}"{% endif %}>
+    {{ button.label }}
+  </a>
+{% else %}
+  <button class="button button--{{ _variant }}" type="{{ button.type or 'button' }}"{% if button.ariaLabel %} aria-label="{{ button.ariaLabel }}"{% endif %}>
+    {{ button.label }}
+  </button>
+{% endif %}

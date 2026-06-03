@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" data-brand="veil">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Veil + NCSS — Token Harness</title>
+  <link rel="stylesheet" href="../packages/tokens-base/dist/index.css" />
+  <link rel="stylesheet" href="../packages/tokens-veil/dist/index.css" />
+  <link rel="stylesheet" href="../packages/tokens-ncss/dist/index.css" />
+  <link rel="stylesheet" href="./harness.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axe-core@4.10.0/axe.min.js" defer></script>
+</head>
+<body>
+  <header class="harness-controls" aria-label="Brand toggle">
+    <strong>Brand</strong>
+    <button data-brand-set="veil" aria-pressed="true">Veil</button>
+    <button data-brand-set="ncss" aria-pressed="false">NCSS</button>
+    <span class="harness-active">active: <code id="active-brand">veil</code></span>
+  </header>
+
+  <main>
+    <section id="type-scale" aria-labelledby="type-scale-h">
+      <h2 id="type-scale-h">Type scale</h2>
+      <p class="text-step--2">step −2 — the quick brown fox jumped over the lazy dog</p>
+      <p class="text-step--1">step −1 — the quick brown fox jumped over the lazy dog</p>
+      <p class="text-step-0">step 0 — the quick brown fox jumped over the lazy dog</p>
+      <p class="text-step-1">step 1 — the quick brown fox jumped over the lazy dog</p>
+      <p class="text-step-2">step 2 — the quick brown fox jumped over the lazy dog</p>
+      <p class="text-step-3">step 3 — the quick brown fox jumped over the lazy dog</p>
+      <p class="text-step-4">step 4 — the quick brown fox jumped over the lazy dog</p>
+      <p class="text-step-5">step 5 — the quick brown fox jumped over the lazy dog</p>
+    </section>
+
+    <section id="space-scale" aria-labelledby="space-scale-h">
+      <h2 id="space-scale-h">Space scale</h2>
+      <div class="space-row"><span>3xs</span><div class="space-bar" style="width: var(--space-3xs)"></div></div>
+      <div class="space-row"><span>2xs</span><div class="space-bar" style="width: var(--space-2xs)"></div></div>
+      <div class="space-row"><span>xs</span><div class="space-bar" style="width: var(--space-xs)"></div></div>
+      <div class="space-row"><span>s</span><div class="space-bar" style="width: var(--space-s)"></div></div>
+      <div class="space-row"><span>m</span><div class="space-bar" style="width: var(--space-m)"></div></div>
+      <div class="space-row"><span>l</span><div class="space-bar" style="width: var(--space-l)"></div></div>
+      <div class="space-row"><span>xl</span><div class="space-bar" style="width: var(--space-xl)"></div></div>
+      <div class="space-row"><span>2xl</span><div class="space-bar" style="width: var(--space-2xl)"></div></div>
+      <div class="space-row"><span>3xl</span><div class="space-bar" style="width: var(--space-3xl)"></div></div>
+      <div class="space-row"><span>4xl</span><div class="space-bar" style="width: var(--space-4xl)"></div></div>
+    </section>
+
+    <section id="color-pairings" aria-labelledby="color-pairings-h">
+      <h2 id="color-pairings-h">Color pairings (documented)</h2>
+      <div class="pair pair-default">
+        <p>Body text on default surface.</p>
+        <small>--color-text-default on --color-surface-default</small>
+      </div>
+      <div class="pair pair-muted">
+        <p>Body text on muted surface.</p>
+        <small>--color-text-default on --color-surface-muted</small>
+      </div>
+      <div class="pair pair-meta">
+        <p>Muted text on default surface.</p>
+        <small>--color-text-muted on --color-surface-default</small>
+      </div>
+      <div class="pair pair-brand">
+        <p>Text on brand surface.</p>
+        <small>--color-text-on-brand on --color-surface-brand</small>
+      </div>
+      <div class="pair pair-accent">
+        <p class="lg">Large accent text.</p>
+        <small>--color-accent on --color-surface-default (large)</small>
+      </div>
+      <div class="pair pair-link">
+        <p><a href="#">Inline link text</a></p>
+        <small>--color-link on --color-surface-default</small>
+      </div>
+    </section>
+
+    <section id="axe" aria-labelledby="axe-h">
+      <h2 id="axe-h">axe-core report</h2>
+      <button id="run-axe">Re-run axe</button>
+      <pre id="axe-output">(loading axe-core…)</pre>
+    </section>
+  </main>
+
+  <script type="module" src="./harness.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+@layer components {
+  .article-card {
+    display: grid;
+    gap: var(--space-m);
+    align-items: start;
+  }
+  .article-card__media img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-s);
+  }
+  .article-card__media-link {
+    display: block;
+  }
+  /* category eyebrow above the title — live uses a small all-caps label
+     ("research:", "article:", "case study:") in colored accent */
+  .article-card__category {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: var(--text-step--1);
+    line-height: 1;
+    text-transform: lowercase;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-2xs);
+  }
+  .article-card__category::after { content: ":"; }
+  .article-card__title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-step-3);
+    line-height: var(--leading-tight);
+    margin: 0;
+  }
+  .article-card__title-link {
+    color: var(--color-text-default);
+    text-decoration: none;
+  }
+  .article-card__title-link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.2em;
+  }
+  .article-card__author {
+    color: var(--color-text-muted);
+    font-size: var(--text-step--1);
+    margin-block-start: var(--space-3xs);
+    margin-block-end: var(--space-s);
+  }
+  .article-card__summary > * + * { margin-block-start: var(--space-s); }
+  /* takeaways: wix-style list of adjacent <p>s with a leading bullet glyph,
+     so each line is its own paragraph in the dom (parity extractor catches
+     them) but visually reads as a bulleted list. */
+  .article-card__takeaways {
+    margin-block-start: var(--space-m);
+    padding-inline-start: var(--space-m);
+    display: grid;
+    gap: var(--space-2xs);
+  }
+  .article-card__takeaways > p {
+    position: relative;
+    margin: 0;
+  }
+  .article-card__takeaways > p::before {
+    content: "•";
+    position: absolute;
+    inset-inline-start: calc(-1 * var(--space-m));
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 768px) {
+    /* desktop: same crisp grid pattern as .bio-block on the team page —
+       sharp 2px dividers on top/bottom of each row, vertical separator
+       between media and body, zero-padding media cell so the image fills
+       its cell edge-to-edge via object-fit: cover. */
+    .article-card {
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: stretch;
+      border-block-start: 2px solid var(--color-divider); /* lint-allow: 2px brand-spec divider */
+    }
+    .article-card:last-child {
+      border-block-end: 2px solid var(--color-divider); /* lint-allow: 2px brand-spec divider */
+    }
+    .article-card__body {
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-inline-start: 2px solid var(--color-divider); /* lint-allow: 2px brand-spec divider */
+    }
+    .article-card__media {
+      padding: 0;
+      display: flex;
+    }
+    .article-card__media img,
+    .article-card__media-link {
+      width: 100%;
+      height: 100%;
+    }
+    .article-card__media img {
+      object-fit: cover;
+      object-position: center;
+      border-radius: 0;
+    }
+    .article-card--right .article-card__media {
+      order: 2;
+      border-inline-start: 2px solid var(--color-divider); /* lint-allow: 2px brand-spec divider */
+    }
+    .article-card--right .article-card__body {
+      border-inline-start: 0;
+    }
+  }
+}

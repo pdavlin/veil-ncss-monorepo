@@ -1,0 +1,22 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+  <section class="page-section">
+    <div class="page-section__inner">
+      {% set pageTitle = { text: titleText or 'contact', as: 'h1' } %}
+      {% include "page-title.njk" %}
+      {% if intro %}<div class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">{{ intro | safe }}</div>{% endif %}
+
+      <div class="stack-grid stack-grid--two-up" style="margin-block-start: var(--space-xl);">
+        <div class="contact-page__details">
+          {% if site.founders %}
+            {% for founder in site.founders %}
+              {% set founder = founder %}
+              {% include "founder-card.njk" %}
+            {% endfor %}
+          {% endif %}
+        </div>
+        {% include "contact-form.njk" %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

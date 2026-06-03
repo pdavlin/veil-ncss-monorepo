@@ -1,0 +1,8 @@
+{#
+  back-link — "< Back" link, typically returning to a parent index.
+  Expects: backLink = { label?: string, href: string }
+#}
+<a class="back-link" data-component="back-link" href="{{ backLink.href }}">
+  <span class="back-link__arrow" aria-hidden="true">&lt;</span>
+  <span class="back-link__label">{{ backLink.label or 'Back' }}</span>
+</a>

@@ -1,0 +1,58 @@
+@layer components {
+  .founder-card {
+    display: grid;
+    gap: var(--space-s);
+    color: var(--color-text-default);
+  }
+
+  .founder-card__photo {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-s);
+  }
+
+  .founder-card__body p {
+    margin: 0;
+    font-size: var(--text-body);
+  }
+  .founder-card__body p + p {
+    margin-block-start: var(--space-3xs);
+  }
+
+  .founder-card__name {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-step-1);
+  }
+
+  .founder-card__role {
+    color: var(--color-text-muted);
+    font-size: var(--text-step--1);
+  }
+
+  .founder-card__contact a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.2em;
+  }
+
+  .founder-card__signature {
+    margin-block-start: var(--space-s);
+    max-width: var(--measure-narrow);
+    width: 100%;
+    height: auto;
+  }
+
+  .founder-card--inline {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: var(--space-m);
+  }
+  .founder-card--inline .founder-card__photo {
+    width: var(--space-3xl);
+    height: var(--space-3xl);
+    object-fit: cover;
+    border-radius: var(--radius-circle);
+  }
+}

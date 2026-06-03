@@ -1,0 +1,26 @@
+{
+  "name": "@veil-ncss/tokens-base",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.css",
+  "files": ["dist"],
+  "exports": {
+    ".": "./dist/index.css",
+    "./reset.css": "./dist/reset.css",
+    "./scales.css": "./dist/scales.css",
+    "./aliases.css": "./dist/aliases.css",
+    "./misc.css": "./dist/misc.css",
+    "./model.json": "./dist/model.json"
+  },
+  "scripts": {
+    "build": "tsx ./build.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist coverage"
+  },
+  "dependencies": {
+    "@veil-ncss/tokens-shared": "workspace:*"
+  }
+}

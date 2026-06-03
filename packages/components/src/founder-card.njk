@@ -1,0 +1,34 @@
+{#
+  founder-card — name, role, email, phone, LinkedIn.
+  Expects: founder = {
+    name: string                e.g. "Ben MacKenzie, PE"
+    role?: string
+    email?: string
+    phone?: string
+    linkedin?: string           href
+    signature?: { src, alt }    optional signature image
+    photo?: { src, alt }        optional portrait
+    variant?: 'inline' | 'card' default 'card'
+  }
+#}
+<article class="founder-card founder-card--{{ founder.variant or 'card' }}" data-component="founder-card">
+  {% if founder.photo %}
+    <img class="founder-card__photo" src="{{ founder.photo.src }}" alt="{{ founder.photo.alt or founder.name }}" loading="lazy" decoding="async" />
+  {% endif %}
+  <div class="founder-card__body">
+    <p class="founder-card__name">{{ founder.name }}</p>
+    {% if founder.role %}<p class="founder-card__role">{{ founder.role }}</p>{% endif %}
+    {% if founder.email %}
+      <p class="founder-card__contact"><a href="mailto:{{ founder.email }}">{{ founder.email }}</a></p>
+    {% endif %}
+    {% if founder.phone %}
+      <p class="founder-card__contact"><a href="tel:{{ founder.phone | replace('.', '') | replace(' ', '') | replace('-', '') }}">{{ founder.phone }}</a></p>
+    {% endif %}
+    {% if founder.linkedin %}
+      <p class="founder-card__contact"><a class="founder-card__linkedin" href="{{ founder.linkedin }}" rel="noopener" aria-label="{{ founder.name }} on LinkedIn">LinkedIn</a></p>
+    {% endif %}
+    {% if founder.signature %}
+      <img class="founder-card__signature" src="{{ founder.signature.src }}" alt="" aria-hidden="true" />
+    {% endif %}
+  </div>
+</article>

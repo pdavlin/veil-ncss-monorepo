@@ -1,0 +1,13 @@
+@layer components {
+  [data-component="picture"] {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  picture[data-component="picture"] img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}

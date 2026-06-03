@@ -1,0 +1,29 @@
+@layer components {
+  .technical-drawing {
+    margin: 0;
+    display: grid;
+    gap: var(--space-s);
+  }
+  .technical-drawing__image {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-s);
+    background-color: var(--color-surface-muted);
+  }
+  .technical-drawing__caption {
+    font-family: var(--font-sans);
+    font-size: var(--text-step--1);
+    color: var(--color-text-muted);
+    display: grid;
+    gap: var(--space-2xs);
+  }
+  .technical-drawing__label {
+    font-weight: 600;
+    color: var(--color-text-default);
+    margin: 0;
+  }
+  .technical-drawing__text {
+    margin: 0;
+  }
+}

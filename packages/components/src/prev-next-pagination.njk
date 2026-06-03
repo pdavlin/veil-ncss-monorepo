@@ -1,0 +1,22 @@
+{#
+  prev-next-pagination — full-width prev/next links at the bottom of portfolio-detail.
+  Expects: pagination = { prev?: { label, href }, next?: { label, href } }
+#}
+{% if pagination and (pagination.prev or pagination.next) %}
+  <nav class="prev-next-pagination" data-component="prev-next-pagination" aria-label="Project pagination">
+    <div class="prev-next-pagination__inner">
+      {% if pagination.prev %}
+        <a class="prev-next-pagination__link prev-next-pagination__link--prev" href="{{ pagination.prev.href }}" rel="prev">
+          <span class="prev-next-pagination__direction" aria-hidden="true">←</span>
+          <span class="prev-next-pagination__label">{{ pagination.prev.label }}</span>
+        </a>
+      {% else %}<span></span>{% endif %}
+      {% if pagination.next %}
+        <a class="prev-next-pagination__link prev-next-pagination__link--next" href="{{ pagination.next.href }}" rel="next">
+          <span class="prev-next-pagination__label">{{ pagination.next.label }}</span>
+          <span class="prev-next-pagination__direction" aria-hidden="true">→</span>
+        </a>
+      {% else %}<span></span>{% endif %}
+    </div>
+  </nav>
+{% endif %}

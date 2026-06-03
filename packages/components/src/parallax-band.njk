@@ -1,0 +1,24 @@
+{#
+  parallax-band — decorative full-bleed horizontal strip with a parallax effect.
+  Replaces the dashed ruler-strip used between content sections on the home page.
+
+  On desktop: uses `background-attachment: fixed` so the strip's image appears to
+  scroll-shift relative to surrounding content (the classic parallax effect).
+  On mobile: falls back to a static crop (mobile browsers historically ignore
+  background-attachment: fixed for performance, and that's fine here).
+
+  Expects: parallaxBand = {
+    image: { src }            background image URL
+    alt?: string              optional, exposed only as label
+    height?: string           CSS length for the visible strip; default '120px'
+  }
+#}
+<aside
+  class="parallax-band"
+  data-component="parallax-band"
+  {% if parallaxBand.alt %}aria-label="{{ parallaxBand.alt }}"{% else %}aria-hidden="true" role="presentation"{% endif %}
+  style="
+    background-image: url('{{ parallaxBand.image.src }}');
+    {% if parallaxBand.height %}--parallax-band-height: {{ parallaxBand.height }};{% endif %}
+  "
+></aside>

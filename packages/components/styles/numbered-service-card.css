@@ -1,0 +1,75 @@
+@layer components {
+  /* mobile: editorial flat sections (numbered heading + rule + prose) to
+     match live mobile's brand rhythm. desktop reintroduces the bordered
+     card chrome — live desktop wraps each service in a bordered box. */
+  .numbered-service-card {
+    display: grid;
+    gap: var(--space-s);
+  }
+  @media (min-width: 768px) {
+    .numbered-service-card {
+      padding: var(--space-l);
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-s);
+      background-color: var(--color-surface-default);
+    }
+  }
+
+  .numbered-service-card__title {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-s);
+    font-family: var(--font-display);
+    font-size: var(--text-step-2);
+    font-weight: 400;
+    text-transform: lowercase;
+    line-height: var(--leading-snug);
+    margin: 0;
+    padding-block-end: var(--space-2xs);
+    border-block-end: 1px solid var(--color-divider);
+  }
+
+  .numbered-service-card__number {
+    font-family: var(--font-display);
+    font-size: var(--text-step-3);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-accent);
+    /* tabular numerals keep "01" .. "10" widths consistent */
+    font-variant-numeric: tabular-nums;
+  }
+
+  .numbered-service-card__name {
+    color: var(--color-text-default);
+  }
+
+  .numbered-service-card__icon {
+    height: var(--space-xl);
+    width: auto;
+  }
+
+  .numbered-service-card__copy {
+    color: var(--color-text-default);
+  }
+  .numbered-service-card__copy > * + * {
+    margin-block-start: var(--space-s);
+  }
+  /* deliverables-list — wix-style list rendered as adjacent <p>s with a
+     leading bullet glyph, so each line is its own paragraph in the dom
+     (parity extractor finds them) but visually reads as a bulleted list. */
+  .deliverables-list {
+    display: grid;
+    gap: var(--space-2xs);
+    padding-inline-start: var(--space-m);
+  }
+  .deliverables-list > p {
+    position: relative;
+    margin: 0;
+  }
+  .deliverables-list > p::before {
+    content: "•";
+    position: absolute;
+    inset-inline-start: calc(-1 * var(--space-m));
+    color: var(--color-text-muted);
+  }
+}

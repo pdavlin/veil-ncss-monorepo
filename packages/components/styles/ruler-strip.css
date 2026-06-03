@@ -1,0 +1,21 @@
+@layer components {
+  .ruler-strip {
+    width: 100%;
+    padding-block: var(--space-l);
+    padding-inline: var(--space-m);
+  }
+  .ruler-strip__rule {
+    width: 100%;
+    max-width: var(--measure-container);
+    margin-inline: auto;
+    height: 1px;
+    background:
+      repeating-linear-gradient(
+        to right,
+        var(--color-border-strong) 0,
+        var(--color-border-strong) 0.5em,
+        transparent 0.5em,
+        transparent 1em
+      );
+  }
+}

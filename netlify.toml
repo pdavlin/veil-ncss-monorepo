@@ -1,0 +1,63 @@
+[build]
+  # build runs at the monorepo root. pnpm picks up the workspace from
+  # pnpm-workspace.yaml automatically (Netlify auto-detects pnpm via the
+  # presence of pnpm-lock.yaml at the build root).
+  command = "pnpm run build:veil && pnpm exec tsx scripts/a11y-check.ts sites/veil/_site"
+  publish = "sites/veil/_site"
+
+[build.environment]
+  NODE_VERSION = "20"
+  PNPM_VERSION = "9"
+  # quiet noisy stage logs during the build
+  CI = "true"
+
+# security baseline applied to every response
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# hash-named assets get the year-long immutable cache. html stays short.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# decap CMS admin SPA — both /admin and /admin/ resolve to the same file.
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/"
+  to = "/admin/index.html"
+  status = 200
+
+# legacy live-site URLs (wix) → new paths
+[[redirects]]
+  from = "/joslyn-art-museum"
+  to = "/portfolio/joslyn-art-museum/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/joslyn-art-museum/"
+  to = "/portfolio/joslyn-art-museum/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/portfolio-1/*"
+  to = "/portfolio/:splat/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/portfolio-10"
+  to = "/portfolio/"
+  status = 301
+  force = true

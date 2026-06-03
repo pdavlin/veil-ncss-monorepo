@@ -1,0 +1,36 @@
+{#
+  bio-block — alternating two-up bio: portrait + name + role + bio + signature + credentials + contact.
+  Expects: bio = {
+    name: string                    e.g. "Ben MacKenzie, PE"
+    role?: string                   e.g. "Founder" (small, sits under name)
+    credentials?: string            education / certifications block (small)
+    body: string                    HTML allowed (main bio paragraph)
+    portrait: { src, alt }
+    signature?: { src, alt }        optional handwritten-style signature image
+    email?: string
+    phone?: string
+    linkedin?: string
+    side?: 'left' | 'right'         default 'left' (portrait on left at desktop)
+  }
+#}
+<article class="bio-block bio-block--{{ bio.side or 'left' }}" data-component="bio-block">
+  <div class="bio-block__media">
+    <img class="bio-block__portrait" src="{{ bio.portrait.src }}" alt="{{ bio.portrait.alt or bio.name }}" loading="lazy" decoding="async" />
+  </div>
+  <div class="bio-block__body">
+    <h2 class="bio-block__name">{{ bio.name }}</h2>
+    {% if bio.role %}<p class="bio-block__role">{{ bio.role }}</p>{% endif %}
+    <div class="bio-block__prose">{{ bio.body | safe }}</div>
+    {% if bio.signature %}<img class="bio-block__signature" src="{{ bio.signature.src }}" alt="" aria-hidden="true" />{% endif %}
+    {% if bio.credentials %}<p class="bio-block__credentials">{{ bio.credentials }}</p>{% endif %}
+    <ul class="bio-block__contact">
+      {% if bio.email %}<li><a href="mailto:{{ bio.email }}">{{ bio.email }}</a></li>{% endif %}
+      {% if bio.phone %}<li><a href="tel:{{ bio.phone | replace('.', '') | replace(' ', '') | replace('-', '') }}">{{ bio.phone }}</a></li>{% endif %}
+    </ul>
+    {% if bio.linkedin %}
+      <a class="bio-block__social" href="{{ bio.linkedin }}" rel="noopener" aria-label="{{ bio.name }} on LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 3H5c-1.105 0-2 .895-2 2v14c0 1.105.895 2 2 2h14c1.105 0 2-.895 2-2V5c0-1.105-.895-2-2-2zM8.339 18.337H5.665v-8.59h2.674v8.59zM7.003 8.574a1.548 1.548 0 110-3.096 1.548 1.548 0 010 3.096zm11.335 9.763h-2.669V14.16c0-.996-.018-2.277-1.388-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248h-2.667v-8.59h2.56v1.174h.037c.355-.675 1.227-1.387 2.524-1.387 2.704 0 3.203 1.78 3.203 4.092v4.71z" fill="currentColor"/></svg>
+      </a>
+    {% endif %}
+  </div>
+</article>

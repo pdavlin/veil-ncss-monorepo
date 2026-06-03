@@ -1,0 +1,18 @@
+@layer components {
+  .title-mark {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: var(--text-display);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.01em;
+    color: var(--color-text-default);
+  }
+
+  .title-mark__text {
+    text-transform: lowercase;
+  }
+
+  .title-mark__dot {
+    color: var(--color-accent);
+  }
+}

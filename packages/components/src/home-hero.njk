@@ -1,0 +1,79 @@
+{#
+  home-hero — full-bleed home-page header. Combines wordmark + two nav rows +
+  brand tagline + scroll cue on a single blurred backdrop.
+
+  Used on home only. Standard pages use `site-nav` instead.
+
+  Expects:
+    site.name                string
+    site.nav.homePrimary     [{ label, href }]   first nav row (typically 4 items)
+    site.nav.homeSecondary   [{ label, href }]   second nav row (typically 3 items)
+    homeHero = {
+      wordmark?:  string                          large brand mark (defaults to site.wordmark)
+      tagline:    string                          smaller mark below first nav row
+      subtitle?:  string
+      image?:     { src, alt }
+      video?:     { src, poster?, alt }
+      scrollCueTarget?: string                    default '#main-content'
+    }
+#}
+<section class="home-hero" data-component="home-hero">
+  <div class="home-hero__media" aria-hidden="true">
+    {% if homeHero.video %}
+      <video class="home-hero__video" autoplay muted playsinline loop {% if homeHero.video.poster %}poster="{{ homeHero.video.poster }}"{% endif %}>
+        <source src="{{ homeHero.video.src }}" type="video/mp4" />
+      </video>
+    {% elif homeHero.image %}
+      <img class="home-hero__image" src="{{ homeHero.image.src }}" alt="{{ homeHero.image.alt }}" loading="eager" decoding="async" />
+    {% endif %}
+  </div>
+
+  <a class="home-hero__brand" href="/" aria-label="{{ site.shortName or site.name }} — home">
+    {% if site.logo and site.logo.src %}
+      <img
+        class="home-hero__logo"
+        src="{{ site.logo.src }}"
+        alt="{{ site.logo.alt or site.shortName or site.name }}"
+        {% if site.logo.width %}width="{{ site.logo.width }}"{% endif %}
+        {% if site.logo.height %}height="{{ site.logo.height }}"{% endif %}
+        loading="eager"
+        decoding="async"
+      />
+    {% else %}
+      <span class="home-hero__wordmark">{{ homeHero.wordmark or site.wordmark or site.shortName or site.name }}</span>
+    {% endif %}
+  </a>
+
+  {% if site.nav.homePrimary and site.nav.homePrimary.length %}
+    <nav class="home-hero__nav home-hero__nav--primary" aria-label="Primary">
+      <ul class="home-hero__list">
+        {% for item in site.nav.homePrimary %}
+          <li class="home-hero__item">
+            <a class="home-hero__link" href="{{ item.href }}">{{ item.label }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  {% endif %}
+
+  <div class="home-hero__tagline-group">
+    <h1 class="home-hero__tagline">{{ homeHero.tagline }}</h1>
+    {% if homeHero.subtitle %}<p class="home-hero__subtitle">{{ homeHero.subtitle }}</p>{% endif %}
+  </div>
+
+  {% if site.nav.homeSecondary and site.nav.homeSecondary.length %}
+    <nav class="home-hero__nav home-hero__nav--secondary" aria-label="Secondary">
+      <ul class="home-hero__list">
+        {% for item in site.nav.homeSecondary %}
+          <li class="home-hero__item">
+            <a class="home-hero__link" href="{{ item.href }}">{{ item.label }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  {% endif %}
+
+  <a class="home-hero__scroll-cue" href="{{ homeHero.scrollCueTarget or '#main-content' }}" aria-label="Scroll to content">
+    <span class="home-hero__scroll-arrow" aria-hidden="true">↓</span>
+  </a>
+</section>

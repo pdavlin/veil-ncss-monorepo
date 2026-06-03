@@ -1,0 +1,19 @@
+{#
+  numbered-service-card — bordered card with numeric prefix + title + body.
+  Expects: service = {
+    number: number              1..8
+    title: string               e.g. "consulting"
+    body: string                HTML allowed
+    icon?: { src, alt }         optional small icon
+  }
+#}
+{% set _num = '0' ~ service.number if service.number < 10 else service.number %}
+<article class="numbered-service-card" data-component="numbered-service-card">
+  <h3 class="numbered-service-card__title">
+    <span class="numbered-service-card__number" aria-hidden="true">{{ _num }}</span>
+    <span class="visually-hidden">Service {{ service.number }}: </span>
+    <span class="numbered-service-card__name">{{ service.title }}</span>
+  </h3>
+  {% if service.icon %}<img class="numbered-service-card__icon" src="{{ service.icon.src }}" alt="{{ service.icon.alt }}" />{% endif %}
+  <div class="numbered-service-card__copy">{{ service.body | safe }}</div>
+</article>

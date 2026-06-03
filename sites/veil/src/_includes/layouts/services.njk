@@ -1,0 +1,32 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+  <section class="page-section">
+    <div class="page-section__inner">
+      {% set pageTitle = { text: titleText or 'services', as: 'h1' } %}
+      {% include "page-title.njk" %}
+      <div class="stack-grid stack-grid--services" style="margin-block-start: var(--space-l);">
+        <div class="services-sidebar">
+          {% if intro %}
+            <div class="services-sidebar__intro prose__body">{{ intro | safe }}</div>
+          {% endif %}
+          {% if drawing %}
+            {% set drawing = drawing %}
+            {% include "technical-drawing.njk" %}
+          {% endif %}
+        </div>
+        <ul class="service-list">
+          {% for svc in services %}
+            <li>
+              {% set service = svc %}
+              {% include "numbered-service-card.njk" %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {% if ctaBand %}
+    {% include "cta-band-link.njk" %}
+  {% endif %}
+{% endblock %}

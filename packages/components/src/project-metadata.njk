@@ -1,0 +1,15 @@
+{#
+  project-metadata — labeled metadata lines for portfolio-detail.
+  Expects: metadata = [{ label, value }]
+  e.g. [{ label: "Architect", value: "RDG Planning & Design" }]
+#}
+{% if metadata and metadata.length %}
+  <dl class="project-metadata" data-component="project-metadata">
+    {% for row in metadata %}
+      <div class="project-metadata__row">
+        <dt class="project-metadata__label">{{ row.label }}</dt>
+        <dd class="project-metadata__value">{{ row.value }}</dd>
+      </div>
+    {% endfor %}
+  </dl>
+{% endif %}

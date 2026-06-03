@@ -1,0 +1,24 @@
+@layer components {
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px; /* lint-allow: classic a11y idiom */
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .container {
+    width: 100%;
+    max-width: var(--measure-container);
+    margin-inline: auto;
+    padding-inline: var(--space-m);
+  }
+
+  .button + .button {
+    margin-inline-start: var(--space-s);
+  }
+}

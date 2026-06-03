@@ -1,0 +1,19 @@
+{
+  "name": "@veil-ncss/auth-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare Workers OAuth proxy for Decap CMS — shared by veil and ncss sites.",
+  "scripts": {
+    "build": "echo 'no build — wrangler bundles on deploy'",
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240101.0",
+    "wrangler": "^3.40.0"
+  }
+}

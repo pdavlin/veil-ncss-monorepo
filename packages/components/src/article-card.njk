@@ -1,0 +1,42 @@
+{#
+  article-card — image + title + author + summary + bullet takeaways. Used on innovation.
+  Expects: article = {
+    image: { src, alt }
+    title: string
+    author?: string
+    summary?: string                HTML allowed
+    takeaways?: string[]
+    href?: string                   link target for the title (and image)
+    side?: 'left' | 'right'         desktop image position (default 'left')
+  }
+#}
+<article class="article-card article-card--{{ article.side or 'left' }}" data-component="article-card">
+  <div class="article-card__media">
+    {% if article.href %}
+      <a class="article-card__media-link" href="{{ article.href }}" tabindex="-1" aria-hidden="true">
+        <img src="{{ article.image.src }}" alt="{{ article.image.alt }}" loading="lazy" decoding="async" />
+      </a>
+    {% else %}
+      <img src="{{ article.image.src }}" alt="{{ article.image.alt }}" loading="lazy" decoding="async" />
+    {% endif %}
+  </div>
+  <div class="article-card__body">
+    {% if article.category %}<h2 class="article-card__category">{{ article.category }}</h2>{% endif %}
+    <h3 class="article-card__title">
+      {% if article.href %}
+        <a class="article-card__title-link" href="{{ article.href }}">{{ article.title }}</a>
+      {% else %}
+        {{ article.title }}
+      {% endif %}
+    </h3>
+    {% if article.author %}<p class="article-card__author">{{ article.author }}</p>{% endif %}
+    {% if article.summary %}<div class="article-card__summary">{{ article.summary | safe }}</div>{% endif %}
+    {% if article.takeaways and article.takeaways.length %}
+      <div class="article-card__takeaways">
+        {% for item in article.takeaways %}
+          <p>{{ item }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</article>

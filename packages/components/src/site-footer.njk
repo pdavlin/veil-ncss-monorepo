@@ -1,0 +1,27 @@
+{#
+  site-footer — copyright + social links. Year auto-stamped by `siteYear` global (registered in eleventy config).
+
+  Expects:
+    site.name           string
+    site.social         [{ label, href }]?
+#}
+<footer class="site-footer" data-component="site-footer">
+  <div class="site-footer__inner">
+    <p class="site-footer__copyright">© {{ siteYear }} by {{ site.name }}.</p>
+    {% if site.social and site.social.length %}
+      <ul class="site-footer__social" aria-label="Social links">
+        {% for item in site.social %}
+          <li class="site-footer__social-item">
+            <a class="site-footer__social-link" href="{{ item.href }}" rel="noopener" aria-label="{{ item.label }}">
+              {% if item.icon %}
+                <img src="{{ item.icon }}" alt="" aria-hidden="true" />
+              {% else %}
+                {{ item.label }}
+              {% endif %}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</footer>

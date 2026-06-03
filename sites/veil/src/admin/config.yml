@@ -1,0 +1,312 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: sites/veil/src/assets/uploads
+public_folder: /assets/uploads
+
+site_url: https://veilengineering.com
+display_url: https://veilengineering.com
+
+collections:
+  - name: pages
+    label: Pages
+    files:
+      - file: sites/veil/src/content/index.md
+        label: Home
+        name: home
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/home.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/" }
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - { name: tagline, label: Tagline, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string, required: false }
+              - name: video
+                label: Video
+                widget: object
+                required: false
+                fields:
+                  - { name: src, label: MP4 URL, widget: string }
+                  - { name: poster, label: Poster URL, widget: string, required: false }
+                  - { name: alt, label: Alt text, widget: string }
+              - { name: scrollCueTarget, label: Scroll cue anchor, widget: string, required: false }
+          - name: engineeredShading
+            label: Engineered Shading section
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Body, widget: markdown }
+          - name: recentProjects
+            label: Recent Projects
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string, required: false }
+              - name: items
+                label: Items
+                widget: list
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: href, label: Link, widget: string }
+                  - name: image
+                    label: Card image
+                    widget: object
+                    fields:
+                      - { name: src, label: Source, widget: string }
+                      - { name: alt, label: Alt, widget: string }
+          - name: contactForm
+            label: Contact form
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: action, label: Form action, widget: string, required: false }
+
+      - file: sites/veil/src/content/about.md
+        label: About
+        name: about
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/about.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/about/" }
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
+          - name: hero
+            label: Hero
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Body, widget: markdown, required: false }
+              - { name: titleMark, label: Use lowercase-period title?, widget: boolean, default: true }
+              - { name: overlayPosition, label: Overlay position, widget: select, options: ['left', 'center'], default: 'left' }
+              - name: video
+                label: Video
+                widget: object
+                required: false
+                fields:
+                  - { name: src, label: MP4 URL, widget: string }
+                  - { name: poster, label: Poster URL, widget: string, required: false }
+                  - { name: alt, label: Alt, widget: string }
+          - { name: body, label: Body, widget: markdown }
+
+      - file: sites/veil/src/content/contact.md
+        label: Contact
+        name: contact
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/contact.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/contact/" }
+          - { name: title, label: Title, widget: string }
+          - { name: titleText, label: Title text, widget: string, default: contact }
+          - { name: intro, label: Intro copy, widget: markdown, required: false }
+
+      - file: sites/veil/src/content/services.md
+        label: Services
+        name: services
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/services.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/services/" }
+          - { name: title, label: Title, widget: string }
+          - { name: titleText, label: Title text, widget: string, default: services }
+          - { name: intro, label: Intro, widget: markdown, required: false }
+          - name: drawing
+            label: Technical drawing
+            widget: object
+            required: false
+            fields:
+              - name: image
+                label: Image
+                widget: object
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string }
+              - { name: caption, label: Caption, widget: text, required: false }
+          - name: services
+            label: Services
+            widget: list
+            fields:
+              - { name: number, label: Number, widget: number }
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: markdown }
+          - name: ctaBand
+            label: CTA Band
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Body, widget: markdown, required: false }
+              - name: cta
+                label: CTA
+                widget: object
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: href, label: URL, widget: string }
+
+      - file: sites/veil/src/content/team.md
+        label: Team
+        name: team
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/team.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/team/" }
+          - { name: title, label: Title, widget: string }
+          - { name: titleText, label: Title text, widget: string, default: team }
+          - { name: intro, label: Intro, widget: markdown, required: false }
+          - name: bios
+            label: Bios
+            widget: list
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: credentials, label: Credentials, widget: text, required: false }
+              - { name: body, label: Body, widget: markdown }
+              - name: portrait
+                label: Portrait
+                widget: object
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string }
+              - { name: email, label: Email, widget: string, required: false }
+              - { name: phone, label: Phone, widget: string, required: false }
+              - { name: linkedin, label: LinkedIn, widget: string, required: false }
+              - { name: side, label: Photo side (desktop), widget: select, options: ['left', 'right'], default: 'left' }
+
+      - file: sites/veil/src/content/innovation.md
+        label: Innovation
+        name: innovation
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/innovation.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/innovation/" }
+          - { name: title, label: Title, widget: string }
+          - { name: titleText, label: Title text, widget: string, default: innovation }
+          - { name: intro, label: Intro, widget: markdown, required: false }
+          - name: articles
+            label: Articles
+            widget: list
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: author, label: Author, widget: string, required: false }
+              - name: image
+                label: Image
+                widget: object
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string }
+              - { name: summary, label: Summary, widget: markdown, required: false }
+              - { name: takeaways, label: Takeaways, widget: list, field: { name: item, widget: string }, required: false }
+              - { name: href, label: Link, widget: string, required: false }
+              - { name: side, label: Image side, widget: select, options: ['left', 'right'], default: 'left' }
+
+      - file: sites/veil/src/content/sustainability.md
+        label: Sustainability
+        name: sustainability
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/sustainability.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/sustainability/" }
+          - { name: title, label: Title, widget: string }
+          - name: hero
+            label: Hero
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Body, widget: markdown, required: false }
+              - { name: titleMark, label: Use lowercase-period title?, widget: boolean, default: true }
+              - { name: overlayPosition, label: Overlay position, widget: select, options: ['left', 'center'], default: 'left' }
+              - name: video
+                label: Video
+                widget: object
+                required: false
+                fields:
+                  - { name: src, label: MP4 URL, widget: string }
+                  - { name: poster, label: Poster URL, widget: string, required: false }
+                  - { name: alt, label: Alt, widget: string }
+          - { name: intro, label: Intro section, widget: markdown, required: false }
+          - { name: cardsHeading, label: Cards heading, widget: string, required: false }
+          - name: cards
+            label: Cards
+            widget: list
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Body, widget: markdown }
+              - name: image
+                label: Image
+                widget: object
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string }
+          - { name: body, label: Body, widget: markdown }
+
+      - file: sites/veil/src/content/portfolio/index.md
+        label: Portfolio Index
+        name: portfolio_index
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/portfolio-grid.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/portfolio/" }
+          - { name: title, label: Title, widget: string }
+          - { name: titleText, label: Title text, widget: string, default: portfolio }
+          - { name: intro, label: Intro, widget: string, required: false }
+
+  - name: projects
+    label: Portfolio Projects
+    folder: sites/veil/src/content/portfolio
+    create: true
+    slug: "{{slug}}"
+    filter: { field: layout, value: layouts/portfolio-detail.njk }
+    fields:
+      - { name: layout, label: Layout, widget: hidden, default: layouts/portfolio-detail.njk }
+      - { name: title, label: Title, widget: string }
+      - { name: order, label: Display order, widget: number, default: 99 }
+      - name: project
+        label: Project
+        widget: object
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: location, label: Location, widget: string, required: false }
+          - name: cardImage
+            label: Card image
+            widget: object
+            fields:
+              - { name: src, label: Source, widget: string }
+              - { name: alt, label: Alt, widget: string }
+          - { name: body, label: Body, widget: markdown, required: false }
+          - name: metadata
+            label: Project metadata
+            widget: list
+            required: false
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: value, label: Value, widget: string }
+          - name: media
+            label: Project media (image or video)
+            widget: list
+            required: false
+            fields:
+              - { name: type, label: Type, widget: select, options: ['image', 'video'] }
+              - { name: src, label: Source URL, widget: string }
+              - { name: poster, label: Poster (video only), widget: string, required: false }
+              - { name: alt, label: Alt, widget: string }
+          - { name: mediaCredit, label: Media credit, widget: string, required: false }
+          - name: pagination
+            label: Pagination
+            widget: object
+            required: false
+            fields:
+              - name: prev
+                label: Previous
+                widget: object
+                required: false
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: href, label: URL, widget: string }
+              - name: next
+                label: Next
+                widget: object
+                required: false
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: href, label: URL, widget: string }

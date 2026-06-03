@@ -1,0 +1,34 @@
+{#
+  hero-overlay — full-bleed image/video with overlaid title + intro.
+  Used on about, team.
+
+  Expects: hero = {
+    eyebrow?: string
+    heading: string             (often paired with title-mark identity)
+    body?: string               HTML allowed
+    image?: { src, alt }
+    video?: { src, poster?, alt }
+    overlayPosition?: 'left' | 'center'   default 'left'
+  }
+#}
+<section class="hero-overlay" data-component="hero-overlay" data-position="{{ hero.overlayPosition or 'left' }}">
+  <div class="hero-overlay__media" aria-hidden="true">
+    {% if hero.video %}
+      <video class="hero-overlay__video" autoplay muted playsinline loop {% if hero.video.poster %}poster="{{ hero.video.poster }}"{% endif %}>
+        <source src="{{ hero.video.src }}" type="video/mp4" />
+      </video>
+    {% elif hero.image %}
+      <img class="hero-overlay__image" src="{{ hero.image.src }}" alt="{{ hero.image.alt }}" loading="eager" decoding="async" />
+    {% endif %}
+  </div>
+  <div class="hero-overlay__content">
+    {% if hero.eyebrow %}<p class="hero-overlay__eyebrow">{{ hero.eyebrow }}</p>{% endif %}
+    {% if hero.titleMark %}
+      {% set pageTitle = { text: hero.heading, as: 'h1' } %}
+      {% include "page-title.njk" %}
+    {% else %}
+      <h1 class="hero-overlay__heading">{{ hero.heading }}</h1>
+    {% endif %}
+    {% if hero.body %}<div class="hero-overlay__body">{{ hero.body | safe }}</div>{% endif %}
+  </div>
+</section>

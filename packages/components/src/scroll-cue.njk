@@ -1,0 +1,7 @@
+{#
+  scroll-cue — decorative down-arrow anchor.
+  Expects: scrollCue = { target?: string, label?: string }
+#}
+<a class="scroll-cue" data-component="scroll-cue" href="{{ scrollCue.target or '#main-content' }}" aria-label="{{ scrollCue.label or 'Scroll to content' }}">
+  <span class="scroll-cue__arrow" aria-hidden="true">↓</span>
+</a>

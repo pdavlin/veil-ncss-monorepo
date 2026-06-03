@@ -1,0 +1,25 @@
+{
+  "name": "@veil-ncss/components",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Brand-agnostic Nunjucks includes and scoped CSS for Veil and NCSS sites.",
+  "main": "./eleventy.config.js",
+  "files": ["src", "styles", "eleventy.config.js"],
+  "exports": {
+    ".": "./eleventy.config.js",
+    "./eleventy.config.js": "./eleventy.config.js",
+    "./styles/index.css": "./styles/index.css",
+    "./src/*": "./src/*"
+  },
+  "scripts": {
+    "build": "echo 'no build step — source is consumed directly'",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsx ../../tools/lint-components.ts",
+    "test": "echo 'no unit tests — exercised via build + a11y'",
+    "clean": "rm -rf coverage"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}

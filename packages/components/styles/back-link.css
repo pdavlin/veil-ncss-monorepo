@@ -1,0 +1,21 @@
+@layer components {
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    min-height: var(--target-size-min);
+    padding-inline: var(--space-2xs);
+    color: var(--color-text-default);
+    font-family: var(--font-sans);
+    font-size: var(--text-step--1);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.2em;
+  }
+  .back-link__arrow {
+    color: var(--color-accent);
+  }
+}

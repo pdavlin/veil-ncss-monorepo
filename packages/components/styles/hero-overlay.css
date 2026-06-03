@@ -1,0 +1,90 @@
+@layer components {
+  .hero-overlay {
+    position: relative;
+    isolation: isolate;
+    min-height: 60svh;
+    display: grid;
+    align-items: end;
+    overflow: hidden;
+    background-color: var(--color-surface-brand);
+    color: var(--color-text-on-brand);
+    padding-block: var(--space-2xl);
+    padding-inline: var(--space-m);
+  }
+
+  .hero-overlay__media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .hero-overlay__image,
+  .hero-overlay__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+  }
+
+  /* dark wash over media — gives the body copy comfortable contrast on
+     bright architectural footage like the about-page Omaha video */
+  .hero-overlay__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      var(--color-surface-brand) 0%,
+      color-mix(in srgb, var(--color-surface-brand) 55%, transparent) 55%,
+      color-mix(in srgb, var(--color-surface-brand) 20%, transparent) 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero-overlay__content {
+    width: 100%;
+    max-width: var(--measure-container);
+    margin-inline: auto;
+    color: inherit;
+  }
+
+  .hero-overlay[data-position="center"] .hero-overlay__content {
+    text-align: center;
+  }
+
+  .hero-overlay__eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-step--1);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: inherit;
+    opacity: 0.85;
+    margin-block-end: var(--space-s);
+  }
+
+  .hero-overlay__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    font-weight: 300;
+    line-height: var(--leading-tight);
+    color: inherit;
+    margin: 0;
+  }
+
+  .hero-overlay .title-mark {
+    color: inherit;
+  }
+
+  .hero-overlay__body {
+    margin-block-start: var(--space-m);
+    max-width: var(--measure-prose);
+    font-size: var(--text-lead);
+    color: inherit;
+    opacity: 0.92;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-overlay__video { display: none; }
+  }
+}

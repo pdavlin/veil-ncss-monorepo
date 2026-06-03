@@ -1,0 +1,31 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.DS_Store
+.vscode/
+.idea/
+coverage/
+.pnpm-store/
+*.log
+
+# motion source masters — these get transcoded into sites/veil/src/assets/video/
+# and the compressed outputs are what enters git (or Netlify Large Media).
+veilengineering-motion-assets/
+
+# Eleventy build output
+_site/
+
+# audit-output is a one-shot artifact dump from auditing the original wix
+# site — screenshots, a11y reports, token snapshots. ~300mb, not needed for
+# the build or deploy. keep the recommendations.md elsewhere if you want it
+# version-controlled.
+audit-output/
+
+# brand source masters (.ai, .eps, full-res png/zips). store these in a
+# design asset manager; the site ships the optimized derivatives that
+# already live under sites/veil/src/assets/.
+brand-objects/
+
+# ncss audit-report dump (mirror of audit-output, but for the second brand).
+# not needed for the build or deploy. ~107mb of pdf + screenshots.
+deploy/clients/html/ncss/audit-report/

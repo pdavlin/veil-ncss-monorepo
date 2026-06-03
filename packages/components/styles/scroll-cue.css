@@ -1,0 +1,23 @@
+@layer components {
+  .scroll-cue {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--target-size-min);
+    min-height: var(--target-size-min);
+    color: inherit;
+    text-decoration: none;
+  }
+  .scroll-cue__arrow {
+    font-size: var(--text-step-2);
+    line-height: 1;
+    animation: scroll-cue-bob 2s ease-in-out infinite;
+  }
+  @keyframes scroll-cue-bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(0.4em); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-cue__arrow { animation: none; }
+  }
+}

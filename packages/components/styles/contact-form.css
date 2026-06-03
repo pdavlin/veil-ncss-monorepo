@@ -1,0 +1,70 @@
+@layer components {
+  .contact-form {
+    display: grid;
+    gap: var(--space-m);
+  }
+  .contact-form__heading {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: var(--text-step-1);
+    line-height: var(--leading-snug);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  .contact-form__intro {
+    color: var(--color-text-muted);
+  }
+  .contact-form__hp {
+    display: none;
+  }
+  .contact-form__form {
+    display: grid;
+    gap: var(--space-m);
+  }
+  @media (min-width: 768px) {
+    .contact-form__form {
+      grid-template-columns: 1fr 1fr;
+      column-gap: var(--space-m);
+      row-gap: var(--space-m);
+    }
+    .contact-form__field--full,
+    .contact-form__submit {
+      grid-column: 1 / -1;
+    }
+  }
+  .contact-form__field {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+  .contact-form__field > span {
+    font-family: var(--font-sans);
+    font-size: var(--text-step--1);
+    color: var(--color-text-muted);
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+  }
+  .contact-form__field input,
+  .contact-form__field textarea {
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-s);
+    background-color: var(--color-surface-default);
+    color: var(--color-text-default);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    padding: var(--space-s);
+    min-height: var(--target-size-min);
+  }
+  .contact-form__field input:focus,
+  .contact-form__field textarea:focus {
+    border-color: var(--color-text-default);
+    /* the base reset's :focus-visible rule provides the visible outline */
+  }
+  .contact-form__field textarea {
+    resize: vertical;
+    min-height: 6em;
+    line-height: var(--leading-snug);
+  }
+  .contact-form__submit {
+    justify-self: start;
+  }
+}

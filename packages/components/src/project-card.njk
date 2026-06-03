@@ -1,0 +1,33 @@
+{#
+  project-card — portfolio-grid tile: hero photo + project name + "See Project" link.
+  Expects: project = {
+    title: string
+    href: string
+    image: { src, alt }
+    seeProjectLabel?: string   default "See Project"
+  }
+#}
+<article class="project-card" data-component="project-card">
+  <a class="project-card__link" href="{{ project.href }}">
+    <div class="project-card__media">
+      <img src="{{ project.image.src }}" alt="{{ project.image.alt or project.title }}" loading="lazy" decoding="async" />
+    </div>
+    <div class="project-card__body">
+      {#
+        live wraps each card title in a single <p> containing two stacked
+        text spans separated by <br> (client/institution above project name).
+        we replicate that structure when the title carries an em-dash so the
+        rendered textContent — and the parity extractor's view of it — match.
+        <p> rather than <h3> intentionally mirrors live's markup. fall back
+        to a single span otherwise.
+      #}
+      {% if ' — ' in project.title %}
+        {% set _parts = project.title.split(' — ') %}
+        <p class="project-card__title"><span class="project-card__client">{{ _parts[0] }}</span><br><span class="project-card__name">{{ _parts[1] }}</span></p>
+      {% else %}
+        <p class="project-card__title">{{ project.title }}</p>
+      {% endif %}
+      <span class="project-card__cta">{{ project.seeProjectLabel or 'See Project' }}</span>
+    </div>
+  </a>
+</article>

@@ -1,0 +1,15 @@
+{#
+  prose — long-form content wrapper.
+  Expects:
+    prose = { heading?, eyebrow?, body }      (body is rendered HTML)
+  Or simply pass `content` (Eleventy's rendered markdown) inside the slot.
+#}
+<section class="prose" data-component="prose">
+  <div class="prose__inner">
+    {% if prose.eyebrow %}<p class="prose__eyebrow">{{ prose.eyebrow }}</p>{% endif %}
+    {% if prose.heading %}<h1 class="prose__heading">{{ prose.heading }}</h1>{% endif %}
+    <div class="prose__body">
+      {% if prose.body %}{{ prose.body | safe }}{% else %}{{ content | safe }}{% endif %}
+    </div>
+  </div>
+</section>

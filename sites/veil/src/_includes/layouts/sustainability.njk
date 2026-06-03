@@ -1,0 +1,44 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+  {% if hero %}
+    {% set hero = hero %}
+    {% include "hero-overlay.njk" %}
+  {% endif %}
+
+  {% if intro or ourDifference %}
+    <section class="page-section">
+      <div class="page-section__inner sustainability-intro">
+        {% if intro %}
+          <div class="sustainability-intro__body prose__body">{{ intro | safe }}</div>
+        {% endif %}
+        {% if ourDifference %}
+          <aside class="sustainability-intro__sidebar">
+            <h2 class="title-mark"><span class="title-mark__text">{{ ourDifference.heading }}</span><span class="title-mark__dot" aria-hidden="true">.</span></h2>
+            <ul class="sustainability-intro__list">
+              {% for item in ourDifference.items %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+          </aside>
+        {% endif %}
+      </div>
+    </section>
+  {% endif %}
+
+  <section class="page-section page-section--prose">
+    <div class="page-section__inner prose__body">
+      {{ content | safe }}
+    </div>
+  </section>
+
+  {% if cards and cards.length %}
+    <section class="page-section page-section--muted">
+      <div class="page-section__inner">
+        {% if cardsHeading %}
+          {% set pageTitle = { text: cardsHeading, as: 'h2' } %}
+          {% include "page-title.njk" %}
+        {% endif %}
+        {% set cards = cards %}
+        {% include "three-up-cards.njk" %}
+      </div>
+    </section>
+  {% endif %}
+{% endblock %}
