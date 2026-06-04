@@ -22,10 +22,12 @@ export default {
   nav: {
     full: [
       { label: 'portfolio.', href: '/portfolio/' },
+      { label: 'capabilities.', href: '/capabilities/' },
       { label: 'team.', href: '/team/' },
     ],
     homePrimary: [
       { label: 'portfolio.', href: '/portfolio/' },
+      { label: 'capabilities.', href: '/capabilities/' },
       { label: 'team.', href: '/team/' },
     ],
     homeSecondary: [],

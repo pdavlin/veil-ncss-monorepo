@@ -1,0 +1,21 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+  <section class="page-section">
+    <div class="page-section__inner">
+      {% set pageTitle = { text: titleText or 'innovation', as: 'h1' } %}
+      {% include "page-title.njk" %}
+      {% if intro %}<div class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">{{ intro | safe }}</div>{% endif %}
+
+      <div class="innovation-grid">
+        {% for art in (articles or collections.articles) %}
+          {% if art.data %}
+            {% set article = art.data.article %}
+          {% else %}
+            {% set article = art %}
+          {% endif %}
+          {% include "article-card.njk" %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}
