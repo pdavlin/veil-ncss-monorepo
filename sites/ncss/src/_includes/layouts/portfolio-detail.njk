@@ -1,0 +1,73 @@
+{% extends "layouts/base.njk" %}
+{#
+  Portfolio detail page.
+
+  Frontmatter contract (flat, top-level):
+    title          string                       project name
+    date           YYYY-MM-DD                   date added (drives ordering)
+    location?      string                       e.g. "Omaha, NE"
+    cardImage      { src, alt }                 used by portfolio-grid + home recent-projects
+    metadata?      [{ label, value }]           Architect / Engineer / etc.
+    media?         [{ type, src, poster?, alt }]   hero gallery for the detail page
+    mediaCredit?   string
+
+  Prev/next links are derived at render time from `collections.projects`
+  (sorted by date desc — see .eleventy.js).
+
+  The markdown body becomes the project description (rendered as `content`).
+#}
+{% block content %}
+  <section class="page-section">
+    <div class="page-section__inner">
+      {% set backLink = { label: 'Back', href: '/portfolio/' } %}
+      {% include "back-link.njk" %}
+
+      <p class="kicker" style="margin-block-start: var(--space-m);">portfolio.</p>
+      {% set pageTitle = { text: title, as: 'h1' } %}
+      {% include "page-title.njk" %}
+
+      {% if location %}<p class="kicker" style="margin-block-start: var(--space-2xs);">{{ location }}</p>{% endif %}
+
+      {% if content %}
+        <div class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">
+          {{ content | safe }}
+        </div>
+      {% endif %}
+
+      {% if metadata and metadata.length %}
+        <div style="margin-block-start: var(--space-l); max-width: var(--measure-prose);">
+          {% set metadata = metadata %}
+          {% include "project-metadata.njk" %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  {% if media and media.length %}
+    <section class="page-section">
+      <div class="page-section__inner">
+        {% set media = media %}
+        {% include "project-media.njk" %}
+        {% if mediaCredit %}<p class="kicker" style="margin-block-start: var(--space-s); text-align: center;">{{ mediaCredit }}</p>{% endif %}
+      </div>
+    </section>
+  {% endif %}
+
+  {# derive prev/next from the projects collection (sorted by date desc) #}
+  {% set _projects = collections.projects %}
+  {% set _idx = -1 %}
+  {% for entry in _projects %}
+    {% if entry.url == page.url %}{% set _idx = loop.index0 %}{% endif %}
+  {% endfor %}
+  {% if _idx >= 0 %}
+    {% set _prev = _projects[_idx - 1] if _idx > 0 else null %}
+    {% set _next = _projects[_idx + 1] if _idx < (_projects.length - 1) else null %}
+    {% if _prev or _next %}
+      {% set pagination = {
+        prev: { label: _prev.data.title, href: _prev.url } if _prev else null,
+        next: { label: _next.data.title, href: _next.url } if _next else null
+      } %}
+      {% include "prev-next-pagination.njk" %}
+    {% endif %}
+  {% endif %}
+{% endblock %}

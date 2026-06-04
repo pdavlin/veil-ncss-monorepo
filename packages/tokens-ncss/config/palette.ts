@@ -1,4 +1,4 @@
-import { fontStack } from './fonts.js';
+import { bodyStack, displayStack } from './fonts.js';
 
 export interface PairingDecl {
   role: string;
@@ -17,7 +17,7 @@ export const palette: Record<string, string> = {
   '--color-ncss-paper': '#ffffff',
   '--color-ncss-light': '#eef2ec',
   '--color-ncss-stone': '#52615a',
-  '--color-ncss-accent': '#c47a3f',
+  '--color-ncss-accent': '#05674C',
   '--color-ncss-link': '#0033cc',
 };
 
@@ -34,8 +34,8 @@ export const aliasMap: Record<string, string> = {
   '--color-border-strong': 'var(--color-ncss-stone)',
   '--color-accent': 'var(--color-ncss-accent)',
   '--color-link': 'var(--color-ncss-link)',
-  '--font-sans': fontStack,
-  '--font-display': fontStack,
+  '--font-sans': bodyStack,
+  '--font-display': displayStack,
 };
 
 // Documented role pairings; build asserts AA. Phase 4 will revisit when real
@@ -46,6 +46,6 @@ export const pairings: PairingDecl[] = [
   { role: 'body text on muted surface', fg: '#101010', bg: '#eef2ec' },
   { role: 'muted text on default surface', fg: '#52615a', bg: '#ffffff' },
   { role: 'text on brand surface', fg: '#ffffff', bg: '#1f3a2a' },
-  { role: 'accent on default surface', fg: '#c47a3f', bg: '#ffffff', large: true },
+  { role: 'accent on default surface', fg: '#05674C', bg: '#ffffff', large: true },
   { role: 'link on default surface', fg: '#0033cc', bg: '#ffffff' },
 ];

@@ -1,0 +1,23 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+  <section class="page-section">
+    <div class="page-section__inner">
+      {% set pageTitle = { text: titleText or 'portfolio', as: 'h1' } %}
+      {% include "page-title.njk" %}
+      {% if intro %}<p class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-s);">{{ intro }}</p>{% endif %}
+
+      <ul class="project-grid" style="margin-block-start: var(--space-xl);">
+        {% for entry in collections.projects %}
+          {% if entry.data.cardImage %}
+            {% set project = {
+              title: entry.data.title,
+              href: entry.url,
+              image: entry.data.cardImage
+            } %}
+            <li>{% include "project-card.njk" %}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+{% endblock %}

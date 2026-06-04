@@ -41,7 +41,7 @@
   .home-hero__wordmark {
     font-family: var(--font-display);
     font-weight: 200;
-    font-size: var(--text-step-4);
+    font-size: var(--text-step-5);
     line-height: 1;
     letter-spacing: 0.04em;
   }
@@ -49,8 +49,7 @@
     /* match the visual weight of the wordmark at each breakpoint via height */
     display: block;
     width: auto;
-    height: var(--text-step-4);
-    /* image is 913x551; height auto-scales width proportionally */
+    height: var(--text-step-5);
     max-width: 100%;
     object-fit: contain;
   }
@@ -76,7 +75,7 @@
     color: inherit;
     font-family: var(--font-display);
     font-weight: 300;
-    font-size: var(--text-step-2);
+    font-size: var(--text-step-3);
     letter-spacing: 0.01em;
     text-decoration: none;
   }

@@ -1,0 +1,87 @@
+{% extends "layouts/base.njk" %}
+{# Home overrides the standard nav — home-hero composes nav inline on the blurred backdrop. #}
+{% block nav %}{% endblock %}
+{% block content %}
+  {% include "home-hero.njk" %}
+
+  {% if collections.projects and collections.projects.length %}
+    <section class="page-section" id="recent-projects">
+      <div class="page-section__inner">
+        {% set pageTitle = { text: recentProjects.heading or 'recent projects', as: 'h2' } %}
+        {% include "page-title.njk" %}
+        <ul class="project-grid">
+          {% for entry in collections.projects | take(recentProjects.count or 3) %}
+            {% if entry.data.cardImage %}
+              {% set project = {
+                title: entry.data.title,
+                href: entry.url,
+                image: entry.data.cardImage
+              } %}
+              <li>{% include "project-card.njk" %}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if parallaxBands and parallaxBands[0] %}
+    {% set parallaxBand = parallaxBands[0] %}
+    {% include "parallax-band.njk" %}
+  {% endif %}
+
+  {% if engineeredShading %}
+    <section class="page-section" id="engineered-shading">
+      <div class="page-section__inner">
+        <div class="engineered-shading__grid">
+          <div class="engineered-shading__copy">
+            {% if engineeredShading.heading %}
+              {% set pageTitle = { text: engineeredShading.heading, as: 'h2' } %}
+              {% include "page-title.njk" %}
+            {% endif %}
+            <div class="prose__body">{{ engineeredShading.body | safe }}</div>
+          </div>
+          {% if engineeredShading.diagram %}
+            <figure class="engineered-shading__diagram">
+              <img src="{{ engineeredShading.diagram.src }}" alt="{{ engineeredShading.diagram.alt }}" loading="lazy" decoding="async" />
+              {% if engineeredShading.diagram.caption %}
+                <figcaption>{{ engineeredShading.diagram.caption }}</figcaption>
+              {% endif %}
+            </figure>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if parallaxBands and parallaxBands[1] %}
+    {% set parallaxBand = parallaxBands[1] %}
+    {% include "parallax-band.njk" %}
+  {% endif %}
+
+  {% if contactForm %}
+    <section class="page-section" id="contact">
+      <div class="page-section__inner home-contact">
+        <header class="home-contact__header">
+          {% set pageTitle = { text: contactForm.title or 'contact', as: 'h2' } %}
+          {% include "page-title.njk" %}
+          {% if contactForm.heading %}
+            <p class="home-contact__lead">{{ contactForm.heading }}</p>
+          {% endif %}
+        </header>
+        {% set contactForm = { action: contactForm.action, formName: contactForm.formName } %}
+        {% include "contact-form.njk" %}
+        {% if site.founders %}
+          <ul class="home-contact__founders">
+            {% for founder in site.founders %}
+              <li>
+                {% set founder = { name: founder.name, email: founder.email, phone: founder.phone, variant: 'inline' } %}
+                {% include "founder-card.njk" %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </section>
+  {% endif %}
+{% endblock %}

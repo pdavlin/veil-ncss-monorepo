@@ -1,0 +1,287 @@
+@layer reset, tokens, brand, base, components, utilities, site;
+
+@import url("/styles/tokens-base/reset.css") layer(reset);
+@import url("/styles/tokens-base/scales.css") layer(tokens);
+@import url("/styles/tokens-base/aliases.css") layer(tokens);
+@import url("/styles/tokens-base/misc.css") layer(tokens);
+
+/* brand layer — applies ncss overrides */
+@import url("/styles/tokens-ncss/index.css") layer(brand);
+
+/* shared component styles */
+@import url("/styles/components/index.css") layer(components);
+
+/* site-only utilities */
+@layer site {
+  /* NCSS brand voice: ALL CAPS + tighter tracking on titles + nav.
+     Heaviness comes from the font itself (Archivo Black handles --font-display),
+     so weight overrides aren't needed except where elements use --font-sans. */
+  [data-brand="ncss"] {
+    .title-mark__text {
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+    .home-hero__wordmark,
+    .home-hero__tagline {
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .home-hero__link,
+    .site-nav__link,
+    .site-nav__wordmark {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+  }
+
+
+  /* on mobile, reserve room at the bottom so content doesn't sit under the fixed quick-contact bar */
+  @media (max-width: 640px) {
+    body {
+      padding-block-end: calc(var(--target-size-min) + var(--space-l));
+    }
+  }
+
+  .skip-link {
+    position: absolute;
+    inset-inline-start: var(--space-s);
+    inset-block-start: var(--space-s);
+    padding: var(--space-2xs) var(--space-s);
+    background-color: var(--color-surface-default);
+    color: var(--color-text-default);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-s);
+    text-decoration: none;
+    transform: translateY(-200%);
+    transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
+    z-index: 100;
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  /* page-level shells used by layouts */
+  .page-section {
+    padding-block: var(--space-section);
+    padding-inline: var(--space-m);
+  }
+  .page-section__inner {
+    width: 100%;
+    max-width: var(--measure-container);
+    margin-inline: auto;
+  }
+  .page-section--prose .page-section__inner {
+    max-width: var(--measure-prose);
+  }
+  .page-section--narrow .page-section__inner {
+    max-width: var(--measure-narrow);
+  }
+  .page-section--muted {
+    background-color: var(--color-surface-muted);
+  }
+
+  /* two-col grids used by contact + sustainability header */
+  .stack-grid {
+    display: grid;
+    gap: var(--space-l);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .stack-grid--two-up { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 1024px) {
+    .stack-grid--services { grid-template-columns: minmax(auto, 22rem) 1fr; align-items: start; gap: var(--space-xl); }
+  }
+
+  /* portfolio card grid (3 → 1 col responsive) */
+  .project-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-l);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .project-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 960px) {
+    .project-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+
+  /* numbered-service-cards list */
+  .service-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  /* small-eyebrow / kicker used on portfolio-detail above title */
+  .kicker {
+    font-family: var(--font-sans);
+    font-size: var(--text-step--1);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* contact page split: founder column + form column */
+  .contact-page__details {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  /* home contact: stacked single column (heading + lead, form, founder cards) */
+  .home-contact {
+    width: 100%;
+    max-width: var(--measure-narrow);
+    margin-inline: auto;
+    display: grid;
+    gap: var(--space-l);
+  }
+  .home-contact__header {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+  .home-contact__lead {
+    color: var(--color-text-muted);
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: var(--text-step-1);
+    margin: 0;
+  }
+  .home-contact__founders {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-l);
+    margin-block-start: var(--space-m);
+    padding-block-start: var(--space-m);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+  @media (min-width: 640px) {
+    .home-contact__founders {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+    }
+  }
+
+  /* services sidebar: intro + technical drawing as a stacked left rail */
+  .services-sidebar {
+    display: grid;
+    gap: var(--space-l);
+  }
+  .services-sidebar__intro > * + * {
+    margin-block-start: var(--space-s);
+  }
+
+  /* team grid: stacks at mobile, becomes a single bordered grid at desktop so
+     the two bio rows share borders (no double-line gap between them).
+     desktop: breaks out of the container so the divider lines extend full-bleed
+     to the screen edges, matching the live site's edge-to-edge separators. */
+  .team-grid {
+    display: grid;
+    gap: var(--space-2xl);
+    margin-block-start: var(--space-2xl);
+  }
+  @media (min-width: 768px) {
+    .team-grid {
+      gap: 0;
+      margin-block-start: var(--space-xl);
+      width: 100vw;
+      margin-inline: calc(50% - 50vw);
+    }
+  }
+
+  /* innovation grid: same pattern as .team-grid — alternating image/content
+     rows separated by sharp full-bleed dividers, edge-to-edge media cells. */
+  .innovation-grid {
+    display: grid;
+    gap: var(--space-2xl);
+    margin-block-start: var(--space-2xl);
+  }
+  @media (min-width: 768px) {
+    .innovation-grid {
+      gap: 0;
+      margin-block-start: var(--space-xl);
+      width: 100vw;
+      margin-inline: calc(50% - 50vw);
+    }
+  }
+
+  /* sustainability figures: inline image + caption used to anchor the
+     wap-summary, complex-glazing-report, and prototypical-design-example
+     diagrams in the prose flow. */
+  .sustainability-figure {
+    margin: var(--space-l) 0;
+    padding: var(--space-m);
+    background-color: var(--color-surface-muted);
+    border-radius: var(--radius-s);
+    text-align: center;
+  }
+  .sustainability-figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-s);
+  }
+  .sustainability-figure figcaption {
+    margin-block-start: var(--space-s);
+    color: var(--color-text-muted);
+    font-size: var(--text-step--1);
+  }
+  .sustainability-figure figcaption p {
+    margin: 0;
+  }
+  .sustainability-figure figcaption p + p {
+    margin-block-start: var(--space-3xs);
+  }
+
+  /* sustainability intro: stacks at mobile, becomes a 2-col grid on desktop —
+     intro paragraphs on the left, "our difference" anchor list on the right. */
+  .sustainability-intro {
+    display: grid;
+    gap: var(--space-l);
+  }
+  .sustainability-intro__list {
+    list-style: none;
+    margin: var(--space-s) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xs);
+    color: var(--color-text-muted);
+  }
+  @media (min-width: 768px) {
+    .sustainability-intro {
+      grid-template-columns: 1fr minmax(auto, 22rem);
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+  }
+
+  /* engineered shading: copy on left, diagram on right at desktop, stacked at mobile */
+  .engineered-shading__grid {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+  .engineered-shading__copy .prose__body > * + * {
+    margin-block-start: var(--space-s);
+  }
+  .engineered-shading__diagram {
+    margin: 0;
+    text-align: center;
+  }
+  .engineered-shading__diagram img {
+    max-width: 100%;
+    height: auto;
+  }
+  @media (min-width: 768px) {
+    .engineered-shading__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
+      gap: var(--space-2xl);
+    }
+  }
+}

@@ -15,11 +15,19 @@ async function copyFonts(): Promise<string[]> {
   const entries = await readdir(FONTS_SRC).catch(() => [] as string[]);
   const copied: string[] = [];
   for (const name of entries) {
-    if (!name.endsWith('.woff2')) continue;
+    if (!/\.(woff2|otf|ttf)$/i.test(name)) continue;
     await copyFile(join(FONTS_SRC, name), join(FONTS_DIST, name));
     copied.push(name);
   }
   return copied;
+}
+
+function formatFor(file: string): string {
+  const ext = file.toLowerCase().split('.').pop();
+  if (ext === 'woff2') return 'woff2';
+  if (ext === 'otf') return 'opentype';
+  if (ext === 'ttf') return 'truetype';
+  return 'woff2';
 }
 
 function emitFontFace(face: FontFace): string {
@@ -27,7 +35,7 @@ function emitFontFace(face: FontFace): string {
   return [
     '@font-face {',
     `  font-family: "${face.family}";`,
-    `  src: url('./fonts/${face.file}') format('woff2');`,
+    `  src: url('./fonts/${face.file}') format('${formatFor(face.file)}');`,
     `  font-weight: ${face.weight};`,
     `  font-style: ${face.style};`,
     `  font-display: ${display};`,

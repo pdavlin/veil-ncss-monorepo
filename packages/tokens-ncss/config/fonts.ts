@@ -1,9 +1,9 @@
 /**
- * NCSS web font config. Source files live in `packages/tokens-ncss/fonts/`,
- * copied to `dist/fonts/` by the build. CSS refs are relative to `dist/index.css`.
+ * NCSS web font config — Archivo (body, via Google Fonts <link> in base.njk)
+ * + PP Neue Corp Narrow Ultrabold (display, self-hosted).
  *
- * NOTE: Avenir Next World is Linotype/Monotype proprietary. Self-hosting requires
- * a current Monotype web font license held by NCSS. See LICENSE-NOTES.md.
+ * NOTE: PP Neue Corp is Pangram Pangram commercial — self-hosting requires a
+ * current Pangram Pangram license held by NCSS. Source .otf lives in fonts/.
  */
 
 export interface FontFace {
@@ -14,17 +14,12 @@ export interface FontFace {
   display?: 'swap' | 'fallback' | 'optional' | 'block' | 'auto';
 }
 
-export const family = 'Avenir Next World';
+export const bodyFamily = 'Archivo';
+export const displayFamily = 'PP Neue Corp Narrow';
 
 export const faces: FontFace[] = [
-  { family, file: 'AvenirNextWorld-Thin.woff2', weight: 100, style: 'normal' },
-  { family, file: 'AvenirNextWorld-ThinIt.woff2', weight: 100, style: 'italic' },
-  { family, file: 'AvenirNextWorld-Regular.woff2', weight: 400, style: 'normal' },
-  { family, file: 'AvenirNextWorld-Italic.woff2', weight: 400, style: 'italic' },
-  { family, file: 'AvenirNextWorld-Demi.woff2', weight: 600, style: 'normal' },
-  { family, file: 'AvenirNextWorld-DemiIt.woff2', weight: 600, style: 'italic' },
-  { family, file: 'AvenirNextWorld-Bold.woff2', weight: 700, style: 'normal' },
-  { family, file: 'AvenirNextWorld-BoldIt.woff2', weight: 700, style: 'italic' },
+  { family: displayFamily, file: 'PPNeueCorp-NarrowUltrabold.otf', weight: 800, style: 'normal' },
 ];
 
-export const fontStack = `"${family}", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`;
+export const bodyStack = `"${bodyFamily}", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`;
+export const displayStack = `"${displayFamily}", "${bodyFamily}", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`;

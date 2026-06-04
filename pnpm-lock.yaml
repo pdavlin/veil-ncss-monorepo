@@ -73,6 +73,27 @@ importers:
         specifier: workspace:*
         version: link:../_lib
 
+  sites/ncss:
+    dependencies:
+      '@11ty/eleventy':
+        specifier: ^3.0.0
+        version: 3.1.5
+      '@11ty/eleventy-img':
+        specifier: ^5.0.0
+        version: 5.0.0
+      '@veil-ncss/components':
+        specifier: workspace:*
+        version: link:../../packages/components
+      '@veil-ncss/tokens-base':
+        specifier: workspace:*
+        version: link:../../packages/tokens-base
+      '@veil-ncss/tokens-ncss':
+        specifier: workspace:*
+        version: link:../../packages/tokens-ncss
+      nunjucks:
+        specifier: ^3.2.4
+        version: 3.2.4(chokidar@3.6.0)
+
   sites/veil:
     dependencies:
       '@11ty/eleventy':
