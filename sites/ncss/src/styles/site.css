@@ -52,6 +52,12 @@
     .home-hero {
       color: #ffffff;
     }
+    /* Team headshots desaturated — matches the monochrome brand voice
+       (black-and-white video hero + heavy display caps). */
+    .bio-block__portrait {
+      filter: grayscale(1);
+    }
+
     /* Dark overlay on top of the video to give the white type something
        to read against. ::after on .home-hero__media paints above the
        video but stays inside __media's z-index: -1 stacking context, so
