@@ -31,18 +31,12 @@ export default {
     homeSecondary: [],
   },
   social: [],
+  // Founder email + phone intentionally omitted — direct addresses get
+  // scraped by bots. Contact form is the public path. Components gate on
+  // {% if founder.email %} / {% if founder.phone %} so they render
+  // cleanly without these fields.
   founders: [
-    {
-      name: 'Ben MacKenzie, PE',
-      role: 'Founder',
-      email: 'bmackenzie@veilengineering.com',
-      phone: '402.536.9115',
-    },
-    {
-      name: 'Adam MacKenzie, PE',
-      role: 'Founder',
-      email: 'amackenzie@veilengineering.com',
-      phone: '402.536.9118',
-    },
+    { name: 'Ben MacKenzie, PE', role: 'Founder' },
+    { name: 'Adam MacKenzie, PE', role: 'Founder' },
   ],
 };
