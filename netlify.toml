@@ -1,13 +1,15 @@
-[build]
-  # build runs at the monorepo root. pnpm picks up the workspace from
-  # pnpm-workspace.yaml automatically (Netlify auto-detects pnpm via the
-  # presence of pnpm-lock.yaml at the build root).
-  # a11y check is intentionally NOT run here — it requires Playwright + a
-  # chromium binary that Netlify's build image doesn't ship. it runs in CI
-  # (.github/workflows/ci.yml) which has the playwright cache.
-  command = "pnpm run build:veil"
-  publish = "sites/veil/_site"
-
+# build.command + publish intentionally NOT set here. The monorepo has two
+# Netlify sites (veil + ncss); each site sets its own command + publish in
+# the Netlify dashboard. If we set them here, netlify.toml would override
+# the dashboard for BOTH sites and ncss would build veil.
+#
+# Per-site dashboard settings:
+#   veil-monorepo.netlify.app  → pnpm run build:veil  / sites/veil/_site
+#   ncss-monorepo.netlify.app  → pnpm run build:ncss  / sites/ncss/_site
+#
+# pnpm picks up the workspace from pnpm-workspace.yaml at the build root.
+# a11y check is intentionally not run on Netlify — Playwright/chromium
+# isn't in the build image. CI handles a11y.
 [build.environment]
   NODE_VERSION = "20"
   PNPM_VERSION = "9"
