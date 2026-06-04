@@ -18,6 +18,7 @@ export const bodyFamily = 'Archivo';
 export const displayFamily = 'PP Neue Corp Narrow';
 
 export const faces: FontFace[] = [
+  { family: displayFamily, file: 'PPNeueCorp-NarrowMedium.otf', weight: 500, style: 'normal' },
   { family: displayFamily, file: 'PPNeueCorp-NarrowUltrabold.otf', weight: 800, style: 'normal' },
 ];
 

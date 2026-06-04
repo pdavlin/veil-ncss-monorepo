@@ -25,7 +25,6 @@ export default function (eleventyConfig) {
     [path.join(repoRoot, 'packages/tokens-base/dist')]: 'styles/tokens-base',
     [path.join(repoRoot, 'packages/tokens-ncss/dist')]: 'styles/tokens-ncss',
   });
-  eleventyConfig.addPassthroughCopy('src/admin');
   eleventyConfig.addPassthroughCopy('src/assets');
   eleventyConfig.addPassthroughCopy('src/styles');
 

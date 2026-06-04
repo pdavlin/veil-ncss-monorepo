@@ -28,14 +28,15 @@
     {% endif %}
   </div>
 
+  {% set _heroLogo = homeHero.logo or site.logo %}
   <a class="home-hero__brand" href="/" aria-label="{{ site.shortName or site.name }} — home">
-    {% if site.logo and site.logo.src %}
+    {% if _heroLogo and _heroLogo.src %}
       <img
         class="home-hero__logo"
-        src="{{ site.logo.src }}"
-        alt="{{ site.logo.alt or site.shortName or site.name }}"
-        {% if site.logo.width %}width="{{ site.logo.width }}"{% endif %}
-        {% if site.logo.height %}height="{{ site.logo.height }}"{% endif %}
+        src="{{ _heroLogo.src }}"
+        alt="{{ _heroLogo.alt or site.shortName or site.name }}"
+        {% if _heroLogo.width %}width="{{ _heroLogo.width }}"{% endif %}
+        {% if _heroLogo.height %}height="{{ _heroLogo.height }}"{% endif %}
         loading="eager"
         decoding="async"
       />
@@ -57,7 +58,7 @@
   {% endif %}
 
   <div class="home-hero__tagline-group">
-    <h1 class="home-hero__tagline">{{ homeHero.tagline }}</h1>
+    <h1 class="home-hero__tagline">{{ homeHero.tagline | safe }}</h1>
     {% if homeHero.subtitle %}<p class="home-hero__subtitle">{{ homeHero.subtitle }}</p>{% endif %}
   </div>
 

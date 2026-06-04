@@ -17,6 +17,8 @@ export default {
   tagline: 'National Commercial Shading Solutions',
   url: 'https://ncss.example.com',
   // Reduced sitemap: portfolio + team only for now.
+  // Home hero: stack both items into homePrimary so the left-aligned column
+  // reads as one tight list. Secondary intentionally empty.
   nav: {
     full: [
       { label: 'portfolio.', href: '/portfolio/' },
@@ -24,10 +26,9 @@ export default {
     ],
     homePrimary: [
       { label: 'portfolio.', href: '/portfolio/' },
-    ],
-    homeSecondary: [
       { label: 'team.', href: '/team/' },
     ],
+    homeSecondary: [],
   },
   social: [],
   founders: [

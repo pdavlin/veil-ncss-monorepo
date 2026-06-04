@@ -17,6 +17,9 @@
      Heaviness comes from the font itself (Archivo Black handles --font-display),
      so weight overrides aren't needed except where elements use --font-sans. */
   [data-brand="ncss"] {
+    /* ALL CAPS identity at Medium weight — Ultrabold is loaded but reserved;
+       components request weight 200/300 so the browser snaps to Medium (500),
+       giving an editorial caps treatment without the overbearing heft. */
     .title-mark__text {
       text-transform: uppercase;
       letter-spacing: 0.01em;
@@ -24,13 +27,89 @@
     .home-hero__wordmark,
     .home-hero__tagline {
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.02em;
+    }
+    .home-hero__tagline {
+      font-size: clamp(var(--text-step-3), 10vw, 8rem);
+      line-height: 0.95;
+      font-weight: 400;
+    }
+    @media (max-width: 640px) {
+      .home-hero__tagline {
+        display: block;
+        font-size: clamp(var(--text-step-3), 13vw, 6rem);
+      }
     }
     .home-hero__link,
     .site-nav__link,
     .site-nav__wordmark {
       text-transform: uppercase;
       letter-spacing: 0.04em;
+    }
+
+    /* Hero text is white over the video backdrop — link color inherits
+       from .home-hero, so nav + tagline + wordmark all pick up white. */
+    .home-hero {
+      color: #ffffff;
+    }
+    /* Dark overlay on top of the video to give the white type something
+       to read against. ::after on .home-hero__media paints above the
+       video but stays inside __media's z-index: -1 stacking context, so
+       the hero content above still renders cleanly. */
+    .home-hero__media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.45);
+      pointer-events: none;
+    }
+
+    /* Left-aligned hero — heavier display font reads as overbearing when
+       centered over the video. Left-align gives it editorial weight and
+       reduces the "billboard" feel. */
+    .home-hero {
+      justify-items: start;
+      text-align: left;
+      padding-inline: var(--space-l);
+    }
+    /* Reorder: brand → tagline (company name) → primary nav → secondary nav
+       → scroll cue. Setting explicit orders on every cell avoids the
+       default-0 items (brand, scroll-cue) jumping over the offset items. */
+    .home-hero__brand          { order: 1; }
+    .home-hero__tagline-group {
+      justify-items: start;
+      text-align: left;
+      order: 2;
+    }
+    .home-hero__nav--primary   { order: 3; }
+    .home-hero__nav--secondary { order: 4; }
+    .home-hero__scroll-cue {
+      order: 5;
+      /* Keep the bobbing arrow centered against the left-aligned content
+         above — the parent's justify-items: start would otherwise pull it
+         flush left. */
+      justify-self: center;
+    }
+
+    /* Bigger, tighter nav stack — vertical column on left rail. */
+    .home-hero__list {
+      flex-direction: column;
+      align-items: start;
+      gap: var(--space-3xs);
+    }
+    .home-hero__link {
+      font-size: var(--text-step-4);
+      line-height: 1;
+      padding-inline: 0;
+    }
+
+    /* Mobile already stacks; override the size bump on the mobile rule too
+       so the desktop step-4 doesn't get re-overridden by the existing
+       multiplier-based mobile sizing in home-hero.css. */
+    @media (max-width: 640px) {
+      .home-hero__link {
+        font-size: var(--text-step-4);
+      }
     }
   }
 

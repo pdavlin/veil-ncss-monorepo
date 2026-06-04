@@ -5,8 +5,12 @@ title: engineered shading
 description: National Commercial Shading Solutions — your shading consultant. We translate an owner's vision into a functioning and integrated shading system.
 homeHero:
   wordmark: NCSS
-  tagline: National Commercial Shading Solutions
-  subtitle: we are your shading consultant
+  logo:
+    src: /assets/img/brand/ncss-logo-horiz-white.png
+    alt: NCSS
+    width: 6984
+    height: 2475
+  tagline: National Commercial<br>Shading Solutions
   video:
     src: /assets/video/home-bw.mp4
     poster: /assets/video/home-bw.jpg
