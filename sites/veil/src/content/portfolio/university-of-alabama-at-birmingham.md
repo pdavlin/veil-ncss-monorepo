@@ -1,5 +1,6 @@
 ---
 layout: layouts/portfolio-detail.njk
+brands: [veil]
 title: "University of Alabama at Birmingham — Inpatient Rehabilitation Facility"
 date: 2026-03-20
 location: "Birmingham, AL"

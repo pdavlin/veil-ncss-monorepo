@@ -35,6 +35,12 @@ export default function (eleventyConfig) {
   // Build-time year, used in site-footer copyright.
   eleventyConfig.addGlobalData('siteYear', () => new Date().getFullYear());
 
+  // Current brand — projects with a `brands: [...]` frontmatter field that
+  // doesn't include this value are filtered out of the projects collection
+  // AND get permalink: false from portfolio.11tydata.js, so they don't
+  // ship on this build at all.
+  eleventyConfig.addGlobalData('currentBrand', 'veil');
+
   // `arr | take(n)` — first n elements. Used to surface "recent projects" on home.
   eleventyConfig.addFilter('take', (arr, n) => (Array.isArray(arr) ? arr.slice(0, n) : []));
 
@@ -62,6 +68,7 @@ export default function (eleventyConfig) {
     api
       .getFilteredByGlob('src/content/portfolio/*.md')
       .filter((p) => !p.fileSlug.startsWith('index'))
+      .filter((p) => !p.data.brands || p.data.brands.includes('veil'))
       .sort((a, b) => {
         const da = a.data.date ? new Date(a.data.date).getTime() : 0;
         const db = b.data.date ? new Date(b.data.date).getTime() : 0;

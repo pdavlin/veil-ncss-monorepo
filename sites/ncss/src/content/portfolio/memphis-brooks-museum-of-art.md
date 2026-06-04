@@ -1,5 +1,6 @@
 ---
 layout: layouts/portfolio-detail.njk
+brands: [veil]
 title: "Memphis Brooks Museum of Art"
 date: 2026-04-20
 location: "Memphis, TN"

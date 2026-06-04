@@ -1,5 +1,6 @@
 ---
 layout: layouts/portfolio-detail.njk
+brands: [veil]
 title: "Pinnacle Bank"
 date: 2026-05-25
 location: "Omaha, NE"
