@@ -35,9 +35,6 @@ engineeredShading:
     <p><strong>Our solution: National Commercial Shading Solutions</strong></p>
     <p>We are your partner in translating an owner's vision into a functioning and integrated shading system that works in harmony with mechanical, lighting, and life-safety systems.</p>
     <p><em>Together, let's rewrite shading design.</em></p>
-  diagram:
-    src: https://static.wixstatic.com/media/02bfd7_5a1751d9662347989842e31bdd3e36ab~mv2.png/v1/fill/w_760,h_902,al_c,q_90,enc_auto/Design%20Team%20Slide_Final.png
-    alt: Design team diagram — architect and engineer meeting at NCSS, with shading, audio-video, and sustainability consultants as satellite nodes
 contactForm:
   title: contact
   heading: we'll respond within 12 hours, time us

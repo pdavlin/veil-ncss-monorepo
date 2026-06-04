@@ -112,5 +112,15 @@
     .article-card--right .article-card__body {
       border-inline-start: 0;
     }
+
+    /* First two cards in an .innovation-grid have text-heavy document
+       covers (convention center, healthcare) — switch from `cover`
+       (which crops) to `contain` so the embedded text isn't clipped.
+       Letterbox fills with the muted surface so the cell still reads
+       as filled. */
+    .innovation-grid > .article-card:nth-child(-n+2) .article-card__media img {
+      object-fit: contain;
+      background-color: var(--color-surface-muted);
+    }
   }
 }

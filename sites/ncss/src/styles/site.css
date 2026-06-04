@@ -58,15 +58,13 @@
       filter: grayscale(1);
     }
 
-    /* First two capabilities article images are text-heavy document covers
-       (convention center, healthcare) — switch from the shared default
-       `object-fit: cover` (which crops) to `contain` so the full document
-       fits inside the cell. Letterbox fills with the muted surface so the
-       cell still reads as filled. */
-    .innovation-grid > .article-card:nth-child(-n+2) .article-card__media img {
-      object-fit: contain;
-      background-color: var(--color-surface-muted);
+    /* Home engineered-shading section has no diagram on NCSS — collapse
+       the shared 2-col grid (copy + diagram) so the copy fills the row
+       and no empty 22rem cell hangs off the right. */
+    .engineered-shading__grid {
+      grid-template-columns: 1fr;
     }
+
 
     /* Dark overlay on top of the video to give the white type something
        to read against. ::after on .home-hero__media paints above the
