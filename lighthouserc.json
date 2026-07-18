@@ -1,0 +1,9 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "./sites/veil/_site",
+      "url": ["http://localhost/", "http://localhost/services/"],
+      "numberOfRuns": 1
+    }
+  }
+}
