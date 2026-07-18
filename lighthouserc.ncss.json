@@ -1,0 +1,9 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "./sites/ncss/_site",
+      "url": ["http://localhost/", "http://localhost/capabilities/"],
+      "numberOfRuns": 1
+    }
+  }
+}
