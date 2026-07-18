@@ -29,3 +29,6 @@ brand-objects/
 # ncss audit-report dump (mirror of audit-output, but for the second brand).
 # not needed for the build or deploy. ~107mb of pdf + screenshots.
 deploy/clients/html/ncss/audit-report/
+
+# local-only docs
+/docs/
