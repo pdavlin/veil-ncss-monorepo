@@ -67,7 +67,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        site: [veil, ncss]
+        include:
+          - site: veil
+            host: veil-monorepo
+          - site: ncss
+            host: ncss-monorepo
 
     steps:
       - uses: actions/checkout@v4
@@ -107,12 +111,14 @@ jobs:
         env:
           RESULTS_PATH: ${{ steps.lighthouse.outputs.resultsPath }}
           SITE: ${{ matrix.site }}
+          HOST: ${{ matrix.host }}
         with:
           script: |
             const fs = require('fs');
             const path = require('path');
             const dir = process.env.RESULTS_PATH;
             const site = process.env.SITE;
+            const preview = `https://deploy-preview-${context.issue.number}--${process.env.HOST}.netlify.app`;
             const manifest = JSON.parse(fs.readFileSync(path.join(dir, 'manifest.json'), 'utf8'));
             let links = {};
             try { links = JSON.parse(fs.readFileSync(path.join(dir, 'links.json'), 'utf8')); } catch {}
@@ -120,16 +126,17 @@ jobs:
             const rows = manifest.filter((r) => r.isRepresentativeRun).map((r) => {
               const page = new URL(r.url).pathname;
               const link = links[r.url] ? `[report](${links[r.url]})` : '—';
+              const psi = `[PSI](https://pagespeed.web.dev/analysis?url=${encodeURIComponent(preview + page)})`;
               const s = r.summary;
-              return `| \`${page}\` | ${pct(s.performance)} | ${pct(s.accessibility)} | ${pct(s['best-practices'])} | ${pct(s.seo)} | ${link} |`;
+              return `| \`${page}\` | ${pct(s.performance)} | ${pct(s.accessibility)} | ${pct(s['best-practices'])} | ${pct(s.seo)} | ${link} | ${psi} |`;
             });
             const marker = `<!-- lighthouse-comment:${site} -->`;
             const body = [
               marker,
               `### Lighthouse — ${site} (${context.payload.pull_request.head.sha.slice(0, 7)})`,
               '',
-              '| Page | Perf | A11y | Best practices | SEO | Report |',
-              '|---|---|---|---|---|---|',
+              '| Page | Perf | A11y | Best practices | SEO | Report | PageSpeed |',
+              '|---|---|---|---|---|---|---|',
               ...rows,
             ].join('\n');
             const { data: comments } = await github.rest.issues.listComments({
