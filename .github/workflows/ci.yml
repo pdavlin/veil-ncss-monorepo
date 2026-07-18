@@ -77,14 +77,13 @@ jobs:
           pnpm -r --filter "./packages/**" run build
           pnpm --filter @veil-ncss/site-veil run build
 
-      # Lighthouse rejects file:// URLs since v10 — staticDistDir tells the
-      # action to spin up an HTTP server over the built _site and probe it.
+      # staticDistDir is an LHCI config option, not an action input — the
+      # action silently drops it from `with:` and then treats the bare
+      # paths in `urls` as invalid URLs. It has to come in via configPath;
+      # LHCI serves _site itself and swaps the real port into the url list.
       - name: Lighthouse CI
         uses: treosh/lighthouse-ci-action@v11
         with:
-          staticDistDir: ./sites/veil/_site
-          urls: |
-            /
-            /services/
+          configPath: ./lighthouserc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
