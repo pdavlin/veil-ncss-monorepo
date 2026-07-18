@@ -60,6 +60,11 @@ jobs:
     needs: build
     continue-on-error: true
 
+    strategy:
+      fail-fast: false
+      matrix:
+        site: [veil, ncss]
+
     steps:
       - uses: actions/checkout@v4
 
@@ -72,10 +77,10 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Build packages + Veil
+      - name: Build packages + site
         run: |
           pnpm -r --filter "./packages/**" run build
-          pnpm --filter @veil-ncss/site-veil run build
+          pnpm --filter @veil-ncss/site-${{ matrix.site }} run build
 
       # staticDistDir is an LHCI config option, not an action input — the
       # action silently drops it from `with:` and then treats the bare
@@ -84,6 +89,7 @@ jobs:
       - name: Lighthouse CI
         uses: treosh/lighthouse-ci-action@v11
         with:
-          configPath: ./lighthouserc.json
+          configPath: ./lighthouserc.${{ matrix.site }}.json
           uploadArtifacts: true
+          artifactName: lighthouse-results-${{ matrix.site }}
           temporaryPublicStorage: true
