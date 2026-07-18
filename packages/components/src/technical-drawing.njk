@@ -8,7 +8,11 @@
   }
 #}
 <figure class="technical-drawing" data-component="technical-drawing">
-  <img class="technical-drawing__image" src="{{ drawing.image.src }}" alt="{{ drawing.image.alt }}" loading="lazy" decoding="async" />
+  {% if drawing.image.src.startsWith('http') %}
+    <img class="technical-drawing__image" src="{{ drawing.image.src }}" alt="{{ drawing.image.alt }}"{% if drawing.image.width %} width="{{ drawing.image.width }}"{% endif %}{% if drawing.image.height %} height="{{ drawing.image.height }}"{% endif %} loading="lazy" decoding="async" />
+  {% else %}
+    {% image drawing.image.src, drawing.image.alt, "(min-width: 768px) 40vw, 100vw", "lazy", "technical-drawing__image" %}
+  {% endif %}
   {% if drawing.label or drawing.caption %}
     <figcaption class="technical-drawing__caption">
       {% if drawing.label %}<p class="technical-drawing__label">{{ drawing.label }}</p>{% endif %}

@@ -4,6 +4,12 @@
     display: grid;
     gap: var(--space-s);
   }
+  /* the responsive-image pipeline wraps the drawing in <picture>; make the
+     wrapper a full-width block so the inner <img> fills its cell. */
+  .technical-drawing picture {
+    display: block;
+    width: 100%;
+  }
   .technical-drawing__image {
     width: 100%;
     height: auto;

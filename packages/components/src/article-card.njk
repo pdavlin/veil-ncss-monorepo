@@ -11,13 +11,22 @@
   }
 #}
 <article class="article-card article-card--{{ article.side or 'left' }}" data-component="article-card">
+  {% set _img = article.image %}
   <div class="article-card__media">
     {% if article.href %}
       <a class="article-card__media-link" href="{{ article.href }}" tabindex="-1" aria-hidden="true">
-        <img src="{{ article.image.src }}" alt="{{ article.image.alt }}" loading="lazy" decoding="async" />
+        {% if _img.src.startsWith('http') %}
+          <img src="{{ _img.src }}" alt="{{ _img.alt }}"{% if _img.width %} width="{{ _img.width }}"{% endif %}{% if _img.height %} height="{{ _img.height }}"{% endif %} loading="lazy" decoding="async" />
+        {% else %}
+          {% image _img.src, _img.alt, "(min-width: 768px) 45vw, 100vw", "lazy" %}
+        {% endif %}
       </a>
     {% else %}
-      <img src="{{ article.image.src }}" alt="{{ article.image.alt }}" loading="lazy" decoding="async" />
+      {% if _img.src.startsWith('http') %}
+        <img src="{{ _img.src }}" alt="{{ _img.alt }}"{% if _img.width %} width="{{ _img.width }}"{% endif %}{% if _img.height %} height="{{ _img.height }}"{% endif %} loading="lazy" decoding="async" />
+      {% else %}
+        {% image _img.src, _img.alt, "(min-width: 768px) 45vw, 100vw", "lazy" %}
+      {% endif %}
     {% endif %}
   </div>
   <div class="article-card__body">

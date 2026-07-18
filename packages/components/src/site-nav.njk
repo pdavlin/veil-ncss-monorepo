@@ -22,15 +22,21 @@
     {% set _navLogo = site.headerLogo or site.logo %}
     <a class="site-nav__brand" href="/" aria-label="{{ site.shortName or site.name }} — home">
       {% if _navLogo and _navLogo.src %}
-        <img
-          class="site-nav__logo"
-          src="{{ _navLogo.src }}"
-          alt="{{ _navLogo.alt or site.shortName or site.name }}"
-          {% if _navLogo.width %}width="{{ _navLogo.width }}"{% endif %}
-          {% if _navLogo.height %}height="{{ _navLogo.height }}"{% endif %}
-          loading="eager"
-          decoding="async"
-        />
+        {% if _navLogo.src.startsWith('http') %}
+          {# remote asset — keep as plain <img>, build-time processing is out of scope #}
+          <img
+            class="site-nav__logo"
+            src="{{ _navLogo.src }}"
+            alt="{{ _navLogo.alt or site.shortName or site.name }}"
+            {% if _navLogo.width %}width="{{ _navLogo.width }}"{% endif %}
+            {% if _navLogo.height %}height="{{ _navLogo.height }}"{% endif %}
+            loading="eager"
+            decoding="async"
+          />
+        {% else %}
+          {# local asset — responsive avif/webp + srcset + width/height via pipeline #}
+          {% image _navLogo.src, (_navLogo.alt or site.shortName or site.name), "(max-width: 767px) 260px, 180px", "eager", "site-nav__logo" %}
+        {% endif %}
       {% else %}
         <span class="site-nav__wordmark">{{ site.wordmark or site.shortName or site.name }}</span>
       {% endif %}

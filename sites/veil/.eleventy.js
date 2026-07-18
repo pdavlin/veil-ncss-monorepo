@@ -1,7 +1,7 @@
 import { EleventyHtmlBasePlugin } from '@11ty/eleventy';
 import eleventyImage from '@11ty/eleventy-img';
 import nunjucks from 'nunjucks';
-import { registerComponents } from '@veil-ncss/components/eleventy.config.js';
+import { registerComponents, registerImageShortcode } from '@veil-ncss/components/eleventy.config.js';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -44,23 +44,9 @@ export default function (eleventyConfig) {
   // `arr | take(n)` — first n elements. Used to surface "recent projects" on home.
   eleventyConfig.addFilter('take', (arr, n) => (Array.isArray(arr) ? arr.slice(0, n) : []));
 
-  eleventyConfig.addAsyncShortcode('image', async function (src, alt, sizes = '100vw', loading = 'lazy') {
-    if (alt === undefined) {
-      throw new Error(`image shortcode missing alt text for ${src}`);
-    }
-    const meta = await eleventyImage(src, {
-      widths: [400, 800, 1200, 1600],
-      formats: ['avif', 'webp', 'jpeg'],
-      outputDir: '_site/assets/img/',
-      urlPath: '/assets/img/',
-    });
-    return eleventyImage.generateHTML(meta, {
-      alt,
-      sizes,
-      loading,
-      decoding: 'async',
-    });
-  });
+  // Local-image responsive pipeline (avif/webp + srcset + width/height).
+  // Shared logic lives in the components package so both brands stay in sync.
+  registerImageShortcode(eleventyConfig, { eleventyImage, siteRoot: here });
 
   // Portfolio: every markdown under content/portfolio/ except the index.
   // Sorted by frontmatter `date` DESCENDING so the most recently added show first.
