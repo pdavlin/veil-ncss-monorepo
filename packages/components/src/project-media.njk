@@ -29,7 +29,7 @@
     </div>
   {% else %}
     <section class="project-media project-media--carousel" data-component="project-media" aria-roledescription="carousel" aria-label="Project images">
-      <div class="project-media__viewport" role="group" aria-label="Slides">
+      <div class="project-media__viewport" role="group" aria-label="Slides" tabindex="0">
         {% for item in media %}
           <figure class="project-media__slide" id="project-media-slide-{{ loop.index }}" aria-roledescription="slide" aria-label="{{ loop.index }} of {{ media.length }}">
             {% if item.type == 'video' %}
