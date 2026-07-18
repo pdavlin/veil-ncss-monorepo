@@ -141,3 +141,100 @@ jobs:
             } else {
               await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body });
             }
+
+  # Google-calibrated Lighthouse via the PageSpeed Insights API, run
+  # against the Netlify deploy preview once it's live. Complements the
+  # runner-hosted lighthouse job above, whose perf scores are depressed
+  # by shared-runner CPU. Keyless PSI is rate-limited and can flake;
+  # set the PSI_API_KEY secret to make it reliable.
+  psi:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 15
+
+    permissions:
+      pull-requests: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - site: veil
+            host: veil-monorepo
+            pages: '["/", "/services/"]'
+          - site: ncss
+            host: ncss-monorepo
+            pages: '["/", "/capabilities/"]'
+
+    steps:
+      - name: PSI against deploy preview
+        uses: actions/github-script@v7
+        env:
+          SITE: ${{ matrix.site }}
+          HOST: ${{ matrix.host }}
+          PAGES: ${{ matrix.pages }}
+          PSI_KEY: ${{ secrets.PSI_API_KEY }}
+        with:
+          script: |
+            const site = process.env.SITE;
+            const pages = JSON.parse(process.env.PAGES);
+            const key = process.env.PSI_KEY || '';
+            const preview = `https://deploy-preview-${context.issue.number}--${process.env.HOST}.netlify.app`;
+            const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+            // Wait for the Netlify preview to come up (it builds in parallel with CI).
+            let live = false;
+            for (let i = 0; i < 32; i++) {
+              try {
+                const res = await fetch(preview, { redirect: 'follow' });
+                if (res.ok) { live = true; break; }
+              } catch {}
+              await sleep(15000);
+            }
+            if (!live) { core.setFailed(`deploy preview never came up: ${preview}`); return; }
+
+            const cats = ['PERFORMANCE', 'ACCESSIBILITY', 'BEST_PRACTICES', 'SEO'];
+            const pct = (c) => (c && c.score != null ? Math.round(c.score * 100) : '—');
+            const rows = [];
+            for (const page of pages) {
+              const target = preview + page;
+              const api = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='
+                + encodeURIComponent(target) + '&strategy=mobile'
+                + cats.map((c) => `&category=${c}`).join('')
+                + (key ? `&key=${key}` : '');
+              let scores = null;
+              for (let attempt = 0; attempt < 3 && !scores; attempt++) {
+                if (attempt) await sleep(10000);
+                try {
+                  const res = await fetch(api);
+                  if (!res.ok) { core.warning(`PSI ${res.status} for ${target}`); continue; }
+                  const c = (await res.json()).lighthouseResult.categories;
+                  scores = [c.performance, c.accessibility, c['best-practices'], c.seo].map(pct);
+                } catch (e) { core.warning(`PSI error for ${target}: ${e.message}`); }
+              }
+              const ui = `https://pagespeed.web.dev/analysis?url=${encodeURIComponent(target)}`;
+              rows.push(`| \`${page}\` | ${(scores ?? ['—', '—', '—', '—']).join(' | ')} | [rerun](${ui}) |`);
+              await sleep(2000);
+            }
+
+            const marker = `<!-- psi-comment:${site} -->`;
+            const body = [
+              marker,
+              `### PageSpeed Insights — ${site} (${context.payload.pull_request.head.sha.slice(0, 7)})`,
+              '',
+              `Deploy preview: ${preview} · mobile strategy, Google-hosted hardware`,
+              '',
+              '| Page | Perf | A11y | Best practices | SEO | PSI |',
+              '|---|---|---|---|---|---|',
+              ...rows,
+            ].join('\n');
+            const { data: comments } = await github.rest.issues.listComments({
+              ...context.repo, issue_number: context.issue.number, per_page: 100,
+            });
+            const existing = comments.find((c) => c.body && c.body.startsWith(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ ...context.repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body });
+            }
