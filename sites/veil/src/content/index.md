@@ -19,9 +19,9 @@ recentProjects:
 # Index 0 renders before, index 1 renders after.
 parallaxBands:
   - image:
-      src: https://static.wixstatic.com/media/02bfd7_bdb01c658e724505b0db338f4bcbf69a~mv2.jpg/v1/crop/x_189,y_100,w_1440,h_120,q_80,enc_auto/02bfd7_bdb01c658e724505b0db338f4bcbf69a~mv2.jpg
+      src: /assets/img/portfolio/home-parallax-band-1.jpg
   - image:
-      src: https://static.wixstatic.com/media/02bfd7_7223db831740475ab36650c25291101d~mv2.jpg/v1/crop/x_555,y_140,w_1440,h_120,q_80,enc_auto/02bfd7_7223db831740475ab36650c25291101d~mv2.jpg
+      src: /assets/img/portfolio/home-parallax-band-2.jpg
 engineeredShading:
   heading: engineered shading
   body: |
@@ -32,7 +32,7 @@ engineeredShading:
     <p>We are your partner in translating an owner's vision into a functioning and integrated shading system that works in harmony with mechanical, lighting, and life-safety systems.</p>
     <p><em>Together, let's rewrite shading design.</em></p>
   diagram:
-    src: https://static.wixstatic.com/media/02bfd7_5a1751d9662347989842e31bdd3e36ab~mv2.png/v1/fill/w_760,h_902,al_c,q_90,enc_auto/Design%20Team%20Slide_Final.png
+    src: /assets/img/portfolio/home-design-team-diagram.png
     alt: Design team diagram — architect and engineer meeting at veil, with shading, audio-video, and sustainability consultants as satellite nodes
 contactForm:
   title: contact

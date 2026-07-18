@@ -1,5 +1,9 @@
 #!/usr/bin/env tsx
 /*
+ * WARNING: already run — do not rerun. The scrape JSONs this reads still
+ * contain static.wixstatic.com image URLs; rerunning would reintroduce the
+ * dead-CDN hotlinks that tools/localize-wix-images.ts removed.
+ *
  * fill-portfolio — one-off, deterministic backfill of the 12 stub portfolio
  * markdown pages on BOTH sites (veil + ncss) from the scraped live-site JSON in
  * tools/content-port/output/portfolio--<slug>.json.

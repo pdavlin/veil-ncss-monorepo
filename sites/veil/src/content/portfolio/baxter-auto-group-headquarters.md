@@ -4,7 +4,7 @@ title: "Baxter Auto Group - Headquarters"
 date: 2026-03-06
 location: "Omaha, NE"
 cardImage:
-  src: "https://static.wixstatic.com/media/cd57db_5a2040383e5e484b8b8bfda0da1ce3ad~mv2.jpg/v1/fill/w_762,h_434,al_c,q_85,enc_auto/cd57db_5a2040383e5e484b8b8bfda0da1ce3ad~mv2.jpg"
+  src: "/assets/img/portfolio/baxter-auto-group-headquarters-card.jpg"
   alt: "Baxter Auto Group — Headquarters"
 metadata:
   - label: "Architect"
@@ -15,10 +15,10 @@ metadata:
     value: "MCL Construction"
 media:
   - type: image
-    src: "https://static.wixstatic.com/media/cd57db_5a2040383e5e484b8b8bfda0da1ce3ad~mv2.jpg/v1/fill/w_613,h_441,q_90,enc_avif,quality_auto/cd57db_5a2040383e5e484b8b8bfda0da1ce3ad~mv2.jpg"
+    src: "/assets/img/portfolio/baxter-auto-group-headquarters-card.jpg"
     alt: "Baxter Auto Group - Headquarters"
   - type: image
-    src: "https://static.wixstatic.com/media/02bfd7_c93d6393e3d34d9daeec66ca9567105d~mv2.jpg/v1/fill/w_613,h_460,q_90,enc_avif,quality_auto/02bfd7_c93d6393e3d34d9daeec66ca9567105d~mv2.jpg"
+    src: "/assets/img/portfolio/baxter-auto-group-headquarters-2.jpg"
     alt: "Baxter Auto Group - Headquarters"
 mediaCredit: "White Lotus Group"
 ---

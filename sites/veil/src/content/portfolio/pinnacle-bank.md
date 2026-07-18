@@ -5,7 +5,7 @@ title: "Pinnacle Bank"
 date: 2026-05-25
 location: "Omaha, NE"
 cardImage:
-  src: "https://static.wixstatic.com/media/cd57db_dd323fc216964b16a54b9f924079e299~mv2.jpg/v1/fill/w_762,h_434,al_c,q_85,enc_auto/10007.jpg"
+  src: "/assets/img/portfolio/pinnacle-bank-card.jpg"
   alt: "Pinnacle Bank"
 metadata:
   - label: "Architect"
@@ -16,16 +16,16 @@ metadata:
     value: "BD Construction"
 media:
   - type: image
-    src: "https://static.wixstatic.com/media/cd57db_dd323fc216964b16a54b9f924079e299~mv2.jpg/v1/fill/w_613,h_460,q_90,enc_avif,quality_auto/cd57db_dd323fc216964b16a54b9f924079e299~mv2.jpg"
+    src: "/assets/img/portfolio/pinnacle-bank-card.jpg"
     alt: "Pinnacle Bank"
   - type: image
-    src: "https://static.wixstatic.com/media/cd57db_883ef5bc11cf4efebad83b9168daa4bc~mv2.jpg/v1/fill/w_613,h_460,q_90,enc_avif,quality_auto/cd57db_883ef5bc11cf4efebad83b9168daa4bc~mv2.jpg"
+    src: "/assets/img/portfolio/pinnacle-bank-2.jpg"
     alt: "Pinnacle Bank"
   - type: image
-    src: "https://static.wixstatic.com/media/cd57db_d0d05b538bef4836848b67a2cdbad975~mv2.jpg/v1/fill/w_613,h_460,q_90,enc_avif,quality_auto/cd57db_d0d05b538bef4836848b67a2cdbad975~mv2.jpg"
+    src: "/assets/img/portfolio/pinnacle-bank-3.jpg"
     alt: "Pinnacle Bank"
   - type: image
-    src: "https://static.wixstatic.com/media/cd57db_a95b4fa0e13c417d87eb9bb5abf4dab8~mv2.jpg/v1/fill/w_613,h_460,q_90,enc_avif,quality_auto/cd57db_a95b4fa0e13c417d87eb9bb5abf4dab8~mv2.jpg"
+    src: "/assets/img/portfolio/pinnacle-bank-4.jpg"
     alt: "Pinnacle Bank"
 mediaCredit: "Jim Hamel Photography"
 ---

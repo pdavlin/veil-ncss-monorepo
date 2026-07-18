@@ -5,7 +5,7 @@ title: "University of Alabama at Birmingham — Inpatient Rehabilitation Facilit
 date: 2026-03-20
 location: "Birmingham, AL"
 cardImage:
-  src: "https://static.wixstatic.com/media/02bfd7_fc1668fd7a4144ac84b29319957e5b60~mv2.jpg/v1/fill/w_762,h_434,al_c,q_85,enc_auto/02bfd7_fc1668fd7a4144ac84b29319957e5b60~mv2.jpg"
+  src: "/assets/img/portfolio/university-of-alabama-at-birmingham-card.jpg"
   alt: "University of Alabama at Birmingham — Inpatient Rehabilitation Facility"
 metadata:
   - label: "Architect"
@@ -16,10 +16,10 @@ metadata:
     value: "Hoar Construction"
 media:
   - type: image
-    src: "https://static.wixstatic.com/media/02bfd7_fc1668fd7a4144ac84b29319957e5b60~mv2.jpg/v1/fill/w_613,h_460,q_90,enc_avif,quality_auto/02bfd7_fc1668fd7a4144ac84b29319957e5b60~mv2.jpg"
+    src: "/assets/img/portfolio/university-of-alabama-at-birmingham-card.jpg"
     alt: "University of Alabama at Birmingham — Inpatient Rehabilitation Facility"
   - type: image
-    src: "https://static.wixstatic.com/media/02bfd7_706ba441a0504149913ef830c0a542e0~mv2.jpg/v1/fill/w_613,h_460,q_90,enc_avif,quality_auto/02bfd7_706ba441a0504149913ef830c0a542e0~mv2.jpg"
+    src: "/assets/img/portfolio/university-of-alabama-at-birmingham-2.jpg"
     alt: "University of Alabama at Birmingham — Inpatient Rehabilitation Facility"
 mediaCredit: "Hoar Constructioin"
 ---

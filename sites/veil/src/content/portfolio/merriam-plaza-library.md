@@ -4,7 +4,7 @@ title: "Merriam Plaza Library"
 date: 2026-05-18
 location: "Merriam, KS"
 cardImage:
-  src: "https://static.wixstatic.com/media/02bfd7_1a13f4ddf5ad465ca48a45a1de43104a~mv2.jpg/v1/fill/w_762,h_434,al_c,q_85,enc_auto/02bfd7_1a13f4ddf5ad465ca48a45a1de43104a~mv2.jpg"
+  src: "/assets/img/portfolio/merriam-plaza-library-card.jpg"
   alt: "Merriam Plaza Library"
 metadata:
   - label: "Architect"
@@ -15,16 +15,16 @@ metadata:
     value: "Titan"
 media:
   - type: image
-    src: "https://static.wixstatic.com/media/02bfd7_1a13f4ddf5ad465ca48a45a1de43104a~mv2.jpg/v1/fill/w_1280,h_720,al_c,q_85,enc_auto/02bfd7_1a13f4ddf5ad465ca48a45a1de43104a~mv2.jpg"
+    src: "/assets/img/portfolio/merriam-plaza-library-card.jpg"
     alt: "Merriam Plaza Library — interior view"
   - type: video
     src: "/assets/video/rtg-golf-sim.mp4"
     alt: "Blackout bar in motion (RTG golf sim demo)"
   - type: image
-    src: "https://static.wixstatic.com/media/cd57db_94d838cf59f34d0d9c3c8280387d2b0f~mv2.jpg/v1/fill/w_613,h_460,q_90,enc_avif,quality_auto/cd57db_94d838cf59f34d0d9c3c8280387d2b0f~mv2.jpg"
+    src: "/assets/img/portfolio/merriam-plaza-library-2.jpg"
     alt: "Merriam Plaza Library"
   - type: image
-    src: "https://static.wixstatic.com/media/cd57db_f2dd607d0a8a4a36bfc53cef5cf6c6a2~mv2.jpg/v1/fill/w_613,h_460,q_90,enc_avif,quality_auto/cd57db_f2dd607d0a8a4a36bfc53cef5cf6c6a2~mv2.jpg"
+    src: "/assets/img/portfolio/merriam-plaza-library-3.jpg"
     alt: "Merriam Plaza Library"
 ---
 

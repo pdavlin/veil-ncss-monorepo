@@ -4,7 +4,7 @@ title: "University of Nebraska — Strauss Performing Arts Center"
 date: 2026-04-03
 location: "Omaha, NE"
 cardImage:
-  src: "https://static.wixstatic.com/media/cd57db_9af6b4cf011c44f58c966c6683915f1b~mv2.png/v1/fill/w_762,h_434,al_c,q_85,enc_auto/cd57db_9af6b4cf011c44f58c966c6683915f1b~mv2.png"
+  src: "/assets/img/portfolio/university-of-nebraska-strauss-performing-arts-center-card.png"
   alt: "University of Nebraska — Strauss Performing Arts Center"
 metadata:
   - label: "Architect"
@@ -19,7 +19,7 @@ media:
     poster: "/assets/video/clock-tower-strauss.jpg"
     alt: "Strauss Performing Arts Center exterior with clock tower"
   - type: image
-    src: "https://static.wixstatic.com/media/cd57db_250f5fa6e9d240959bb7cf76a0642319f000.jpg/v1/fill/w_613,h_460,q_90,enc_avif,quality_auto/cd57db_250f5fa6e9d240959bb7cf76a0642319f000.jpg"
+    src: "/assets/img/portfolio/university-of-nebraska-strauss-performing-arts-center-1.jpg"
     alt: "University of Nebraska — Strauss Performing Arts Center"
 ---
 

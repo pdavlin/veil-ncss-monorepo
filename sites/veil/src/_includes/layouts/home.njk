@@ -43,7 +43,11 @@
           </div>
           {% if engineeredShading.diagram %}
             <figure class="engineered-shading__diagram">
-              <img src="{{ engineeredShading.diagram.src }}" alt="{{ engineeredShading.diagram.alt }}" loading="lazy" decoding="async" />
+              {% if engineeredShading.diagram.src.startsWith('http') %}
+                <img src="{{ engineeredShading.diagram.src }}" alt="{{ engineeredShading.diagram.alt }}" loading="lazy" decoding="async" />
+              {% else %}
+                {% image engineeredShading.diagram.src, engineeredShading.diagram.alt, "(min-width: 1024px) 40vw, 100vw", "lazy" %}
+              {% endif %}
               {% if engineeredShading.diagram.caption %}
                 <figcaption>{{ engineeredShading.diagram.caption }}</figcaption>
               {% endif %}

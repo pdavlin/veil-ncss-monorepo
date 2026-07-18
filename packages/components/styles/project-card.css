@@ -24,6 +24,12 @@
     overflow: hidden;
     background-color: var(--color-surface-muted);
   }
+  /* the responsive-image pipeline wraps the photo in <picture>; make the
+     wrapper a full-width block so the inner <img> fills the media cell. */
+  .project-card__media picture {
+    display: block;
+    width: 100%;
+  }
   .project-card__media img {
     display: block;
     width: 100%;
