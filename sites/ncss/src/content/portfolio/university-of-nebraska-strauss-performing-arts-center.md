@@ -6,12 +6,21 @@ location: "Omaha, NE"
 cardImage:
   src: "https://static.wixstatic.com/media/cd57db_9af6b4cf011c44f58c966c6683915f1b~mv2.png/v1/fill/w_762,h_434,al_c,q_85,enc_auto/cd57db_9af6b4cf011c44f58c966c6683915f1b~mv2.png"
   alt: "University of Nebraska — Strauss Performing Arts Center"
-metadata: []
+metadata:
+  - label: "Architect"
+    value: "HDR"
+  - label: "Engineer"
+    value: "HDR"
+  - label: "General Contractor"
+    value: "Sampson Construction"
 media:
   - type: video
     src: "/assets/video/clock-tower-strauss.mp4"
     poster: "/assets/video/clock-tower-strauss.jpg"
     alt: "Strauss Performing Arts Center exterior with clock tower"
+  - type: image
+    src: "https://static.wixstatic.com/media/cd57db_250f5fa6e9d240959bb7cf76a0642319f000.jpg/v1/fill/w_613,h_460,q_90,enc_avif,quality_auto/cd57db_250f5fa6e9d240959bb7cf76a0642319f000.jpg"
+    alt: "University of Nebraska — Strauss Performing Arts Center"
 ---
 
-Project details forthcoming.
+This final phase of the $23M project sought to overhaul the 1984 concert hall at the University of Nebraska’s Omaha campus. Our team provided sleek motorized roller shades, strategically zoned for maximum usability. We tailored our solution to provide glare control to the new classroom additions and the renovation of the existing computer lab in the school’s expanding music technology program.
