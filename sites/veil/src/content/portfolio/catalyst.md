@@ -4,7 +4,7 @@ title: "Catalyst"
 date: 2026-04-27
 location: "Omaha, NE"
 cardImage:
-  src: "https://static.wixstatic.com/media/02bfd7_814d2af137904f579794fa68f21d8475~mv2.jpg/v1/fill/w_762,h_434,al_c,q_85,enc_auto/02bfd7_814d2af137904f579794fa68f21d8475~mv2.jpg"
+  src: "/assets/img/portfolio/catalyst-card.jpg"
   alt: "Catalyst"
 metadata: []
 media: []

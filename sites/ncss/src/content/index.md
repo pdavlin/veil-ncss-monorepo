@@ -23,9 +23,9 @@ recentProjects:
 # Index 0 renders before, index 1 renders after.
 parallaxBands:
   - image:
-      src: https://static.wixstatic.com/media/02bfd7_bdb01c658e724505b0db338f4bcbf69a~mv2.jpg/v1/crop/x_189,y_100,w_1440,h_120,q_80,enc_auto/02bfd7_bdb01c658e724505b0db338f4bcbf69a~mv2.jpg
+      src: /assets/img/portfolio/home-parallax-band-1.jpg
   - image:
-      src: https://static.wixstatic.com/media/02bfd7_7223db831740475ab36650c25291101d~mv2.jpg/v1/crop/x_555,y_140,w_1440,h_120,q_80,enc_auto/02bfd7_7223db831740475ab36650c25291101d~mv2.jpg
+      src: /assets/img/portfolio/home-parallax-band-2.jpg
 engineeredShading:
   heading: engineered shading
   body: |

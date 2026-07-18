@@ -4,7 +4,7 @@ title: "University of Nebraska — Osborne Legacy Complex"
 date: 2026-05-11
 location: "Lincoln, NE"
 cardImage:
-  src: "https://static.wixstatic.com/media/cd57db_133d505580f2423fad39b46142bb4682~mv2.jpg/v1/fill/w_762,h_434,al_c,q_85,enc_auto/cd57db_133d505580f2423fad39b46142bb4682~mv2.jpg"
+  src: "/assets/img/portfolio/university-of-nebraska-osborne-legacy-complex-card.jpg"
   alt: "University of Nebraska — Osborne Legacy Complex"
 metadata:
   - label: "Design Architect"
@@ -19,7 +19,7 @@ metadata:
     value: "International Interior Design Association - Gold - Mid-America Chapter (2024)"
 media:
   - type: image
-    src: "https://static.wixstatic.com/media/cd57db_133d505580f2423fad39b46142bb4682~mv2.jpg/v1/fill/w_613,h_460,q_90,enc_avif,quality_auto/cd57db_133d505580f2423fad39b46142bb4682~mv2.jpg"
+    src: "/assets/img/portfolio/university-of-nebraska-osborne-legacy-complex-card.jpg"
     alt: "University of Nebraska — Osborne Legacy Complex"
 mediaCredit: "BVH"
 ---

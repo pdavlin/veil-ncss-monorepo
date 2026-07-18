@@ -23,8 +23,10 @@
         >
           <source src="{{ item.src }}" type="video/mp4" />
         </video>
-      {% else %}
+      {% elif item.src.startsWith('http') %}
         <img class="project-media__image" src="{{ item.src }}" alt="{{ item.alt }}" loading="lazy" decoding="async" />
+      {% else %}
+        {% image item.src, item.alt, "(min-width: 1024px) 60rem, 100vw", "lazy", "project-media__image" %}
       {% endif %}
     </div>
   {% else %}
@@ -40,8 +42,10 @@
               >
                 <source src="{{ item.src }}" type="video/mp4" />
               </video>
-            {% else %}
+            {% elif item.src.startsWith('http') %}
               <img src="{{ item.src }}" alt="{{ item.alt }}" loading="lazy" decoding="async" />
+            {% else %}
+              {% image item.src, item.alt, "(min-width: 768px) 30rem, 100vw", "lazy" %}
             {% endif %}
           </figure>
         {% endfor %}

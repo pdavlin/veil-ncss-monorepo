@@ -11,6 +11,14 @@
     height: auto;
     border-radius: var(--radius-s);
   }
+  /* the responsive-image pipeline wraps each photo in <picture>; the wrapper
+     must be a full-width block or the carousel's grid cell collapses around
+     an inline element. */
+  .project-media--single picture,
+  .project-media__slide picture {
+    display: block;
+    width: 100%;
+  }
 
   .project-media--carousel {
     display: grid;

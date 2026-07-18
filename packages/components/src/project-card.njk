@@ -10,7 +10,12 @@
 <article class="project-card" data-component="project-card">
   <a class="project-card__link" href="{{ project.href }}">
     <div class="project-card__media">
-      <img src="{{ project.image.src }}" alt="{{ project.image.alt or project.title }}" loading="lazy" decoding="async" />
+      {% set _alt = project.image.alt or project.title %}
+      {% if project.image.src.startsWith('http') %}
+        <img src="{{ project.image.src }}" alt="{{ _alt }}"{% if project.image.width %} width="{{ project.image.width }}"{% endif %}{% if project.image.height %} height="{{ project.image.height }}"{% endif %} loading="lazy" decoding="async" />
+      {% else %}
+        {% image project.image.src, _alt, "(min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw", "lazy" %}
+      {% endif %}
     </div>
     <div class="project-card__body">
       {#
