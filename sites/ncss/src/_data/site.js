@@ -5,14 +5,14 @@ export default {
   logo: {
     src: '/assets/img/brand/ncss-logo-horiz.png',
     alt: 'NCSS',
-    width: 6984,
-    height: 2475,
+    width: 1600,
+    height: 567,
   },
   headerLogo: {
     src: '/assets/img/brand/ncss-logo-horiz.png',
     alt: 'NCSS',
-    width: 6984,
-    height: 2475,
+    width: 1600,
+    height: 567,
   },
   tagline: 'National Commercial Shading Solutions',
   url: 'https://ncss.example.com',

@@ -31,15 +31,21 @@
   {% set _heroLogo = homeHero.logo or site.logo %}
   <a class="home-hero__brand" href="/" aria-label="{{ site.shortName or site.name }} — home">
     {% if _heroLogo and _heroLogo.src %}
-      <img
-        class="home-hero__logo"
-        src="{{ _heroLogo.src }}"
-        alt="{{ _heroLogo.alt or site.shortName or site.name }}"
-        {% if _heroLogo.width %}width="{{ _heroLogo.width }}"{% endif %}
-        {% if _heroLogo.height %}height="{{ _heroLogo.height }}"{% endif %}
-        loading="eager"
-        decoding="async"
-      />
+      {% if _heroLogo.src.startsWith('http') %}
+        {# remote asset — keep as plain <img>, build-time processing is out of scope #}
+        <img
+          class="home-hero__logo"
+          src="{{ _heroLogo.src }}"
+          alt="{{ _heroLogo.alt or site.shortName or site.name }}"
+          {% if _heroLogo.width %}width="{{ _heroLogo.width }}"{% endif %}
+          {% if _heroLogo.height %}height="{{ _heroLogo.height }}"{% endif %}
+          loading="eager"
+          decoding="async"
+        />
+      {% else %}
+        {# local asset — responsive avif/webp + srcset + width/height via pipeline #}
+        {% image _heroLogo.src, (_heroLogo.alt or site.shortName or site.name), "(max-width: 767px) 240px, 200px", "eager", "home-hero__logo" %}
+      {% endif %}
     {% else %}
       <span class="home-hero__wordmark">{{ homeHero.wordmark or site.wordmark or site.shortName or site.name }}</span>
     {% endif %}

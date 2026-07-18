@@ -45,6 +45,11 @@
     line-height: 1;
     letter-spacing: 0.04em;
   }
+  /* the responsive-image pipeline wraps the logo in <picture>; keep the
+     wrapper from introducing inline-baseline gaps around the sized <img>. */
+  .home-hero__brand picture {
+    display: flex;
+  }
   .home-hero__logo {
     /* match the visual weight of the wordmark at each breakpoint via height */
     display: block;

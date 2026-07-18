@@ -7,16 +7,16 @@ export default {
     src: '/assets/img/brand/veil-logo.png',
     alt: 'Veil',
     // intrinsic dimensions help the browser reserve space before the image loads
-    width: 913,
-    height: 551,
+    width: 640,
+    height: 386,
   },
   // full "veil | engineered shading" logo (wordmark + tagline) — used in the
   // site-nav header on standard pages
   headerLogo: {
     src: '/assets/img/brand/veil-engineered-shading-logo.png',
     alt: 'Veil | engineered shading',
-    width: 1241,
-    height: 731,
+    width: 400,
+    height: 235,
   },
   tagline: 'engineered shading consultants',
   url: 'https://veilengineering.com',

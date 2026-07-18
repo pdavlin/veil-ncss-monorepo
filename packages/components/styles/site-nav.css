@@ -48,6 +48,11 @@
     line-height: 1;
     letter-spacing: 0.02em;
   }
+  /* the responsive-image pipeline wraps the logo in <picture>; keep the
+     wrapper from introducing inline-baseline gaps around the sized <img>. */
+  .site-nav__brand picture {
+    display: flex;
+  }
   /* header logo height matches live's rendered 64px at desktop. The token
      --text-step-4 caps at ~60px which lands right at live's logo height. */
   .site-nav__logo {
