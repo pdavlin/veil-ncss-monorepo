@@ -4,6 +4,13 @@
     gap: var(--space-m);
     align-items: start;
   }
+  /* the responsive-image pipeline wraps the image in <picture>; make the
+     wrapper a full-width block so the inner <img> fills the media cell. */
+  .article-card__media picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
   .article-card__media img {
     width: 100%;
     height: auto;

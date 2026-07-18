@@ -8,8 +8,8 @@ homeHero:
   logo:
     src: /assets/img/brand/ncss-logo-horiz-white.png
     alt: NCSS
-    width: 6984
-    height: 2475
+    width: 1600
+    height: 567
   tagline: National Commercial<br>Shading Solutions
   video:
     src: /assets/video/home-bw.mp4
