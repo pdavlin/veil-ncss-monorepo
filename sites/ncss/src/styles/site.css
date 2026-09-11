@@ -202,6 +202,34 @@
     .project-grid { grid-template-columns: 1fr 1fr 1fr; }
   }
 
+  /* offices grid — city/market name + photo, deliberately minimal */
+  .offices-grid {
+    list-style: none;
+    margin: var(--space-xl) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-l);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .offices-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 960px) {
+    .offices-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  .office-card {
+    margin: 0;
+  }
+  .office-card__image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .office-card__name {
+    display: block;
+    margin-block-start: var(--space-xs);
+  }
+
   /* numbered-service-cards list */
   .service-list {
     list-style: none;

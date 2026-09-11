@@ -1,0 +1,30 @@
+{% extends "layouts/base.njk" %}
+{#
+  Offices page — deliberately minimal per the 2026-08-17 client decision:
+  city/market name + photo per office, no addresses.
+
+  Frontmatter contract:
+    titleText?  string                     page title (default "offices")
+    intro?      string (html)              optional lead-in copy
+    offices     [{ name, image: { src, alt? } }]
+#}
+{% block content %}
+  <section class="page-section">
+    <div class="page-section__inner">
+      {% set pageTitle = { text: titleText or 'offices', as: 'h1' } %}
+      {% include "page-title.njk" %}
+      {% if intro %}<div class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">{{ intro | safe }}</div>{% endif %}
+
+      <ul class="offices-grid">
+        {% for office in offices %}
+          <li>
+            <figure class="office-card">
+              <img class="office-card__image" src="{{ office.image.src }}" alt="{{ office.image.alt or office.name }}" loading="lazy" decoding="async" />
+              <figcaption class="office-card__name kicker">{{ office.name }}</figcaption>
+            </figure>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+{% endblock %}
