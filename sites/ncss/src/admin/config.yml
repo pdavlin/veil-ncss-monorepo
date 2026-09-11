@@ -1,0 +1,257 @@
+backend:
+  name: github
+  repo: pdavlin/veil-ncss-monorepo
+  branch: main
+  # Shared Cloudflare Workers OAuth proxy, NCSS brand host — see
+  # docs/cms-decision.md. base_url must match the worker's custom-domain
+  # route in auth/cf-worker/wrangler.toml (routes currently commented out
+  # there — DNS access to goncss.com is pending with the client).
+  base_url: https://auth.goncss.com
+  auth_endpoint: auth
+
+media_folder: sites/ncss/src/assets/uploads
+public_folder: /assets/uploads
+
+site_url: https://goncss.com
+display_url: https://goncss.com
+
+collections:
+  - name: pages
+    label: Pages
+    files:
+      - file: sites/ncss/src/content/index.md
+        label: Home
+        name: home
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/home.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/" }
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
+          - name: homeHero
+            label: Hero
+            widget: object
+            fields:
+              - { name: wordmark, label: Wordmark, widget: string, required: false }
+              - name: logo
+                label: Logo
+                widget: object
+                required: false
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string }
+                  - { name: width, label: Width (px), widget: number, required: false }
+                  - { name: height, label: Height (px), widget: number, required: false }
+              - { name: tagline, label: Tagline, widget: string, required: false }
+              - name: video
+                label: Background video
+                widget: object
+                required: false
+                fields:
+                  - { name: src, label: MP4 URL, widget: string }
+                  - { name: poster, label: Poster URL, widget: string, required: false }
+                  - { name: alt, label: Alt text, widget: string }
+              - { name: scrollCueTarget, label: Scroll cue anchor, widget: string, required: false }
+          - name: recentProjects
+            label: Recent projects
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string, required: false }
+              - { name: count, label: How many to show, widget: number, default: 3 }
+          - name: parallaxBands
+            label: Parallax bands
+            widget: list
+            required: false
+            fields:
+              - name: image
+                label: Image
+                widget: object
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string, required: false }
+          - name: engineeredShading
+            label: Engineered shading section
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Body, widget: markdown }
+          - name: contactForm
+            label: Contact form
+            widget: object
+            required: false
+            fields:
+              - { name: title, label: Title, widget: string, required: false }
+              - { name: heading, label: Heading, widget: string }
+              - { name: action, label: Form action, widget: string, required: false }
+
+      - file: sites/ncss/src/content/capabilities.md
+        label: Capabilities
+        name: capabilities
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/capabilities.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/capabilities/" }
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
+          - { name: titleText, label: Title text, widget: string, default: capabilities }
+          - { name: intro, label: Intro, widget: markdown, required: false }
+          - name: articles
+            label: Articles
+            widget: list
+            fields:
+              - { name: category, label: Category, widget: string, required: false }
+              - { name: title, label: Title, widget: string }
+              - { name: author, label: Author, widget: string, required: false }
+              - name: image
+                label: Image
+                widget: object
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string }
+              - { name: summary, label: Summary, widget: markdown, required: false }
+              - { name: takeaways, label: Takeaways, widget: list, field: { name: item, label: Item, widget: string }, required: false }
+              - { name: href, label: Link, widget: string, required: false }
+              - { name: side, label: Image side, widget: select, options: ['left', 'right'], default: 'left' }
+
+      - file: sites/ncss/src/content/about.md
+        label: About
+        name: about
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/about.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/about/" }
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
+          - name: hero
+            label: Hero
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Body, widget: markdown, required: false }
+              - { name: titleMark, label: Use lowercase-period title?, widget: boolean, default: true }
+              - { name: overlayPosition, label: Overlay position, widget: select, options: ['left', 'center'], default: 'left' }
+              - name: video
+                label: Video
+                widget: object
+                required: false
+                fields:
+                  - { name: src, label: MP4 URL, widget: string }
+                  - { name: poster, label: Poster URL, widget: string, required: false }
+                  - { name: alt, label: Alt, widget: string }
+          - { name: body, label: Body, widget: markdown }
+
+      - file: sites/ncss/src/content/offices.md
+        label: Offices
+        name: offices
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/offices.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/offices/" }
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
+          - { name: titleText, label: Title text, widget: string, default: offices }
+          - { name: intro, label: Intro, widget: markdown, required: false }
+          - name: offices
+            label: Offices
+            widget: list
+            fields:
+              - { name: name, label: City / market name, widget: string }
+              - name: image
+                label: Photo
+                widget: object
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string, required: false }
+
+      - file: sites/ncss/src/content/team.md
+        label: Team
+        name: team
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/team.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/team/" }
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
+          - { name: titleText, label: Title text, widget: string, default: team }
+          - { name: intro, label: Intro, widget: markdown, required: false }
+          - name: bios
+            label: Team members
+            widget: list
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Title / role, widget: string }
+              - { name: credentials, label: Accreditations, widget: text, required: false, hint: 'One per line.' }
+              - name: portrait
+                label: Photo
+                widget: object
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string }
+              - name: signature
+                label: Signature image
+                widget: object
+                required: false
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string }
+              - { name: body, label: Bio, widget: markdown }
+              - { name: linkedin, label: LinkedIn URL, widget: string, required: false }
+              - { name: side, label: Photo side (desktop), widget: select, options: ['left', 'right'], default: 'left' }
+
+      - file: sites/ncss/src/content/portfolio/index.md
+        label: Portfolio Index
+        name: portfolio_index
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/portfolio-grid.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/portfolio/" }
+          - { name: title, label: Title, widget: string }
+          - { name: titleText, label: Title text, widget: string, default: portfolio }
+          - { name: intro, label: Intro, widget: string, required: false }
+
+  # Folder collection — one entry per project markdown file. Fields are FLAT
+  # (top level), matching the frontmatter contract in
+  # layouts/portfolio-detail.njk.
+  - name: projects
+    label: Portfolio Projects
+    folder: sites/ncss/src/content/portfolio
+    create: true
+    slug: "{{slug}}"
+    filter: { field: layout, value: layouts/portfolio-detail.njk }
+    fields:
+      - { name: layout, label: Layout, widget: hidden, default: layouts/portfolio-detail.njk }
+      - { name: title, label: Project name, widget: string }
+      - { name: date, label: Date added, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD', hint: 'Drives ordering — newest first.' }
+      - { name: location, label: Location, widget: string, required: false, hint: 'e.g. "Omaha, NE"' }
+      - { name: brands, label: 'Site visibility (legacy)', widget: select, multiple: true, options: ['veil', 'ncss'], required: false, hint: 'Leave empty to show on this site. Only used by projects carried over from the shared-content era.' }
+      - name: cardImage
+        label: Card image
+        widget: object
+        fields:
+          - { name: src, label: Source, widget: string }
+          - { name: alt, label: Alt, widget: string }
+      - name: featuredVideo
+        label: Featured video
+        widget: object
+        required: false
+        hint: 'Check this project has a video — it plays at the top of the page, above the write-up.'
+        fields:
+          - { name: src, label: MP4 URL, widget: string }
+          - { name: poster, label: Poster URL, widget: string, required: false }
+          - { name: alt, label: Alt text, widget: string }
+      - name: metadata
+        label: Project metadata
+        widget: list
+        required: false
+        hint: 'Quick facts — architect, engineer, contractor, awards.'
+        fields:
+          - { name: label, label: Label, widget: string }
+          - { name: value, label: Value, widget: string }
+      - name: media
+        label: Project media (images or video)
+        widget: list
+        required: false
+        fields:
+          - { name: type, label: Type, widget: select, options: ['image', 'video'] }
+          - { name: src, label: Source URL, widget: string }
+          - { name: poster, label: Poster (video only), widget: string, required: false }
+          - { name: alt, label: Alt, widget: string }
+      - { name: mediaCredit, label: Media credit, widget: string, required: false }
+      - { name: body, label: Project write-up, widget: markdown }

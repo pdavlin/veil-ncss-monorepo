@@ -27,6 +27,7 @@ export default function (eleventyConfig) {
   });
   eleventyConfig.addPassthroughCopy('src/assets');
   eleventyConfig.addPassthroughCopy('src/styles');
+  eleventyConfig.addPassthroughCopy('src/admin');
 
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 

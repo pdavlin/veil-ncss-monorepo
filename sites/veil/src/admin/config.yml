@@ -1,6 +1,13 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: pdavlin/veil-ncss-monorepo
   branch: main
+  # Shared Cloudflare Workers OAuth proxy, Veil brand host — see
+  # docs/cms-decision.md. base_url must match the worker's custom-domain
+  # route in auth/cf-worker/wrangler.toml (routes currently commented out
+  # there — DNS access to veilengineering.com is pending with the client).
+  base_url: https://auth.veilengineering.com
+  auth_endpoint: auth
 
 media_folder: sites/veil/src/assets/uploads
 public_folder: /assets/uploads
