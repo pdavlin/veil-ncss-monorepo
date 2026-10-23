@@ -29,10 +29,11 @@ jobs:
       - name: Typecheck
         run: pnpm -r run typecheck
 
-      - name: Lint (workspace + components)
+      - name: Lint (workspace + components + CMS parity)
         run: |
           pnpm -r run lint
           pnpm exec tsx tools/lint-components.ts
+          pnpm exec tsx scripts/cms-parity.ts
 
       # build packages before tests so tokens-veil's brand-leak and
       # pairings tests can see the dist files. without this they race
