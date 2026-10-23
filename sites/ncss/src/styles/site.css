@@ -241,14 +241,28 @@
   .office-card {
     margin: 0;
   }
+  /* the responsive-image pipeline wraps the image in <picture> */
+  .office-card picture {
+    display: block;
+  }
+  /* 8 / 5 matches the client's stylized map tiles (1179x735) so their
+     edge labels and census attribution are not cropped */
   .office-card__image {
+    display: block;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    height: auto;
+    aspect-ratio: 8 / 5;
     object-fit: cover;
   }
   .office-card__name {
     display: block;
     margin-block-start: var(--space-xs);
+  }
+  .office-card__address {
+    margin-block-start: var(--space-3xs);
+    font-style: normal;
+    font-size: var(--text-step--1);
+    color: var(--color-text-muted);
   }
 
   /* numbered-service-cards list */

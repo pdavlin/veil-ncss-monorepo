@@ -1,4 +1,13 @@
 {% extends "layouts/base.njk" %}
+{#
+  Contact page — founder cards + optional map block beside the contact form.
+
+  Frontmatter contract:
+    titleText?  string                     page title (default "contact")
+    intro?      string (html)              optional lead-in copy
+    mapBlock?   { heading?, address, href?, linkLabel?, image?: { src, alt? } }
+                                           optional; see map-block.njk
+#}
 {% block content %}
   <section class="page-section">
     <div class="page-section__inner">
@@ -13,6 +22,9 @@
               {% set founder = founder %}
               {% include "founder-card.njk" %}
             {% endfor %}
+          {% endif %}
+          {%- if mapBlock and mapBlock.address %}
+            {% include "map-block.njk" %}
           {% endif %}
         </div>
         {% include "contact-form.njk" %}

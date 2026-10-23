@@ -1,0 +1,39 @@
+@layer components {
+  .map-block {
+    display: grid;
+    gap: var(--space-s);
+    color: var(--color-text-default);
+  }
+  .map-block__heading {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-step-1);
+    margin: 0;
+  }
+  .map-block__media {
+    display: block;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-s);
+    overflow: hidden;
+  }
+  /* the responsive-image pipeline wraps the map in <picture> */
+  .map-block__media picture,
+  .map-block__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .map-block__address {
+    font-style: normal;
+    font-size: var(--text-body);
+  }
+  .map-block__link {
+    margin: 0;
+  }
+  .map-block__link a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.2em;
+  }
+}
