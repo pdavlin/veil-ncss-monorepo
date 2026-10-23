@@ -4,7 +4,7 @@ compatibility_date = "2024-12-01"
 
 # Secrets via `wrangler secret put`:
 #   GITHUB_CLIENT_ID_VEIL / GITHUB_CLIENT_SECRET_VEIL   (auth.veilengineering.com OAuth app)
-#   GITHUB_CLIENT_ID_NCSS / GITHUB_CLIENT_SECRET_NCSS   (auth.goncss.com OAuth app)
+#   GITHUB_CLIENT_ID_NCSS / GITHUB_CLIENT_SECRET_NCSS   (auth.ncss.build OAuth app)
 #   GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET             (fallback, e.g. *.workers.dev testing)
 #   OAUTH_STATE_SECRET
 # Set non-secret env via wrangler.toml [vars].
@@ -12,10 +12,14 @@ compatibility_date = "2024-12-01"
 ALLOWED_ORIGINS = "https://veilengineering.com,https://www.veilengineering.com,https://veil-monorepo.netlify.app,https://goncss.com,https://www.goncss.com,https://ncss.build,https://www.ncss.build,https://ncss-monorepo.netlify.app"
 GITHUB_SCOPES = "repo,user"
 
-# One custom domain per brand. Requires both DNS zones in the same Cloudflare
-# account as this worker — the clients control these domains, so uncomment
-# after DNS access is sorted (see docs/cms-decision.md, amendment 2026-09-11).
-# routes = [
-#   { pattern = "auth.veilengineering.com/*", custom_domain = true },
-#   { pattern = "auth.goncss.com/*", custom_domain = true }
-# ]
+# One custom domain per brand. A custom_domain route needs its DNS zone in the
+# same Cloudflare account as this worker. Move the ncss.build zone into that
+# account (Namecheap stays the registrar) before `wrangler deploy`, or the
+# deploy fails on this route. The Veil route stays commented out until the
+# veilengineering.com DNS moves; until then the Veil CMS uses this worker's
+# *.workers.dev host and the fallback OAuth app (see docs/cms-decision.md,
+# amendment 2026-10-23).
+routes = [
+  { pattern = "auth.ncss.build/*", custom_domain = true },
+  # { pattern = "auth.veilengineering.com/*", custom_domain = true },
+]

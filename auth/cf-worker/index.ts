@@ -8,14 +8,14 @@
  *   4. We exchange the code for a token and post it back to the opener via window.opener.postMessage.
  *
  * The worker serves one custom domain per brand (auth.veilengineering.com,
- * auth.goncss.com). A GitHub OAuth app accepts exactly one callback URL, so
+ * auth.ncss.build). A GitHub OAuth app accepts exactly one callback URL, so
  * each brand host pairs with its own OAuth app; credentials are selected by
  * request hostname. Both /auth and /callback run on the same host for a given
  * login, so the pair stays consistent through the flow.
  *
  * Secrets (set with `wrangler secret put`):
  *   GITHUB_CLIENT_ID_VEIL / GITHUB_CLIENT_SECRET_VEIL   (auth.veilengineering.com app)
- *   GITHUB_CLIENT_ID_NCSS / GITHUB_CLIENT_SECRET_NCSS   (auth.goncss.com app)
+ *   GITHUB_CLIENT_ID_NCSS / GITHUB_CLIENT_SECRET_NCSS   (auth.ncss.build app)
  *   GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET             (fallback, e.g. *.workers.dev testing)
  *   OAUTH_STATE_SECRET    (HMAC key for state cookie)
  */
@@ -37,11 +37,17 @@ interface OAuthApp {
   clientSecret: string;
 }
 
+// True for `domain` itself and any subdomain of it, never for a lookalike
+// such as `notncss.build`.
+function onDomain(hostname: string, domain: string): boolean {
+  return hostname === domain || hostname.endsWith(`.${domain}`);
+}
+
 function oauthAppFor(env: Env, hostname: string): OAuthApp | null {
-  if (hostname.endsWith('veilengineering.com') && env.GITHUB_CLIENT_ID_VEIL && env.GITHUB_CLIENT_SECRET_VEIL) {
+  if (onDomain(hostname, 'veilengineering.com') && env.GITHUB_CLIENT_ID_VEIL && env.GITHUB_CLIENT_SECRET_VEIL) {
     return { clientId: env.GITHUB_CLIENT_ID_VEIL, clientSecret: env.GITHUB_CLIENT_SECRET_VEIL };
   }
-  if (hostname.endsWith('goncss.com') && env.GITHUB_CLIENT_ID_NCSS && env.GITHUB_CLIENT_SECRET_NCSS) {
+  if (onDomain(hostname, 'ncss.build') && env.GITHUB_CLIENT_ID_NCSS && env.GITHUB_CLIENT_SECRET_NCSS) {
     return { clientId: env.GITHUB_CLIENT_ID_NCSS, clientSecret: env.GITHUB_CLIENT_SECRET_NCSS };
   }
   if (env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET) {
