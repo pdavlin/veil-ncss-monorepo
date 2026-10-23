@@ -47,19 +47,29 @@ export default function (eleventyConfig) {
   // Shared logic lives in the components package so both brands stay in sync.
   registerImageShortcode(eleventyConfig, { eleventyImage, siteRoot: here });
 
-  // Portfolio: every markdown under content/portfolio/ except the index.
+  // Portfolio: every markdown under content/portfolio/ except the index (its
+  // fileSlug is "portfolio", not "index", so match on the file name).
   // Sorted by frontmatter `date` DESCENDING so the most recently added show first.
-  eleventyConfig.addCollection('projects', (api) =>
-    api
+  eleventyConfig.addCollection('projects', (api) => {
+    const projects = api
       .getFilteredByGlob('src/content/portfolio/*.md')
-      .filter((p) => !p.fileSlug.startsWith('index'))
+      .filter((p) => path.basename(p.inputPath) !== 'index.md')
       .filter((p) => !p.data.brands || p.data.brands.includes('ncss'))
       .sort((a, b) => {
         const da = a.data.date ? new Date(a.data.date).getTime() : 0;
         const db = b.data.date ? new Date(b.data.date).getTime() : 0;
         return db - da;
-      }),
-  );
+      });
+
+    // The portfolio grid and home skip a project with no cardImage. Warn (not fail)
+    // so a project saved from the CMS without an image is not hidden by mistake.
+    const hidden = projects.filter((p) => !p.data.cardImage?.src).map((p) => p.fileSlug);
+    if (hidden.length) {
+      console.warn(`[portfolio] ${hidden.length} project(s) have no cardImage and are hidden from the grid and home: ${hidden.join(', ')}`);
+    }
+
+    return projects;
+  });
 
   return {
     dir: {

@@ -11,7 +11,7 @@
         {%- if hasSidebar %}
         <div class="services-sidebar">
           {% if intro %}
-            <div class="services-sidebar__intro prose__body">{{ intro | safe }}</div>
+            <div class="services-sidebar__intro prose__body">{{ intro | md | safe }}</div>
           {% endif %}
           {% if drawing %}
             {% set drawing = drawing %}

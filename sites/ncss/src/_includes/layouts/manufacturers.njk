@@ -7,10 +7,10 @@
   Frontmatter contract (flat, top-level):
     title          string                             page <title>
     titleText?     string                             page-title text, default "manufacturers"
-    intro?         string (HTML)                      left-rail intro copy
+    intro?         string (markdown)                  left-rail intro copy
     categories?    [{
       title        string                             e.g. "roller shades"
-      body?        string (HTML)                      category description
+      body?        string (markdown)                  category description
       lists?       [{ heading?, items: [string] }]    manufacturer names; heading labels a group (e.g. "Hardware:")
       logos?       [{ src, alt }]                     logo-grid tiles; alt = company name
     }]
@@ -27,13 +27,13 @@
       <div class="stack-grid stack-grid--services" style="margin-block-start: var(--space-l);">
         <div class="services-sidebar">
           {% if intro %}
-            <div class="services-sidebar__intro prose__body">{{ intro | safe }}</div>
+            <div class="services-sidebar__intro prose__body">{{ intro | md | safe }}</div>
           {% endif %}
         </div>
         <ul class="service-list">
           {% for category in categories %}
             {% set _body %}
-              {% if category.body %}{{ category.body | safe }}{% endif %}
+              {% if category.body %}{{ category.body | md | safe }}{% endif %}
               {% for list in category.lists %}
                 {% if list.heading %}<p><strong>{{ list.heading }}</strong></p>{% endif %}
                 {% if list.items and list.items.length %}
@@ -48,7 +48,7 @@
               {% endif %}
             {% endset %}
             <li>
-              {% set service = { number: loop.index, title: category.title, body: _body, numberLabel: 'Category' } %}
+              {% set service = { number: loop.index, title: category.title, body: _body | safe, numberLabel: 'Category' } %}
               {% include "numbered-service-card.njk" %}
             </li>
           {% endfor %}

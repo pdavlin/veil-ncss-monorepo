@@ -4,7 +4,7 @@
     image: { src, alt }
     title: string
     author?: string
-    summary?: string                HTML allowed
+    summary?: string                markdown or HTML
     takeaways?: string[]
     href?: string                   link target for the title (and image)
     side?: 'left' | 'right'         desktop image position (default 'left')
@@ -39,7 +39,7 @@
       {% endif %}
     </h3>
     {% if article.author %}<p class="article-card__author">{{ article.author }}</p>{% endif %}
-    {% if article.summary %}<div class="article-card__summary">{{ article.summary | safe }}</div>{% endif %}
+    {% if article.summary %}<div class="article-card__summary">{{ article.summary | md | safe }}</div>{% endif %}
     {% if article.takeaways and article.takeaways.length %}
       <div class="article-card__takeaways">
         {% for item in article.takeaways %}

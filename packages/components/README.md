@@ -32,6 +32,10 @@ The site stylesheet imports tokens first, then component styles:
 @import "components/index.css";
 ```
 
+## Filters
+
+`registerComponents` adds an `md` filter. Output every CMS `widget: markdown` field as `{{ field | md | safe }}`. It renders markdown with `markdown-it` (`html: true`), so existing `<p>` HTML passes through unchanged. Values that are not plain strings pass through as-is: mark template-built HTML `| safe` before you hand it to a component that applies `md`.
+
 ## Components
 
 ### `site-header.njk`

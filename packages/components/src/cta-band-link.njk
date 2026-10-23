@@ -2,7 +2,7 @@
   cta-band-link — full-width call-to-action strip, single link target.
   Expects: ctaBand = {
     heading: string         e.g. "let's work together"
-    body?: string           HTML allowed
+    body?: string           markdown or HTML
     cta: { label, href }
   }
 #}
@@ -10,7 +10,7 @@
   <div class="cta-band-link__inner">
     <div class="cta-band-link__content">
       <h2 id="cta-band-heading" class="cta-band-link__heading">{{ ctaBand.heading }}</h2>
-      {% if ctaBand.body %}<div class="cta-band-link__body">{{ ctaBand.body | safe }}</div>{% endif %}
+      {% if ctaBand.body %}<div class="cta-band-link__body">{{ ctaBand.body | md | safe }}</div>{% endif %}
     </div>
     <a class="cta-band-link__cta button button--primary" href="{{ ctaBand.cta.href }}">{{ ctaBand.cta.label }}</a>
   </div>

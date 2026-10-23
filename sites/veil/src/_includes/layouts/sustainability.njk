@@ -9,7 +9,7 @@
     <section class="page-section">
       <div class="page-section__inner sustainability-intro">
         {% if intro %}
-          <div class="sustainability-intro__body prose__body">{{ intro | safe }}</div>
+          <div class="sustainability-intro__body prose__body">{{ intro | md | safe }}</div>
         {% endif %}
         {% if ourDifference %}
           <aside class="sustainability-intro__sidebar">

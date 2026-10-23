@@ -6,6 +6,15 @@
 #
 # Usage:
 #   ./tools/transcode-motion.sh
+#   ./tools/transcode-motion.sh --hero <source> <name> [out-dir]
+#
+# --hero encodes ONE source for a full-bleed hero (hero-overlay / a featured
+# project's featuredVideo): 1080p max, CRF 21 capped at 8 Mbps (6 to 8 Mbps on
+# busy footage, less on calm footage), no audio, faststart, plus a poster frame.
+# It writes <out-dir>/<name>.mp4 + .jpg (default out-dir: sites/ncss/src/assets/video)
+# and does not touch the targets below. Override the quality with HERO_CRF and
+# HERO_MAXRATE (+ HERO_BUFSIZE), and cut a long source to a loop with HERO_SECONDS (e.g. 20):
+# a hero file is roughly maxrate x seconds, so 8 Mbps x 60 s is about 60 MB.
 #
 # Outputs:
 #   /assets/video/home-bw.mp4          home hero
@@ -30,6 +39,48 @@ IMG_OUT="sites/veil/src/assets/img/projects/rtg-medical-headquarters"
 if ! command -v ffmpeg >/dev/null 2>&1; then
   echo "ffmpeg not found. Install with: brew install ffmpeg (macOS) or apt install ffmpeg" >&2
   exit 1
+fi
+
+transcode_hero () {
+  local source="$1"
+  local name="$2"
+  local out="${3:-sites/ncss/src/assets/video}"
+  local crf="${HERO_CRF:-21}"
+  local maxrate="${HERO_MAXRATE:-8M}"
+  local bufsize="${HERO_BUFSIZE:-16M}"
+  local duration=()
+  [[ -n "${HERO_SECONDS:-}" ]] && duration=(-t "$HERO_SECONDS")
+
+  if [[ ! -f "$source" ]]; then
+    echo "missing source: $source" >&2
+    exit 1
+  fi
+  mkdir -p "$out"
+
+  echo "transcoding hero ${name} (crf ${crf}, max ${maxrate})…"
+  ffmpeg -y -hide_banner -loglevel warning \
+    -i "$source" ${duration[@]+"${duration[@]}"} \
+    -vf "scale='min(1920,iw)':'min(1080,ih)':force_original_aspect_ratio=decrease" \
+    -c:v libx264 -profile:v high -preset slow -crf "$crf" \
+    -maxrate "$maxrate" -bufsize "$bufsize" -pix_fmt yuv420p \
+    -movflags +faststart -an \
+    "${out}/${name}.mp4"
+
+  # Poster frame at 1 second.
+  ffmpeg -y -hide_banner -loglevel warning \
+    -ss 00:00:01 -i "$source" -frames:v 1 -update 1 -q:v 4 \
+    "${out}/${name}.jpg"
+
+  echo "  -> ${out}/${name}.mp4 ($(du -h "${out}/${name}.mp4" | cut -f1)) + ${name}.jpg"
+}
+
+if [[ "${1:-}" == "--hero" ]]; then
+  if [[ $# -lt 3 ]]; then
+    echo "usage: $0 --hero <source> <name> [out-dir]" >&2
+    exit 1
+  fi
+  transcode_hero "$2" "$3" "${4:-}"
+  exit 0
 fi
 
 mkdir -p "$VIDEO_OUT" "$IMG_OUT"

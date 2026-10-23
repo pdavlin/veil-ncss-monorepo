@@ -21,7 +21,7 @@
           <h3 class="three-up-card__heading">
             {% if card.href %}<a href="{{ card.href }}">{{ card.heading }}</a>{% else %}{{ card.heading }}{% endif %}
           </h3>
-          <div class="three-up-card__body">{{ card.body | safe }}</div>
+          <div class="three-up-card__body">{{ card.body | md | safe }}</div>
         </article>
       </li>
     {% endfor %}
