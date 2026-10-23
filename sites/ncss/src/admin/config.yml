@@ -190,7 +190,7 @@ collections:
               - { name: summary, label: Summary, widget: markdown, required: false }
               - { name: takeaways, label: Takeaways, widget: list, field: { name: item, label: Item, widget: string }, required: false }
               - { name: href, label: Link, widget: string, required: false }
-              - { name: side, label: Image side, widget: select, options: ['left', 'right'], default: 'left' }
+              - { name: side, label: Image side, widget: select, options: ['left', 'right'], default: 'left', required: false }
 
       - file: sites/ncss/src/content/about.md
         label: About
@@ -285,7 +285,7 @@ collections:
                   - { name: alt, label: Alt, widget: string }
               - { name: body, label: Bio, widget: markdown, required: false }
               - { name: linkedin, label: LinkedIn URL, widget: string, required: false }
-              - { name: side, label: Photo side (desktop), widget: select, options: ['left', 'right'], default: 'left' }
+              - { name: side, label: Photo side (desktop), widget: select, options: ['left', 'right'], default: 'left', required: false }
 
       - file: sites/ncss/src/content/portfolio/index.md
         label: Portfolio Index

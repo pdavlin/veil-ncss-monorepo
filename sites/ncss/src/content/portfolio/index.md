@@ -4,5 +4,5 @@ permalink: /portfolio/
 title: portfolio
 description: Selected projects — see our work in action.
 titleText: portfolio
-intro: See our work in action.
+intro: See our work in action. NCSS completes hundreds of projects per year, check out some of our highlights.
 ---

@@ -9,7 +9,7 @@ compatibility_date = "2024-12-01"
 #   OAUTH_STATE_SECRET
 # Set non-secret env via wrangler.toml [vars].
 [vars]
-ALLOWED_ORIGINS = "https://veilengineering.com,https://www.veilengineering.com,https://veil-ncss.netlify.app,https://goncss.com,https://www.goncss.com,https://ncss.netlify.app"
+ALLOWED_ORIGINS = "https://veilengineering.com,https://www.veilengineering.com,https://veil-monorepo.netlify.app,https://goncss.com,https://www.goncss.com,https://ncss.build,https://www.ncss.build,https://ncss-monorepo.netlify.app"
 GITHUB_SCOPES = "repo,user"
 
 # One custom domain per brand. Requires both DNS zones in the same Cloudflare

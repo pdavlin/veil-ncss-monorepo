@@ -207,7 +207,7 @@ collections:
               - { name: email, label: Email, widget: string, required: false }
               - { name: phone, label: Phone, widget: string, required: false }
               - { name: linkedin, label: LinkedIn, widget: string, required: false }
-              - { name: side, label: Photo side (desktop), widget: select, options: ['left', 'right'], default: 'left' }
+              - { name: side, label: Photo side (desktop), widget: select, options: ['left', 'right'], default: 'left', required: false }
 
       - file: sites/veil/src/content/innovation.md
         label: Innovation
@@ -234,7 +234,7 @@ collections:
               - { name: summary, label: Summary, widget: markdown, required: false }
               - { name: takeaways, label: Takeaways, widget: list, field: { name: item, widget: string }, required: false }
               - { name: href, label: Link, widget: string, required: false }
-              - { name: side, label: Image side, widget: select, options: ['left', 'right'], default: 'left' }
+              - { name: side, label: Image side, widget: select, options: ['left', 'right'], default: 'left', required: false }
 
       - file: sites/veil/src/content/sustainability.md
         label: Sustainability
