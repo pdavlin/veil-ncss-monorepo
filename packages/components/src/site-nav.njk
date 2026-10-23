@@ -13,7 +13,10 @@
     site.shortName?     string
     site.wordmark?      string
     site.logo?          { src, alt, width?, height? }   replaces text wordmark
-    site.nav.full       [{ label, href }]               flat list of links
+    site.nav.full       [{ label, href } | { label, children: [{ label, href }] }]
+                        an item with `children` renders as a disclosure
+                        (button + submenu) instead of a link. Opt-in: a flat
+                        list renders exactly as before and ships no extra JS.
 #}
 <header class="site-nav" data-component="site-nav" data-nav-open="false">
   <div class="site-nav__inner">
@@ -53,9 +56,30 @@
     <nav class="site-nav__nav" aria-label="Primary">
       <ul class="site-nav__list" id="site-nav-list">
         {% for item in site.nav.full %}
+          {%- if item.children and item.children.length %}
+          {#- disclosure pattern: the button owns aria-expanded, CSS hides the
+             submenu while it reads "false". The parent has no href of its own,
+             so put the landing page in `children` when one exists. #}
+          <li class="site-nav__item site-nav__item--group">
+            <button
+              class="site-nav__disclosure"
+              type="button"
+              aria-expanded="false"
+              aria-controls="site-nav-group-{{ loop.index }}"
+            >{{ item.label }}<span class="site-nav__caret" aria-hidden="true"></span></button>
+            <ul class="site-nav__sublist" id="site-nav-group-{{ loop.index }}">
+              {% for child in item.children %}
+                <li class="site-nav__subitem">
+                  <a class="site-nav__link site-nav__sublink" href="{{ child.href }}"{% if child.href == page.url %} aria-current="page"{% endif %}>{{ child.label }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+          {%- else %}
           <li class="site-nav__item">
             <a class="site-nav__link" href="{{ item.href }}"{% if item.href == page.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
           </li>
+          {%- endif %}
         {% endfor %}
       </ul>
     </nav>
@@ -80,4 +104,43 @@
       });
     })();
   </script>
+  {%- if site.nav.full | selectattr("children") | length %}
+  <script>
+    (function () {
+      // dropdown disclosures — rendered only when an item has `children`
+      var host = document.currentScript && document.currentScript.closest('.site-nav');
+      if (!host) return;
+      var toggles = host.querySelectorAll('.site-nav__disclosure');
+      function setOpen(t, open) {
+        t.setAttribute('aria-expanded', String(open));
+      }
+      toggles.forEach(function (t) {
+        var group = t.parentElement;
+        t.addEventListener('click', function () {
+          var open = t.getAttribute('aria-expanded') === 'true';
+          toggles.forEach(function (other) { setOpen(other, false); });
+          setOpen(t, !open);
+        });
+        // Escape closes and hands focus back to the button
+        group.addEventListener('keydown', function (e) {
+          if (e.key !== 'Escape' || t.getAttribute('aria-expanded') !== 'true') return;
+          setOpen(t, false);
+          t.focus();
+        });
+        // close when keyboard focus moves to another element outside the
+        // group. A null relatedTarget (click on a non-focusable spot, or
+        // Safari not focusing links on click) is left to the click handler
+        // below so a pointer press on a submenu link is never swallowed.
+        group.addEventListener('focusout', function (e) {
+          if (e.relatedTarget && !group.contains(e.relatedTarget)) setOpen(t, false);
+        });
+      });
+      document.addEventListener('click', function (e) {
+        toggles.forEach(function (t) {
+          if (!t.parentElement.contains(e.target)) setOpen(t, false);
+        });
+      });
+    })();
+  </script>
+  {%- endif %}
 </header>
