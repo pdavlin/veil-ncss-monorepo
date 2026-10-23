@@ -4,8 +4,9 @@
     heading?: string                  e.g. "we'll respond within 12 hours, time us"
     intro?: string                    HTML allowed
     formName?: string                 default 'contact'
-    action?: string                   default '/thank-you/'
-    successMessage?: string           shown on ?submitted=true (rendered server-side via static include)
+    action?: string                   optional POST target; default is Netlify's own
+                                      success page (only seen without JavaScript)
+    successMessage?: string           replaces the form inline after a successful submit
     fields?: { firstName?: bool, lastName?: bool, email?: bool, phone?: bool, message?: bool }
                                       all true by default
   }
@@ -19,7 +20,7 @@
   {% if contactForm.intro %}<div class="contact-form__intro">{{ contactForm.intro | safe }}</div>{% endif %}
   <form
     class="contact-form__form"
-    action="{{ contactForm.action or '/thank-you/' }}"
+    {% if contactForm.action %}action="{{ contactForm.action }}"{% endif %}
     method="POST"
     name="{{ _form }}"
     data-netlify="true"
@@ -59,6 +60,40 @@
         <textarea name="message" rows="5" required></textarea>
       </label>
     {% endif %}
+    <p class="contact-form__error" role="alert" hidden>Your message did not send. Please try again.</p>
     <button class="button button--primary contact-form__submit" type="submit">Send</button>
   </form>
+  <p class="contact-form__success" role="status" tabindex="-1" hidden>{{ contactForm.successMessage or "Thank you. We received your message and will be in touch soon." }}</p>
+  <script>
+    (function () {
+      // submit in place so a thank-you replaces the form inline; without
+      // JavaScript the form posts normally and Netlify shows its own page
+      var host = document.currentScript && document.currentScript.closest('.contact-form');
+      if (!host) return;
+      var form = host.querySelector('.contact-form__form');
+      var success = host.querySelector('.contact-form__success');
+      var error = host.querySelector('.contact-form__error');
+      var submit = host.querySelector('.contact-form__submit');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        error.hidden = true;
+        submit.disabled = true;
+        fetch(form.getAttribute('action') || '/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form)).toString(),
+        })
+          .then(function (res) {
+            if (!res.ok) throw new Error(String(res.status));
+            form.remove();
+            success.hidden = false;
+            success.focus();
+          })
+          .catch(function () {
+            submit.disabled = false;
+            error.hidden = false;
+          });
+      });
+    })();
+  </script>
 </section>

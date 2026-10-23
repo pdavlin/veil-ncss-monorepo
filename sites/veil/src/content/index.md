@@ -37,5 +37,4 @@ engineeredShading:
 contactForm:
   title: contact
   heading: we'll respond within 12 hours, time us
-  action: /thank-you/
 ---

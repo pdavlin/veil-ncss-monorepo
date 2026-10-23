@@ -67,4 +67,16 @@
   .contact-form__submit {
     justify-self: start;
   }
+  .contact-form__error {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: var(--color-text-default);
+  }
+  .contact-form__success {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: var(--text-step-1);
+    line-height: var(--leading-snug);
+    margin: 0;
+  }
 }
