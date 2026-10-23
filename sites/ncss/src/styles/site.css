@@ -42,6 +42,7 @@
     }
     .home-hero__link,
     .site-nav__link,
+    .site-nav__disclosure,
     .site-nav__wordmark {
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -103,6 +104,23 @@
          above — the parent's justify-items: start would otherwise pull it
          flush left. */
       justify-self: center;
+    }
+
+    /* Desktop: primary and secondary nav sit side by side as two columns
+       under the tagline, so eight step-4 links do not push the hero far
+       past the fold. Brand, tagline and scroll cue span both columns. */
+    @media (min-width: 641px) {
+      .home-hero {
+        /* 1fr keeps the spanning scroll cue centered on the viewport */
+        grid-template-columns: auto 1fr;
+        grid-template-rows: repeat(4, auto);
+        column-gap: var(--space-2xl);
+      }
+      .home-hero__brand,
+      .home-hero__tagline-group,
+      .home-hero__scroll-cue {
+        grid-column: 1 / -1;
+      }
     }
 
     /* Bigger, tighter nav stack — vertical column on left rail. */
