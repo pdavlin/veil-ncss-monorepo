@@ -1,7 +1,7 @@
 ---
 layout: layouts/portfolio-detail.njk
 title: "Dolly Parton's Life of Many Colors Museum"
-date: 2026-10-01
+date: 2026-03-01
 location: "Nashville, TN"
 metadata:
   - label: "Scope of Work"
