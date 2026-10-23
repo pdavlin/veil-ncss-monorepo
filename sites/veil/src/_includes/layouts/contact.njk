@@ -4,7 +4,7 @@
 
   Frontmatter contract:
     titleText?  string                     page title (default "contact")
-    intro?      string (html)              optional lead-in copy
+    intro?      string (markdown)          optional lead-in copy
     mapBlock?   { heading?, address, href?, linkLabel?, image?: { src, alt? } }
                                            optional; see map-block.njk
 #}
@@ -13,7 +13,7 @@
     <div class="page-section__inner">
       {% set pageTitle = { text: titleText or 'contact', as: 'h1' } %}
       {% include "page-title.njk" %}
-      {% if intro %}<div class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">{{ intro | safe }}</div>{% endif %}
+      {% if intro %}<div class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">{{ intro | md | safe }}</div>{% endif %}
 
       <div class="stack-grid stack-grid--two-up" style="margin-block-start: var(--space-xl);">
         <div class="contact-page__details">

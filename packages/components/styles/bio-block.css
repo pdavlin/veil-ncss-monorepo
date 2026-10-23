@@ -8,6 +8,13 @@
   .bio-block__media {
     width: 100%;
   }
+  /* the responsive-image pipeline wraps portrait and signature in <picture>;
+     `contents` keeps the <img> itself as the grid/flex item, so sizing and
+     the desktop cover-fill work exactly as for a bare <img>. */
+  .bio-block__media > picture,
+  .bio-block__body > picture {
+    display: contents;
+  }
   .bio-block__portrait {
     width: 100%;
     height: auto;

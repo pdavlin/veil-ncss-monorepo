@@ -4,7 +4,7 @@
     name: string                    e.g. "Ben MacKenzie, PE"
     role?: string                   e.g. "Founder" (small, sits under name)
     credentials?: string            education / certifications block (small)
-    body?: string                   HTML allowed (main bio paragraph)
+    body?: string                   markdown or HTML (main bio paragraph)
     portrait?: { src, alt }         omitted -> body fills the row (bio-block--no-portrait)
     signature?: { src, alt }        optional handwritten-style signature image
     email?: string
@@ -12,21 +12,32 @@
     linkedin?: string
     side?: 'left' | 'right'         default 'left' (portrait on left at desktop)
   }
-  Whitespace control on the optional media cell keeps the rendered HTML of
-  bios that do have a portrait byte-identical to the pre-optional markup.
+  Local portrait and signature paths (including CMS uploads under
+  /assets/uploads/) go through the `image` shortcode for avif/webp srcset;
+  http(s) URLs render as a plain <img>.
 #}
 {% set hasPortrait = bio.portrait and bio.portrait.src -%}
 <article class="bio-block bio-block--{{ bio.side or 'left' }}{% if not hasPortrait %} bio-block--no-portrait{% endif %}" data-component="bio-block">
   {%- if hasPortrait %}
   <div class="bio-block__media">
-    <img class="bio-block__portrait" src="{{ bio.portrait.src }}" alt="{{ bio.portrait.alt or bio.name }}" loading="lazy" decoding="async" />
+    {% if bio.portrait.src.startsWith('http') %}
+      <img class="bio-block__portrait" src="{{ bio.portrait.src }}" alt="{{ bio.portrait.alt or bio.name }}" loading="lazy" decoding="async" />
+    {% else %}
+      {% image bio.portrait.src, (bio.portrait.alt or bio.name), "(min-width: 768px) 50vw, 100vw", "lazy", "bio-block__portrait" %}
+    {% endif %}
   </div>
   {%- endif %}
   <div class="bio-block__body">
     <h2 class="bio-block__name">{{ bio.name }}</h2>
     {% if bio.role %}<p class="bio-block__role">{{ bio.role }}</p>{% endif %}
-    {% if bio.body %}<div class="bio-block__prose">{{ bio.body | safe }}</div>{% endif %}
-    {% if bio.signature and bio.signature.src %}<img class="bio-block__signature" src="{{ bio.signature.src }}" alt="" aria-hidden="true" />{% endif %}
+    {% if bio.body %}<div class="bio-block__prose">{{ bio.body | md | safe }}</div>{% endif %}
+    {% if bio.signature and bio.signature.src %}
+      {% if bio.signature.src.startsWith('http') %}
+        <img class="bio-block__signature" src="{{ bio.signature.src }}" alt="" aria-hidden="true" />
+      {% else %}
+        {% image bio.signature.src, "", "200px", "lazy", "bio-block__signature" %}
+      {% endif %}
+    {% endif %}
     {% if bio.credentials %}<p class="bio-block__credentials">{{ bio.credentials }}</p>{% endif %}
     <ul class="bio-block__contact">
       {% if bio.email %}<li><a href="mailto:{{ bio.email }}">{{ bio.email }}</a></li>{% endif %}

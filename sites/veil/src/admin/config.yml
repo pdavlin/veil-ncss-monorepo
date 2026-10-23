@@ -3,77 +3,36 @@ backend:
   repo: pdavlin/veil-ncss-monorepo
   branch: main
   # Shared Cloudflare Workers OAuth proxy, Veil brand host — see
-  # docs/cms-decision.md. base_url must match the worker's custom-domain
-  # route in auth/cf-worker/wrangler.toml (routes currently commented out
-  # there — DNS access to veilengineering.com is pending with the client).
+  # docs/cms-decision.md (amendment 2026-10-23). auth.veilengineering.com
+  # does not resolve yet: its worker route stays commented out in
+  # auth/cf-worker/wrangler.toml until the veilengineering.com DNS moves to
+  # Cloudflare, which waits on whether Wix serves Veil's email. Interim plan:
+  # once the worker is deployed, set base_url to the worker's *.workers.dev
+  # host (it uses the fallback OAuth app). Move it to auth.veilengineering.com
+  # after the Veil DNS cutover.
   base_url: https://auth.veilengineering.com
   auth_endpoint: auth
 
+# Uploads land in the repo. The {% image %} shortcode resolves any /-rooted
+# path under src/, so uploaded images get the same avif/webp pipeline as the
+# committed ones. Fields with choose_url: false keep existing paths as-is.
 media_folder: sites/veil/src/assets/uploads
 public_folder: /assets/uploads
 
 site_url: https://veilengineering.com
 display_url: https://veilengineering.com
 
+# Both brands share one CMS skeleton: an entry for a shared layout has the
+# same fields on Veil and NCSS, apart from paths, labels, and defaults.
+# scripts/cms-parity.ts checks this, and checks every content file's
+# frontmatter against its entry.
 collections:
   - name: pages
     label: Pages
     files:
-      - file: sites/veil/src/content/index.md
-        label: Home
-        name: home
-        fields:
-          - { name: layout, label: Layout, widget: hidden, default: layouts/home.njk }
-          - { name: permalink, label: Permalink, widget: hidden, default: "/" }
-          - { name: title, label: Title, widget: string }
-          - { name: description, label: Meta Description, widget: text, required: false }
-          - name: hero
-            label: Hero
-            widget: object
-            fields:
-              - { name: tagline, label: Tagline, widget: string }
-              - { name: subtitle, label: Subtitle, widget: string, required: false }
-              - name: video
-                label: Video
-                widget: object
-                required: false
-                fields:
-                  - { name: src, label: MP4 URL, widget: string }
-                  - { name: poster, label: Poster URL, widget: string, required: false }
-                  - { name: alt, label: Alt text, widget: string }
-              - { name: scrollCueTarget, label: Scroll cue anchor, widget: string, required: false }
-          - name: engineeredShading
-            label: Engineered Shading section
-            widget: object
-            required: false
-            fields:
-              - { name: heading, label: Heading, widget: string }
-              - { name: body, label: Body, widget: markdown }
-          - name: recentProjects
-            label: Recent Projects
-            widget: object
-            required: false
-            fields:
-              - { name: heading, label: Heading, widget: string, required: false }
-              - name: items
-                label: Items
-                widget: list
-                fields:
-                  - { name: title, label: Title, widget: string }
-                  - { name: href, label: Link, widget: string }
-                  - name: image
-                    label: Card image
-                    widget: object
-                    fields:
-                      - { name: src, label: Source, widget: string }
-                      - { name: alt, label: Alt, widget: string }
-          - name: contactForm
-            label: Contact form
-            widget: object
-            required: false
-            fields:
-              - { name: heading, label: Heading, widget: string }
-              - { name: action, label: Form action, widget: string, required: false }
+      # Home is intentionally not in the CMS (decision 2026-09-14, confirmed
+      # 2026-10-23). It holds the most layout-coupled data: hero video,
+      # parallax bands, and form wiring. Edit src/content/index.md in code.
 
       - file: sites/veil/src/content/about.md
         label: About
@@ -97,8 +56,8 @@ collections:
                 widget: object
                 required: false
                 fields:
-                  - { name: src, label: MP4 URL, widget: string }
-                  - { name: poster, label: Poster URL, widget: string, required: false }
+                  - { name: src, label: Video, widget: file, choose_url: false, hint: 'MP4 (H.264) only. Keep it under 20 MB: every upload stays in the site repository.' }
+                  - { name: poster, label: Poster image, widget: image, choose_url: false, required: false }
                   - { name: alt, label: Alt, widget: string }
           - { name: body, label: Body, widget: markdown }
 
@@ -109,6 +68,7 @@ collections:
           - { name: layout, label: Layout, widget: hidden, default: layouts/contact.njk }
           - { name: permalink, label: Permalink, widget: hidden, default: "/contact/" }
           - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
           - { name: titleText, label: Title text, widget: string, default: contact }
           - { name: intro, label: Intro copy, widget: markdown, required: false }
           - name: mapBlock
@@ -127,7 +87,7 @@ collections:
                 widget: object
                 required: false
                 fields:
-                  - { name: src, label: Source, widget: string }
+                  - { name: src, label: Image, widget: image, choose_url: false }
                   - { name: alt, label: Alt, widget: string, required: false }
 
       - file: sites/veil/src/content/services.md
@@ -137,6 +97,7 @@ collections:
           - { name: layout, label: Layout, widget: hidden, default: layouts/services.njk }
           - { name: permalink, label: Permalink, widget: hidden, default: "/services/" }
           - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
           - { name: titleText, label: Title text, widget: string, default: services }
           - { name: intro, label: Intro, widget: markdown, required: false }
           - name: drawing
@@ -148,13 +109,14 @@ collections:
                 label: Image
                 widget: object
                 fields:
-                  - { name: src, label: Source, widget: string }
+                  - { name: src, label: Image, widget: image, choose_url: false }
                   - { name: alt, label: Alt, widget: string }
               - { name: label, label: Label, widget: string, required: false }
               - { name: caption, label: Caption, widget: text, required: false }
           - name: services
             label: Services
             widget: list
+            required: false
             fields:
               - { name: number, label: Number, widget: number }
               - { name: title, label: Title, widget: string }
@@ -171,7 +133,7 @@ collections:
                 widget: object
                 fields:
                   - { name: label, label: Label, widget: string }
-                  - { name: href, label: URL, widget: string }
+                  - { name: href, label: URL (page or PDF), widget: string }
 
       - file: sites/veil/src/content/team.md
         label: Team
@@ -180,6 +142,7 @@ collections:
           - { name: layout, label: Layout, widget: hidden, default: layouts/team.njk }
           - { name: permalink, label: Permalink, widget: hidden, default: "/team/" }
           - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
           - { name: titleText, label: Title text, widget: string, default: team }
           - { name: intro, label: Intro, widget: markdown, required: false }
           - name: bioLayout
@@ -192,21 +155,30 @@ collections:
               - { label: 'One member per row', value: stacked }
               - { label: 'Two members per row', value: pairs }
           - name: bios
-            label: Bios
+            label: Team members
             widget: list
             fields:
               - { name: name, label: Name, widget: string }
-              - { name: credentials, label: Credentials, widget: text, required: false }
-              - { name: body, label: Body, widget: markdown }
+              - { name: role, label: Title / role, widget: string, required: false }
+              - { name: credentials, label: Accreditations, widget: text, required: false, hint: 'One per line.' }
               - name: portrait
-                label: Portrait
+                label: Photo
                 widget: object
+                required: false
                 fields:
-                  - { name: src, label: Source, widget: string }
+                  - { name: src, label: Image, widget: image, choose_url: false }
                   - { name: alt, label: Alt, widget: string }
+              - name: signature
+                label: Signature image
+                widget: object
+                required: false
+                fields:
+                  - { name: src, label: Image, widget: image, choose_url: false }
+                  - { name: alt, label: Alt, widget: string }
+              - { name: body, label: Bio, widget: markdown, required: false }
               - { name: email, label: Email, widget: string, required: false }
               - { name: phone, label: Phone, widget: string, required: false }
-              - { name: linkedin, label: LinkedIn, widget: string, required: false }
+              - { name: linkedin, label: LinkedIn URL, widget: string, required: false }
               - { name: side, label: Photo side (desktop), widget: select, options: ['left', 'right'], default: 'left', required: false }
 
       - file: sites/veil/src/content/innovation.md
@@ -216,6 +188,7 @@ collections:
           - { name: layout, label: Layout, widget: hidden, default: layouts/innovation.njk }
           - { name: permalink, label: Permalink, widget: hidden, default: "/innovation/" }
           - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
           - { name: titleText, label: Title text, widget: string, default: innovation }
           - { name: intro, label: Intro, widget: markdown, required: false }
           - name: articles
@@ -229,10 +202,10 @@ collections:
                 label: Image
                 widget: object
                 fields:
-                  - { name: src, label: Source, widget: string }
+                  - { name: src, label: Image, widget: image, choose_url: false }
                   - { name: alt, label: Alt, widget: string }
               - { name: summary, label: Summary, widget: markdown, required: false }
-              - { name: takeaways, label: Takeaways, widget: list, field: { name: item, widget: string }, required: false }
+              - { name: takeaways, label: Takeaways, widget: list, field: { name: item, label: Item, widget: string }, required: false }
               - { name: href, label: Link, widget: string, required: false }
               - { name: side, label: Image side, widget: select, options: ['left', 'right'], default: 'left', required: false }
 
@@ -243,6 +216,7 @@ collections:
           - { name: layout, label: Layout, widget: hidden, default: layouts/sustainability.njk }
           - { name: permalink, label: Permalink, widget: hidden, default: "/sustainability/" }
           - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
           - name: hero
             label: Hero
             widget: object
@@ -257,10 +231,17 @@ collections:
                 widget: object
                 required: false
                 fields:
-                  - { name: src, label: MP4 URL, widget: string }
-                  - { name: poster, label: Poster URL, widget: string, required: false }
+                  - { name: src, label: Video, widget: file, choose_url: false, hint: 'MP4 (H.264) only. Keep it under 20 MB: every upload stays in the site repository.' }
+                  - { name: poster, label: Poster image, widget: image, choose_url: false, required: false }
                   - { name: alt, label: Alt, widget: string }
           - { name: intro, label: Intro section, widget: markdown, required: false }
+          - name: ourDifference
+            label: Our difference sidebar
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string, required: false }
+              - { name: items, label: Items, widget: list, field: { name: item, label: Item, widget: string }, required: false }
           - { name: cardsHeading, label: Cards heading, widget: string, required: false }
           - name: cards
             label: Cards
@@ -272,8 +253,9 @@ collections:
               - name: image
                 label: Image
                 widget: object
+                required: false
                 fields:
-                  - { name: src, label: Source, widget: string }
+                  - { name: src, label: Image, widget: image, choose_url: false }
                   - { name: alt, label: Alt, widget: string }
           - { name: body, label: Body, widget: markdown }
 
@@ -284,9 +266,13 @@ collections:
           - { name: layout, label: Layout, widget: hidden, default: layouts/portfolio-grid.njk }
           - { name: permalink, label: Permalink, widget: hidden, default: "/portfolio/" }
           - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
           - { name: titleText, label: Title text, widget: string, default: portfolio }
           - { name: intro, label: Intro, widget: string, required: false }
 
+  # Folder collection — one entry per project markdown file. Fields are FLAT
+  # (top level), matching the frontmatter contract in
+  # layouts/portfolio-detail.njk.
   - name: projects
     label: Portfolio Projects
     folder: sites/veil/src/content/portfolio
@@ -295,56 +281,66 @@ collections:
     filter: { field: layout, value: layouts/portfolio-detail.njk }
     fields:
       - { name: layout, label: Layout, widget: hidden, default: layouts/portfolio-detail.njk }
-      - { name: title, label: Title, widget: string }
-      - { name: order, label: Display order, widget: number, default: 99 }
-      - name: project
-        label: Project
+      - { name: title, label: Project name, widget: string }
+      - { name: date, label: Date added, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD', hint: 'Drives ordering — newest first.' }
+      - { name: location, label: Location, widget: string, required: false, hint: 'e.g. "Omaha, NE"' }
+      - { name: brands, label: 'Site visibility (legacy)', widget: select, multiple: true, options: ['veil', 'ncss'], required: false, hint: 'Leave empty to show on this site. Only used by projects carried over from the shared-content era.' }
+      - name: cardImage
+        label: Card image
         widget: object
+        required: false
+        hint: 'Projects without a card image are hidden from the portfolio grid and home page.'
         fields:
-          - { name: title, label: Title, widget: string }
-          - { name: location, label: Location, widget: string, required: false }
-          - name: cardImage
-            label: Card image
+          - { name: src, label: Image, widget: image, choose_url: false }
+          - { name: alt, label: Alt, widget: string }
+      - name: featuredVideo
+        label: Featured video
+        widget: object
+        required: false
+        hint: 'Optional. Leave empty for no video. Display style sets how it shows at the top of the page.'
+        fields:
+          - { name: src, label: Video, widget: file, choose_url: false, hint: 'MP4 (H.264) only. Keep it under 20 MB: every upload stays in the site repository.' }
+          - { name: poster, label: Poster image, widget: image, choose_url: false, required: false, hint: 'Shows before the video plays, and in place of the video for visitors who turn off motion.' }
+          - { name: alt, label: Alt text, widget: string }
+          - name: style
+            label: Display style
+            widget: select
+            required: false
+            default: hero
+            hint: 'Hero: full width, autoplays behind the project title. Inline: a smaller player with controls under the title.'
+            options:
+              - { label: 'Hero (full width, behind the title)', value: hero }
+              - { label: 'Inline (small player under the title)', value: inline }
+      - name: metadata
+        label: Project metadata
+        widget: list
+        required: false
+        hint: 'Quick facts — architect, engineer, contractor, awards.'
+        fields:
+          - { name: label, label: Label, widget: string }
+          - { name: value, label: Value, widget: string }
+      # Each item stores `type: image` or `type: video`, so an image item gets
+      # the image picker and a video item gets the file picker.
+      - name: media
+        label: Project media (images or video)
+        widget: list
+        required: false
+        typeKey: type
+        types:
+          - name: image
+            label: Image
             widget: object
-            required: false
-            hint: 'Projects without a card image are hidden from the portfolio grid and home page.'
+            summary: "{{fields.alt}}"
             fields:
-              - { name: src, label: Source, widget: string }
+              - { name: src, label: Image, widget: image, choose_url: false }
               - { name: alt, label: Alt, widget: string }
-          - { name: body, label: Body, widget: markdown, required: false }
-          - name: metadata
-            label: Project metadata
-            widget: list
-            required: false
-            fields:
-              - { name: label, label: Label, widget: string }
-              - { name: value, label: Value, widget: string }
-          - name: media
-            label: Project media (image or video)
-            widget: list
-            required: false
-            fields:
-              - { name: type, label: Type, widget: select, options: ['image', 'video'] }
-              - { name: src, label: Source URL, widget: string }
-              - { name: poster, label: Poster (video only), widget: string, required: false }
-              - { name: alt, label: Alt, widget: string }
-          - { name: mediaCredit, label: Media credit, widget: string, required: false }
-          - name: pagination
-            label: Pagination
+          - name: video
+            label: Video
             widget: object
-            required: false
+            summary: "{{fields.alt}}"
             fields:
-              - name: prev
-                label: Previous
-                widget: object
-                required: false
-                fields:
-                  - { name: label, label: Label, widget: string }
-                  - { name: href, label: URL, widget: string }
-              - name: next
-                label: Next
-                widget: object
-                required: false
-                fields:
-                  - { name: label, label: Label, widget: string }
-                  - { name: href, label: URL, widget: string }
+              - { name: src, label: Video, widget: file, choose_url: false, hint: 'MP4 (H.264) only. Keep it under 20 MB: every upload stays in the site repository.' }
+              - { name: poster, label: Poster image, widget: image, choose_url: false, required: false }
+              - { name: alt, label: Alt, widget: string }
+      - { name: mediaCredit, label: Media credit, widget: string, required: false }
+      - { name: body, label: Project write-up, widget: markdown }

@@ -4,7 +4,7 @@
     <div class="page-section__inner">
       {% set pageTitle = { text: titleText or 'innovation', as: 'h1' } %}
       {% include "page-title.njk" %}
-      {% if intro %}<div class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">{{ intro | safe }}</div>{% endif %}
+      {% if intro %}<div class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">{{ intro | md | safe }}</div>{% endif %}
 
       <div class="innovation-grid">
         {% for art in (articles or collections.articles) %}

@@ -15,7 +15,7 @@ export default {
     height: 567,
   },
   tagline: 'National Commercial Shading Solutions',
-  url: 'https://goncss.com',
+  url: 'https://ncss.build',
   // Sitemap per the 2026-09 copy rewrite. "about." is a dropdown (client
   // note: "drop-down tab at the top, re. Contexture") grouping the
   // who-we-are pages; its landing page is the first child because the

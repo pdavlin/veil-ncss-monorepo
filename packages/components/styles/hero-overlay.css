@@ -84,7 +84,49 @@
     opacity: 0.92;
   }
 
+  /* pause/play toggle — top corner, clear of the bottom-anchored copy */
+  .hero-overlay__toggle {
+    position: absolute;
+    inset-block-start: var(--space-s);
+    inset-inline-end: var(--space-s);
+    z-index: 1;
+    display: inline-grid;
+    place-items: center;
+    min-width: var(--target-size-min);
+    min-height: var(--target-size-min);
+    padding: var(--space-2xs);
+    border: 1px solid currentColor;
+    border-radius: var(--radius-s);
+    background-color: color-mix(in srgb, var(--color-surface-brand) 60%, transparent);
+    color: var(--color-text-on-brand);
+    cursor: pointer;
+  }
+
+  .hero-overlay__toggle[hidden] {
+    display: none;
+  }
+
+  .hero-overlay__toggle:hover {
+    background-color: var(--color-surface-brand);
+  }
+
+  /* the reset's outline color is too dark to read on the hero wash */
+  .hero-overlay__toggle:focus-visible {
+    outline-color: currentColor;
+  }
+
+  .hero-overlay__toggle-icon {
+    width: 1.25em;
+    height: 1.25em;
+  }
+
+  .hero-overlay__toggle[data-state="playing"] .hero-overlay__toggle-icon--play,
+  .hero-overlay__toggle[data-state="paused"] .hero-overlay__toggle-icon--pause {
+    display: none;
+  }
+
+  /* without the toggle script, reduced motion hides the video outright */
   @media (prefers-reduced-motion: reduce) {
-    .hero-overlay__video { display: none; }
+    .hero-overlay:not([data-video-controls]) .hero-overlay__video { display: none; }
   }
 }

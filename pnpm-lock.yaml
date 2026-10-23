@@ -11,9 +11,15 @@ importers:
       '@axe-core/playwright':
         specifier: ^4.10.0
         version: 4.11.3(playwright-core@1.60.0)
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
       '@types/node':
         specifier: ^20.11.0
         version: 20.19.41
+      js-yaml:
+        specifier: ^4.1.1
+        version: 4.1.1
       playwright:
         specifier: ^1.45.0
         version: 1.60.0
@@ -50,6 +56,10 @@ importers:
         version: 2.1.1
 
   packages/components:
+    dependencies:
+      markdown-it:
+        specifier: ^14.1.1
+        version: 14.2.0
     devDependencies:
       typescript:
         specifier: ^5.4.0
@@ -929,6 +939,9 @@ packages:
 
   '@types/estree@1.0.9':
     resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
+
+  '@types/js-yaml@4.0.9':
+    resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
 
   '@types/node@20.19.41':
     resolution: {integrity: sha512-ECymXOukMnOoVkC2bb1Vc/w/836DXncOg5m8Xj1RH7xSHZJWNYY6Zh7EH477vcnD5egKNNfy2RpNOmuChhFPgQ==}
@@ -2556,6 +2569,8 @@ snapshots:
   '@types/estree@1.0.8': {}
 
   '@types/estree@1.0.9': {}
+
+  '@types/js-yaml@4.0.9': {}
 
   '@types/node@20.19.41':
     dependencies:
