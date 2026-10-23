@@ -111,6 +111,24 @@ collections:
           - { name: title, label: Title, widget: string }
           - { name: titleText, label: Title text, widget: string, default: contact }
           - { name: intro, label: Intro copy, widget: markdown, required: false }
+          - name: mapBlock
+            label: Map block
+            widget: object
+            required: false
+            collapsed: true
+            hint: 'Optional. Shows when Address is filled in.'
+            fields:
+              - { name: heading, label: Heading, widget: string, required: false }
+              - { name: address, label: Address, widget: text, required: false, hint: 'One line per address line.' }
+              - { name: href, label: Map link override, widget: string, required: false, hint: 'Leave blank to link to a map search for the address.' }
+              - { name: linkLabel, label: Link text, widget: string, required: false, default: 'Open in maps' }
+              - name: image
+                label: Static map image
+                widget: object
+                required: false
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string, required: false }
 
       - file: sites/veil/src/content/services.md
         label: Services
@@ -132,6 +150,7 @@ collections:
                 fields:
                   - { name: src, label: Source, widget: string }
                   - { name: alt, label: Alt, widget: string }
+              - { name: label, label: Label, widget: string, required: false }
               - { name: caption, label: Caption, widget: text, required: false }
           - name: services
             label: Services
@@ -163,6 +182,15 @@ collections:
           - { name: title, label: Title, widget: string }
           - { name: titleText, label: Title text, widget: string, default: team }
           - { name: intro, label: Intro, widget: markdown, required: false }
+          - name: bioLayout
+            label: Grid layout
+            widget: select
+            required: false
+            default: stacked
+            hint: 'Pairs puts two members per row on wide screens (photo, bio, photo, bio).'
+            options:
+              - { label: 'One member per row', value: stacked }
+              - { label: 'Two members per row', value: pairs }
           - name: bios
             label: Bios
             widget: list
@@ -194,6 +222,7 @@ collections:
             label: Articles
             widget: list
             fields:
+              - { name: category, label: Category, widget: string, required: false }
               - { name: title, label: Title, widget: string }
               - { name: author, label: Author, widget: string, required: false }
               - name: image
@@ -277,6 +306,8 @@ collections:
           - name: cardImage
             label: Card image
             widget: object
+            required: false
+            hint: 'Projects without a card image are hidden from the portfolio grid and home page.'
             fields:
               - { name: src, label: Source, widget: string }
               - { name: alt, label: Alt, widget: string }

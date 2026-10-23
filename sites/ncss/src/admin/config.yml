@@ -89,11 +89,90 @@ collections:
         label: Capabilities
         name: capabilities
         fields:
-          - { name: layout, label: Layout, widget: hidden, default: layouts/capabilities.njk }
+          - { name: layout, label: Layout, widget: hidden, default: layouts/services.njk }
           - { name: permalink, label: Permalink, widget: hidden, default: "/capabilities/" }
           - { name: title, label: Title, widget: string }
           - { name: description, label: Meta Description, widget: text, required: false }
           - { name: titleText, label: Title text, widget: string, default: capabilities }
+          - { name: intro, label: Intro, widget: markdown, required: false }
+          - name: drawing
+            label: Technical drawing
+            widget: object
+            required: false
+            fields:
+              - name: image
+                label: Image
+                widget: object
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string }
+              - { name: label, label: Label, widget: string, required: false }
+              - { name: caption, label: Caption, widget: text, required: false }
+          - name: services
+            label: Capabilities
+            widget: list
+            required: false
+            fields:
+              - { name: number, label: Number, widget: number }
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: markdown }
+          - name: ctaBand
+            label: CTA Band
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Body, widget: markdown, required: false }
+              - name: cta
+                label: CTA
+                widget: object
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: href, label: URL (page or PDF), widget: string }
+
+      - file: sites/ncss/src/content/manufacturers.md
+        label: Manufacturers
+        name: manufacturers
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/manufacturers.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/manufacturers/" }
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
+          - { name: titleText, label: Title text, widget: string, default: manufacturers, required: false }
+          - { name: intro, label: Intro, widget: markdown, required: false }
+          - name: categories
+            label: Categories
+            widget: list
+            required: false
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: markdown, required: false }
+              - name: lists
+                label: Manufacturer lists
+                widget: list
+                required: false
+                fields:
+                  - { name: heading, label: 'Group heading (e.g. "Hardware:")', widget: string, required: false }
+                  - { name: items, label: Manufacturers, widget: list, field: { name: item, label: Manufacturer, widget: string } }
+              - name: logos
+                label: Logos
+                widget: list
+                required: false
+                summary: "{{fields.alt}}"
+                fields:
+                  - { name: src, label: Logo image, widget: string }
+                  - { name: alt, label: Company name (alt text), widget: string }
+
+      - file: sites/ncss/src/content/research.md
+        label: Research
+        name: research
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/innovation.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/research/" }
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
+          - { name: titleText, label: Title text, widget: string, default: research }
           - { name: intro, label: Intro, widget: markdown, required: false }
           - name: articles
             label: Articles
@@ -155,9 +234,11 @@ collections:
             widget: list
             fields:
               - { name: name, label: City / market name, widget: string }
+              - { name: address, label: Address, widget: text, required: false, hint: 'Optional. One line per address line.' }
               - name: image
                 label: Photo
                 widget: object
+                required: false
                 fields:
                   - { name: src, label: Source, widget: string }
                   - { name: alt, label: Alt, widget: string, required: false }
@@ -172,16 +253,26 @@ collections:
           - { name: description, label: Meta Description, widget: text, required: false }
           - { name: titleText, label: Title text, widget: string, default: team }
           - { name: intro, label: Intro, widget: markdown, required: false }
+          - name: bioLayout
+            label: Grid layout
+            widget: select
+            required: false
+            default: stacked
+            hint: 'Pairs puts two members per row on wide screens (photo, bio, photo, bio).'
+            options:
+              - { label: 'One member per row', value: stacked }
+              - { label: 'Two members per row', value: pairs }
           - name: bios
             label: Team members
             widget: list
             fields:
               - { name: name, label: Name, widget: string }
-              - { name: role, label: Title / role, widget: string }
+              - { name: role, label: Title / role, widget: string, required: false }
               - { name: credentials, label: Accreditations, widget: text, required: false, hint: 'One per line.' }
               - name: portrait
                 label: Photo
                 widget: object
+                required: false
                 fields:
                   - { name: src, label: Source, widget: string }
                   - { name: alt, label: Alt, widget: string }
@@ -192,7 +283,7 @@ collections:
                 fields:
                   - { name: src, label: Source, widget: string }
                   - { name: alt, label: Alt, widget: string }
-              - { name: body, label: Bio, widget: markdown }
+              - { name: body, label: Bio, widget: markdown, required: false }
               - { name: linkedin, label: LinkedIn URL, widget: string, required: false }
               - { name: side, label: Photo side (desktop), widget: select, options: ['left', 'right'], default: 'left' }
 
@@ -205,6 +296,35 @@ collections:
           - { name: title, label: Title, widget: string }
           - { name: titleText, label: Title text, widget: string, default: portfolio }
           - { name: intro, label: Intro, widget: string, required: false }
+
+      - file: sites/ncss/src/content/contact.md
+        label: Contact
+        name: contact
+        fields:
+          - { name: layout, label: Layout, widget: hidden, default: layouts/contact.njk }
+          - { name: permalink, label: Permalink, widget: hidden, default: "/contact/" }
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta Description, widget: text, required: false }
+          - { name: titleText, label: Title text, widget: string, default: contact }
+          - { name: intro, label: Intro copy, widget: markdown, required: false }
+          - name: mapBlock
+            label: Map block
+            widget: object
+            required: false
+            collapsed: true
+            hint: 'Optional. Shows when Address is filled in.'
+            fields:
+              - { name: heading, label: Heading, widget: string, required: false }
+              - { name: address, label: Address, widget: text, required: false, hint: 'One line per address line.' }
+              - { name: href, label: Map link override, widget: string, required: false, hint: 'Leave blank to link to a map search for the address.' }
+              - { name: linkLabel, label: Link text, widget: string, required: false, default: 'Open in maps' }
+              - name: image
+                label: Static map image
+                widget: object
+                required: false
+                fields:
+                  - { name: src, label: Source, widget: string }
+                  - { name: alt, label: Alt, widget: string, required: false }
 
   # Folder collection — one entry per project markdown file. Fields are FLAT
   # (top level), matching the frontmatter contract in
@@ -224,6 +344,8 @@ collections:
       - name: cardImage
         label: Card image
         widget: object
+        required: false
+        hint: 'Projects without a card image are hidden from the portfolio grid and home page.'
         fields:
           - { name: src, label: Source, widget: string }
           - { name: alt, label: Alt, widget: string }
