@@ -7,12 +7,16 @@ cardImage:
   src: "/assets/img/projects/rtg-medical-headquarters/card.jpg"
   alt: "RTG Medical — Headquarters (golf sim blackout)"
 metadata:
+  - label: "Scope of Work"
+    value: "12 24 13 - Roller Window Shades"
+  - label: "Manufacturing Partner"
+    value: "Draper"
+  - label: "General Contractor"
+    value: "Ronco Construction"
   - label: "Architect"
     value: "DLR Group"
   - label: "Engineer"
     value: "DLR Group"
-  - label: "General Contractor"
-    value: "Ronco Construction"
 featuredVideo:
   src: "/assets/video/rtg-golf-sim.mp4"
   alt: "Golf sim blackout bar in motion"

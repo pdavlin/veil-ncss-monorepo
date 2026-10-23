@@ -7,14 +7,18 @@ cardImage:
   src: "/assets/img/portfolio/university-of-nebraska-osborne-legacy-complex-card.jpg"
   alt: "University of Nebraska — Osborne Legacy Complex"
 metadata:
+  - label: "Scope of Work"
+    value: "12 24 13 - Roller Window Shades"
+  - label: "Manufacturing Partner"
+    value: "Draper"
+  - label: "General Contractor"
+    value: "Hausmann"
   - label: "Design Architect"
     value: "Populous"
   - label: "Architect of Record"
     value: "BVH"
   - label: "Engineer"
     value: "ME Engineers"
-  - label: "General Contractor"
-    value: "Hausmann"
   - label: "Award"
     value: "International Interior Design Association - Gold - Mid-America Chapter (2024)"
 media:
@@ -24,4 +28,8 @@ media:
 mediaCredit: "BVH"
 ---
 
-One of the most storied programs in college football - the Nebraska Cornhuskers - now resides in one of the premier athletic facilities in the United States. Veil's team worked closely with one of the world leaders in roller shade fabric manufacturing - Mermet - to offer fabrics that were individually tailored to the uses and orientations of each room. This $155MM project delivered 350,000 SF of world-class athletic space to the Cornhuskers and includes a shading system that seamlessly integrates into training facilities to produce a building fit for the state's top athletes. The thoughtful layout of the system allowed for Veil to add scheduling and automation to control views into the team's practice field throughout the course of the year.
+One of the most storied programs in college football - the Nebraska Cornhuskers - now resides in one of the premier athletic facilities in the United States.
+
+This $155MM project delivered 350,000 SF of world-class athletic space to the Cornhuskers and includes a shading system that seamlessly integrates into training facilities to produce a building fit for the state's top athletes. NCSS delivered a wide range of Draper roller shades (I/O control system) including 12’x33’ shades in the team’s walkthrough room.
+
+Since opening, NCSS has worked together with University Athletics to add additional scheduling and controls to this system to give ownership complete control over views to team practice.

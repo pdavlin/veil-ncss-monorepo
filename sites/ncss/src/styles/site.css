@@ -187,6 +187,9 @@
   .page-section--narrow .page-section__inner {
     max-width: var(--measure-narrow);
   }
+  .page-section--wide .page-section__inner {
+    max-width: var(--measure-wide);
+  }
   .page-section--muted {
     background-color: var(--color-surface-muted);
   }
