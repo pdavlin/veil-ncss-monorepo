@@ -1,4 +1,16 @@
 {% extends "layouts/base.njk" %}
+{#
+  Team page.
+
+  Frontmatter contract (flat, top-level):
+    title          string
+    titleText?     string                       page heading, default "team"
+    intro?         string                       HTML allowed
+    bioLayout?     'stacked' | 'pairs'          default 'stacked' (one bio per row).
+                                                'pairs' sets two bios per row at wide
+                                                desktop: photo, bio, photo, bio.
+    bios?          [bio]                        see bio-block.njk for the bio shape
+#}
 {% block content %}
   <section class="page-section">
     <div class="page-section__inner">
@@ -6,7 +18,7 @@
       {% include "page-title.njk" %}
       {% if intro %}<div class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">{{ intro | safe }}</div>{% endif %}
 
-      <div class="team-grid">
+      <div class="team-grid{% if bioLayout == 'pairs' %} team-grid--pairs{% endif %}">
         {% for member in bios %}
           {% set bio = member %}
           {% include "bio-block.njk" %}

@@ -2,10 +2,11 @@
 layout: layouts/team.njk
 permalink: /team/
 title: team
-description: Meet our shading pros — Ben and Adam MacKenzie.
+description: Meet our shading pros — the NCSS team.
 titleText: team
 intro: |
   <p>Meet our shading pros.</p>
+bioLayout: pairs
 bios:
   - name: Ben MacKenzie, PE
     role: Founder
@@ -38,5 +39,29 @@ bios:
     body: |
       <p>Detail, coordination, and completeness. All are critical aspects of any project delivery in the AEC industry that Adam has spent years focusing on as a project manager, lighting designer, and practicing electrical engineer on many K-12 and higher education projects across the country. Adam brings these skills to NCSS to design and deliver industry-leading automated shading systems with his twin brother Ben. His goal: To redefine what it means to properly design, build, and commission an intelligent shading system in modern buildings.</p>
     linkedin: https://www.linkedin.com/in/adam-mackenzie-pe
-    side: right
+    side: left
+  - name: Ashley King
+    role: Project Manager
+    portrait:
+      src: /assets/img/team/ashley.jpg
+      alt: Ashley King
+  - name: Brandon Peterson
+    role: Project Manager
+    portrait:
+      src: /assets/img/team/brandon.jpg
+      alt: Brandon Peterson
+  - name: Drew Hackett
+    role: Project Manager
+    portrait:
+      src: /assets/img/team/drew.jpg
+      alt: Drew Hackett
+  - name: JoEllen Siemer
+    role: Project Manager
+    portrait:
+      src: /assets/img/team/joellen.jpg
+      alt: JoEllen Siemer
+  - name: Kyra McWilliams
+    role: Director of Outdoor Products / Project Manager
+  - name: Glenn Windsor
+    role: Director of Installation
 ---

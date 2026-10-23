@@ -129,5 +129,13 @@
     .bio-block--right .bio-block__body {
       border-inline-start: 0;
     }
+    /* no portrait: the body is the only cell, so it spans the row and
+       drops the column-2 separator. */
+    .bio-block--no-portrait {
+      grid-template-columns: 1fr;
+    }
+    .bio-block--no-portrait .bio-block__body {
+      border-inline-start: 0;
+    }
   }
 }
