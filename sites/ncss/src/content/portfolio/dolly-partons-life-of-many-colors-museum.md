@@ -3,6 +3,9 @@ layout: layouts/portfolio-detail.njk
 title: "Dolly Parton's Life of Many Colors Museum"
 date: 2026-03-01
 location: "Nashville, TN"
+cardImage:
+  src: "/assets/img/portfolio/dolly-partons-life-of-many-colors-museum-card.jpg"
+  alt: "Dolly Parton's Life of Many Colors Museum"
 metadata:
   - label: "Scope of Work"
     value: "12 12 25 – Decorative Chain Curtains"
@@ -12,7 +15,22 @@ metadata:
     value: "Whiting-Turner"
   - label: "Architect"
     value: "AOA"
-media: []
+media:
+  - type: image
+    src: "/assets/img/portfolio/dolly-partons-life-of-many-colors-museum-card.jpg"
+    alt: "Dolly Parton's Life of Many Colors Museum"
+  - type: image
+    src: "/assets/img/portfolio/dolly-partons-life-of-many-colors-museum-2.jpg"
+    alt: "Dolly Parton's Life of Many Colors Museum"
+  - type: image
+    src: "/assets/img/portfolio/dolly-partons-life-of-many-colors-museum-3.jpg"
+    alt: "Dolly Parton's Life of Many Colors Museum"
+  - type: image
+    src: "/assets/img/portfolio/dolly-partons-life-of-many-colors-museum-4.jpg"
+    alt: "Dolly Parton's Life of Many Colors Museum"
+  - type: image
+    src: "/assets/img/portfolio/dolly-partons-life-of-many-colors-museum-5.jpg"
+    alt: "Dolly Parton's Life of Many Colors Museum"
 mediaCredit: "Ben MacKenzie"
 ---
 
