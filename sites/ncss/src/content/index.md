@@ -2,7 +2,7 @@
 layout: layouts/home.njk
 permalink: /
 title: engineered shading
-description: National Commercial Shading Solutions — your shading consultant. We translate an owner's vision into a functioning and integrated shading system.
+description: National Commercial Shading Solutions — your partner in translating a client's vision into a functioning and integrated shading system that works in harmony with surrounding trades.
 homeHero:
   wordmark: NCSS
   logo:
@@ -29,14 +29,13 @@ parallaxBands:
 engineeredShading:
   heading: engineered shading
   body: |
-    <p>Shading systems have transformed - nearly overnight - from a simple manual device to a fully networked motorized system. As buildings have become more complex to incorporate a wider variety of technologies, design teams have evolved to become increasingly specialized. This requires experts in a wider variety of fields mastering the systems they're designing and specifying. Audio video, lighting, acoustics, sustainability, even kitchen equipment design have all seen their roles on projects become broken off to dedicated consultants – yet motorized building shading systems have lagged behind in a middle ground between the architect and engineer.</p>
+    <p>Shading systems have transformed - nearly overnight - from a simple manually operated device to a fully networked motorized system. That shift demands experts who have mastered a wider range of disciplines — and who understand the systems they are installing and coordinating. Modern roller shade systems share more in common with complex systems such as lighting control than ever before, but the design and coordination of these systems lags behind.</p>
     <p><strong>That changes today.</strong></p>
-    <p>We spent years as professional engineers watching as project after project was overrun with shading system issues. Change orders, integration issues, missing scope, and constructability issues caused headaches - and showed how much was left on the table with shading design. As passionate designers we knew that these problems were avoidable and should not be happening.</p>
+    <p>We build a team with deep experience in general contracting, engineering, and manufacturing, giving us a breadth of knowledge in project delivery. Specializing in cross-trade coordination, NCSS takes pride in preventing change orders, integration issues, delays, missing scope, and lack of constructability in one of the final finish trades on your project.</p>
     <p><strong>Our solution: National Commercial Shading Solutions</strong></p>
-    <p>We are your partner in translating an owner's vision into a functioning and integrated shading system that works in harmony with mechanical, lighting, and life-safety systems.</p>
-    <p><em>Together, let's rewrite shading design.</em></p>
+    <p>We are your partner in translating a client's vision into a functioning and integrated shading system that works in harmony with surrounding trades.</p>
+    <p><a href="/contact/">Contact us</a></p>
 contactForm:
   title: contact
   heading: we'll respond within 12 hours, time us
-  action: /thank-you/
 ---

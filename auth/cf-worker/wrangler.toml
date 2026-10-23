@@ -2,13 +2,20 @@ name = "veil-ncss-auth"
 main = "index.ts"
 compatibility_date = "2024-12-01"
 
-# Set secrets via: wrangler secret put GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET / OAUTH_STATE_SECRET
+# Secrets via `wrangler secret put`:
+#   GITHUB_CLIENT_ID_VEIL / GITHUB_CLIENT_SECRET_VEIL   (auth.veilengineering.com OAuth app)
+#   GITHUB_CLIENT_ID_NCSS / GITHUB_CLIENT_SECRET_NCSS   (auth.goncss.com OAuth app)
+#   GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET             (fallback, e.g. *.workers.dev testing)
+#   OAUTH_STATE_SECRET
 # Set non-secret env via wrangler.toml [vars].
 [vars]
-ALLOWED_ORIGINS = "https://veilengineering.com,https://veil-ncss.netlify.app,https://ncss.org,https://ncss.netlify.app"
+ALLOWED_ORIGINS = "https://veilengineering.com,https://www.veilengineering.com,https://veil-monorepo.netlify.app,https://goncss.com,https://www.goncss.com,https://ncss.build,https://www.ncss.build,https://ncss-monorepo.netlify.app"
 GITHUB_SCOPES = "repo,user"
 
-# Custom domain (configure after deploy):
+# One custom domain per brand. Requires both DNS zones in the same Cloudflare
+# account as this worker — the clients control these domains, so uncomment
+# after DNS access is sorted (see docs/cms-decision.md, amendment 2026-09-11).
 # routes = [
-#   { pattern = "auth.example.dev/*", custom_domain = true }
+#   { pattern = "auth.veilengineering.com/*", custom_domain = true },
+#   { pattern = "auth.goncss.com/*", custom_domain = true }
 # ]

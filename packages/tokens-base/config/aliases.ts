@@ -96,6 +96,10 @@ export const aliases: Record<string, AliasDecl> = {
     fallback: '72rem',
     description: 'Max inline-size for page-level containers.',
   },
+  '--measure-wide': {
+    fallback: 'var(--measure-container)',
+    description: 'Max inline-size for wide page containers (e.g. the portfolio card grid). Defaults to --measure-container; brands may widen it.',
+  },
   '--measure-narrow': {
     fallback: '48rem',
     description: 'Max inline-size for narrow content (e.g. centred hero copy).',

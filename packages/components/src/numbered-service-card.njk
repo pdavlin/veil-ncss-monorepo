@@ -5,13 +5,14 @@
     title: string               e.g. "consulting"
     body: string                HTML allowed
     icon?: { src, alt }         optional small icon
+    numberLabel?: string        screen-reader prefix before the number, default "Service"
   }
 #}
 {% set _num = '0' ~ service.number if service.number < 10 else service.number %}
 <article class="numbered-service-card" data-component="numbered-service-card">
   <h2 class="numbered-service-card__title">
     <span class="numbered-service-card__number" aria-hidden="true">{{ _num }}</span>
-    <span class="visually-hidden">Service {{ service.number }}: </span>
+    <span class="visually-hidden">{{ service.numberLabel or 'Service' }} {{ service.number }}: </span>
     <span class="numbered-service-card__name">{{ service.title }}</span>
   </h2>
   {% if service.icon %}<img class="numbered-service-card__icon" src="{{ service.icon.src }}" alt="{{ service.icon.alt }}" />{% endif %}

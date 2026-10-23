@@ -54,6 +54,9 @@
   .page-section--narrow .page-section__inner {
     max-width: var(--measure-narrow);
   }
+  .page-section--wide .page-section__inner {
+    max-width: var(--measure-wide);
+  }
   .page-section--muted {
     background-color: var(--color-surface-muted);
   }
@@ -171,6 +174,25 @@
       margin-block-start: var(--space-xl);
       width: 100vw;
       margin-inline: calc(50% - 50vw);
+    }
+  }
+  /* pairs variant (team.md bioLayout: pairs): two bios per row at wide
+     desktop, so each row reads photo, bio, photo, bio. each bio keeps its own
+     top line; the grid draws the closing bottom line once so an even count
+     doesn't leave the second-to-last bio open. */
+  @media (min-width: 1024px) {
+    .team-grid--pairs {
+      grid-template-columns: 1fr 1fr;
+      border-block-end: 2px solid var(--color-divider);
+    }
+    .team-grid--pairs .bio-block:last-child {
+      border-block-end: 0;
+    }
+    .team-grid--pairs .bio-block:nth-child(even) {
+      border-inline-start: 2px solid var(--color-divider);
+    }
+    .team-grid--pairs .bio-block__body {
+      padding: var(--space-l);
     }
   }
 

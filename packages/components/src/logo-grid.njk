@@ -1,0 +1,21 @@
+{#
+  logo-grid — responsive wall of partner / manufacturer logos.
+  Expects: logoGrid = {
+    label?: string                  accessible name for the list, e.g. "Roller shade manufacturers"
+    logos: [{ src, alt }]           alt is the company name (logos carry meaning)
+  }
+  Local images go through the responsive `image` shortcode; remote URLs render a plain <img>.
+#}
+<ul class="logo-grid" data-component="logo-grid"{% if logoGrid.label %} aria-label="{{ logoGrid.label }}"{% endif %}>
+  {% for logo in logoGrid.logos %}
+    {% if logo.src %}
+      <li class="logo-grid__item">
+        {% if logo.src.startsWith('http') %}
+          <img class="logo-grid__image" src="{{ logo.src }}" alt="{{ logo.alt }}" loading="lazy" decoding="async" />
+        {% else %}
+          {% image logo.src, logo.alt or '', "200px", "lazy", "logo-grid__image" %}
+        {% endif %}
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

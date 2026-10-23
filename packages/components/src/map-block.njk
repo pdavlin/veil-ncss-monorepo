@@ -1,0 +1,29 @@
+{#
+  map-block — postal address + optional static map image + "open in maps" link.
+  No embedded third-party map: nothing loads from a map provider until the
+  visitor follows the link.
+  Expects: mapBlock = {
+    heading?: string
+    address: string                   multi-line; each line renders on its own line
+    href?: string                     default: a map search for the address
+    linkLabel?: string                default 'Open in maps'
+    image?: { src, alt? }             optional static map image, linked to href
+  }
+#}
+{% set _address = mapBlock.address | trim %}
+{% set _href = mapBlock.href or ('https://www.google.com/maps/search/?api=1&query=' + (_address | replace('\n', ', ') | urlencode)) %}
+<section class="map-block" data-component="map-block"{% if mapBlock.heading %} aria-labelledby="map-block-heading"{% else %} aria-label="Location"{% endif %}>
+  {% if mapBlock.heading %}<p id="map-block-heading" class="map-block__heading">{{ mapBlock.heading }}</p>{% endif %}
+  {% if mapBlock.image and mapBlock.image.src %}
+    {% set _alt = mapBlock.image.alt or ('Map of ' + (_address | replace('\n', ', '))) %}
+    <a class="map-block__media" href="{{ _href }}" rel="noopener" tabindex="-1" aria-hidden="true">
+      {% if mapBlock.image.src.startsWith('http') %}
+        <img src="{{ mapBlock.image.src }}" alt="{{ _alt }}" loading="lazy" decoding="async" />
+      {% else %}
+        {% image mapBlock.image.src, _alt, "(min-width: 768px) 50vw, 100vw", "lazy" %}
+      {% endif %}
+    </a>
+  {% endif %}
+  <address class="map-block__address">{{ _address | escape | nl2br }}</address>
+  <p class="map-block__link"><a href="{{ _href }}" rel="noopener">{{ mapBlock.linkLabel or 'Open in maps' }}</a></p>
+</section>

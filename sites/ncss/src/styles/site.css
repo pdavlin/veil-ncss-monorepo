@@ -42,6 +42,7 @@
     }
     .home-hero__link,
     .site-nav__link,
+    .site-nav__disclosure,
     .site-nav__wordmark {
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -103,6 +104,23 @@
          above — the parent's justify-items: start would otherwise pull it
          flush left. */
       justify-self: center;
+    }
+
+    /* Desktop: primary and secondary nav sit side by side as two columns
+       under the tagline, so eight step-4 links do not push the hero far
+       past the fold. Brand, tagline and scroll cue span both columns. */
+    @media (min-width: 641px) {
+      .home-hero {
+        /* 1fr keeps the spanning scroll cue centered on the viewport */
+        grid-template-columns: auto 1fr;
+        grid-template-rows: repeat(4, auto);
+        column-gap: var(--space-2xl);
+      }
+      .home-hero__brand,
+      .home-hero__tagline-group,
+      .home-hero__scroll-cue {
+        grid-column: 1 / -1;
+      }
     }
 
     /* Bigger, tighter nav stack — vertical column on left rail. */
@@ -169,6 +187,9 @@
   .page-section--narrow .page-section__inner {
     max-width: var(--measure-narrow);
   }
+  .page-section--wide .page-section__inner {
+    max-width: var(--measure-wide);
+  }
   .page-section--muted {
     background-color: var(--color-surface-muted);
   }
@@ -200,6 +221,48 @@
   }
   @media (min-width: 960px) {
     .project-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+
+  /* offices grid — city/market name + photo, deliberately minimal */
+  .offices-grid {
+    list-style: none;
+    margin: var(--space-xl) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-l);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .offices-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 960px) {
+    .offices-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  .office-card {
+    margin: 0;
+  }
+  /* the responsive-image pipeline wraps the image in <picture> */
+  .office-card picture {
+    display: block;
+  }
+  /* 8 / 5 matches the client's stylized map tiles (1179x735) so their
+     edge labels and census attribution are not cropped */
+  .office-card__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 8 / 5;
+    object-fit: cover;
+  }
+  .office-card__name {
+    display: block;
+    margin-block-start: var(--space-xs);
+  }
+  .office-card__address {
+    margin-block-start: var(--space-3xs);
+    font-style: normal;
+    font-size: var(--text-step--1);
+    color: var(--color-text-muted);
   }
 
   /* numbered-service-cards list */
@@ -286,6 +349,25 @@
       margin-block-start: var(--space-xl);
       width: 100vw;
       margin-inline: calc(50% - 50vw);
+    }
+  }
+  /* pairs variant (team.md bioLayout: pairs): two bios per row at wide
+     desktop, so each row reads photo, bio, photo, bio. each bio keeps its own
+     top line; the grid draws the closing bottom line once so an even count
+     doesn't leave the second-to-last bio open. */
+  @media (min-width: 1024px) {
+    .team-grid--pairs {
+      grid-template-columns: 1fr 1fr;
+      border-block-end: 2px solid var(--color-divider);
+    }
+    .team-grid--pairs .bio-block:last-child {
+      border-block-end: 0;
+    }
+    .team-grid--pairs .bio-block:nth-child(even) {
+      border-inline-start: 2px solid var(--color-divider);
+    }
+    .team-grid--pairs .bio-block__body {
+      padding: var(--space-l);
     }
   }
 

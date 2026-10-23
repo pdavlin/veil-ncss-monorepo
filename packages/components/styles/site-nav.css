@@ -131,6 +131,55 @@
     text-underline-offset: 0.25em;
   }
 
+  /* === dropdown groups (opt-in: a nav item with `children`) ===
+     The button carries aria-expanded; the submenu is hidden purely off that
+     state so markup and visuals cannot drift. Mobile: the submenu sits
+     indented inside the popout. Desktop: it drops below the button. */
+  .site-nav__disclosure {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    min-height: var(--target-size-min);
+    padding-inline: var(--space-2xs);
+    color: var(--color-text-default);
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: var(--text-body);
+  }
+  .site-nav__disclosure:hover,
+  .site-nav__item--group:has([aria-current="page"]) .site-nav__disclosure {
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.2em;
+  }
+  /* chevron drawn from two borders; points down closed, up open */
+  .site-nav__caret {
+    width: 0.4em;
+    height: 0.4em;
+    border-inline-end: 0.1em solid currentColor;
+    border-block-end: 0.1em solid currentColor;
+    transform: translateY(-0.15em) rotate(45deg);
+    transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
+  }
+  .site-nav__disclosure[aria-expanded="true"] .site-nav__caret {
+    transform: translateY(0.1em) rotate(-135deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav__caret { transition: none; }
+  }
+
+  .site-nav__sublist {
+    display: grid;
+    gap: var(--space-3xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-inline-start: var(--space-s);
+  }
+  .site-nav__disclosure[aria-expanded="false"] + .site-nav__sublist {
+    display: none;
+  }
+
   /* === desktop: 2-column grid (logo left, nav right), toggle hidden ===
      Compound selectors below explicitly override any data-nav-open state
      so the nav can never accidentally be hidden on desktop — both
@@ -160,6 +209,20 @@
       flex-wrap: wrap;
       justify-content: flex-end;
       gap: var(--space-m);
+    }
+    .site-nav__item--group {
+      position: relative;
+    }
+    .site-nav__sublist {
+      position: absolute;
+      inset-block-start: 100%;
+      inset-inline-start: 0;
+      z-index: 1;
+      min-width: max-content;
+      padding: var(--space-s);
+      background-color: var(--color-surface-default);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-s);
     }
   }
 }

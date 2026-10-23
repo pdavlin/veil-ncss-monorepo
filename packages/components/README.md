@@ -121,6 +121,15 @@ picture = {
 }
 ```
 
+### `logo-grid.njk`
+
+```
+logoGrid = {
+  label?: string,                 // aria-label for the list
+  logos: [{ src, alt }],          // alt = company name; local src uses the image pipeline
+}
+```
+
 ## Two-Brand Smoke Test
 
 `scripts/two-brand-smoke.ts` renders a representative page with the NCSS-stub brand layer swapped in. Any component that references a brand-specific token, asset, or string will surface there.

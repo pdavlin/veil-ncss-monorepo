@@ -1,0 +1,40 @@
+{% extends "layouts/base.njk" %}
+{#
+  Offices page — deliberately minimal per the 2026-08-17 client decision:
+  city/market name + photo per office. Address is optional (added with the
+  2026-09-16 copy for the offices that have one); offices without it render
+  name + photo only.
+
+  Frontmatter contract:
+    titleText?  string                     page title (default "offices")
+    intro?      string (html)              optional lead-in copy
+    offices     [{ name, image?: { src, alt? }, address?: string (multi-line) }]
+#}
+{% block content %}
+  <section class="page-section">
+    <div class="page-section__inner">
+      {% set pageTitle = { text: titleText or 'offices', as: 'h1' } %}
+      {% include "page-title.njk" %}
+      {% if intro %}<div class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">{{ intro | safe }}</div>{% endif %}
+
+      <ul class="offices-grid">
+        {% for office in offices %}
+          <li>
+            <figure class="office-card">
+              {% if office.image and office.image.src %}
+                {% set _alt = office.image.alt or office.name %}
+                {% if office.image.src.startsWith('http') %}
+                  <img class="office-card__image" src="{{ office.image.src }}" alt="{{ _alt }}" loading="lazy" decoding="async" />
+                {% else %}
+                  {% image office.image.src, _alt, "(min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw", "lazy", "office-card__image" %}
+                {% endif %}
+              {% endif %}
+              <figcaption class="office-card__name kicker">{{ office.name }}</figcaption>
+            </figure>
+            {% if office.address %}<address class="office-card__address">{{ office.address | trim | escape | nl2br }}</address>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+{% endblock %}

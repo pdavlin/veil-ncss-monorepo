@@ -15,22 +15,42 @@ export default {
     height: 567,
   },
   tagline: 'National Commercial Shading Solutions',
-  url: 'https://ncss.example.com',
-  // Reduced sitemap: portfolio + team only for now.
-  // Home hero: stack both items into homePrimary so the left-aligned column
-  // reads as one tight list. Secondary intentionally empty.
+  url: 'https://goncss.com',
+  // Sitemap per the 2026-09 copy rewrite. "about." is a dropdown (client
+  // note: "drop-down tab at the top, re. Contexture") grouping the
+  // who-we-are pages; its landing page is the first child because the
+  // disclosure button has no href of its own.
+  // Home hero has no dropdown support: it lists the same pages flat. Primary
+  // carries the top level, secondary the about group, so the stacked
+  // left-aligned column still reads in the header's order.
   nav: {
     full: [
       { label: 'portfolio.', href: '/portfolio/' },
       { label: 'capabilities.', href: '/capabilities/' },
-      { label: 'team.', href: '/team/' },
+      { label: 'manufacturers.', href: '/manufacturers/' },
+      { label: 'offices.', href: '/offices/' },
+      {
+        label: 'about.',
+        children: [
+          { label: 'about.', href: '/about/' },
+          { label: 'team.', href: '/team/' },
+          { label: 'research.', href: '/research/' },
+        ],
+      },
+      { label: 'contact.', href: '/contact/' },
     ],
     homePrimary: [
       { label: 'portfolio.', href: '/portfolio/' },
       { label: 'capabilities.', href: '/capabilities/' },
-      { label: 'team.', href: '/team/' },
+      { label: 'manufacturers.', href: '/manufacturers/' },
+      { label: 'offices.', href: '/offices/' },
     ],
-    homeSecondary: [],
+    homeSecondary: [
+      { label: 'about.', href: '/about/' },
+      { label: 'team.', href: '/team/' },
+      { label: 'research.', href: '/research/' },
+      { label: 'contact.', href: '/contact/' },
+    ],
   },
   social: [],
   // Founder email + phone intentionally omitted — direct addresses get

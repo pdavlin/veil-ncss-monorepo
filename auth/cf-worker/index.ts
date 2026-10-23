@@ -7,18 +7,47 @@
  *   3. GitHub redirects back to /callback?code=...&state=...
  *   4. We exchange the code for a token and post it back to the opener via window.opener.postMessage.
  *
+ * The worker serves one custom domain per brand (auth.veilengineering.com,
+ * auth.goncss.com). A GitHub OAuth app accepts exactly one callback URL, so
+ * each brand host pairs with its own OAuth app; credentials are selected by
+ * request hostname. Both /auth and /callback run on the same host for a given
+ * login, so the pair stays consistent through the flow.
+ *
  * Secrets (set with `wrangler secret put`):
- *   GITHUB_CLIENT_ID
- *   GITHUB_CLIENT_SECRET
+ *   GITHUB_CLIENT_ID_VEIL / GITHUB_CLIENT_SECRET_VEIL   (auth.veilengineering.com app)
+ *   GITHUB_CLIENT_ID_NCSS / GITHUB_CLIENT_SECRET_NCSS   (auth.goncss.com app)
+ *   GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET             (fallback, e.g. *.workers.dev testing)
  *   OAUTH_STATE_SECRET    (HMAC key for state cookie)
  */
 
 export interface Env {
   GITHUB_CLIENT_ID: string;
   GITHUB_CLIENT_SECRET: string;
+  GITHUB_CLIENT_ID_VEIL?: string;
+  GITHUB_CLIENT_SECRET_VEIL?: string;
+  GITHUB_CLIENT_ID_NCSS?: string;
+  GITHUB_CLIENT_SECRET_NCSS?: string;
   OAUTH_STATE_SECRET: string;
   ALLOWED_ORIGINS: string;
   GITHUB_SCOPES: string;
+}
+
+interface OAuthApp {
+  clientId: string;
+  clientSecret: string;
+}
+
+function oauthAppFor(env: Env, hostname: string): OAuthApp | null {
+  if (hostname.endsWith('veilengineering.com') && env.GITHUB_CLIENT_ID_VEIL && env.GITHUB_CLIENT_SECRET_VEIL) {
+    return { clientId: env.GITHUB_CLIENT_ID_VEIL, clientSecret: env.GITHUB_CLIENT_SECRET_VEIL };
+  }
+  if (hostname.endsWith('goncss.com') && env.GITHUB_CLIENT_ID_NCSS && env.GITHUB_CLIENT_SECRET_NCSS) {
+    return { clientId: env.GITHUB_CLIENT_ID_NCSS, clientSecret: env.GITHUB_CLIENT_SECRET_NCSS };
+  }
+  if (env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET) {
+    return { clientId: env.GITHUB_CLIENT_ID, clientSecret: env.GITHUB_CLIENT_SECRET };
+  }
+  return null;
 }
 
 const GITHUB_AUTHORIZE = 'https://github.com/login/oauth/authorize';
@@ -127,12 +156,15 @@ async function startOAuth(req: Request, env: Env): Promise<Response> {
     return renderError(`Origin not allowed: ${origin}`);
   }
 
+  const app = oauthAppFor(env, url.hostname);
+  if (!app) return renderError(`No OAuth app configured for host: ${url.hostname}`, 500);
+
   const state = await mintState(env, origin);
   const scope = url.searchParams.get('scope') || env.GITHUB_SCOPES;
   const redirectUri = `${url.origin}/callback`;
 
   const params = new URLSearchParams({
-    client_id: env.GITHUB_CLIENT_ID,
+    client_id: app.clientId,
     redirect_uri: redirectUri,
     scope,
     state,
@@ -161,12 +193,15 @@ async function finishOAuth(req: Request, env: Env): Promise<Response> {
   const verified = await verifyState(env, stateParam);
   if (!verified) return renderError('Invalid or expired state.');
 
+  const app = oauthAppFor(env, url.hostname);
+  if (!app) return renderError(`No OAuth app configured for host: ${url.hostname}`, 500);
+
   const tokenRes = await fetch(GITHUB_TOKEN, {
     method: 'POST',
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      client_id: env.GITHUB_CLIENT_ID,
-      client_secret: env.GITHUB_CLIENT_SECRET,
+      client_id: app.clientId,
+      client_secret: app.clientSecret,
       code,
     }),
   });
@@ -198,4 +233,4 @@ export default {
   },
 };
 
-export const __test__ = { mintState, verifyState, parseCookies };
+export const __test__ = { mintState, verifyState, parseCookies, oauthAppFor };

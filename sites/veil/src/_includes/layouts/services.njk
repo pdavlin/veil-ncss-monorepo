@@ -4,7 +4,11 @@
     <div class="page-section__inner">
       {% set pageTitle = { text: titleText or 'services', as: 'h1' } %}
       {% include "page-title.njk" %}
-      <div class="stack-grid stack-grid--services" style="margin-block-start: var(--space-l);">
+      {#- The sidebar rail renders only when intro or drawing is set; without
+         either, the service list takes the full width instead of an empty rail. #}
+      {%- set hasSidebar = intro or drawing %}
+      <div class="stack-grid{% if hasSidebar %} stack-grid--services{% endif %}" style="margin-block-start: var(--space-l);">
+        {%- if hasSidebar %}
         <div class="services-sidebar">
           {% if intro %}
             <div class="services-sidebar__intro prose__body">{{ intro | safe }}</div>
@@ -14,6 +18,7 @@
             {% include "technical-drawing.njk" %}
           {% endif %}
         </div>
+        {%- endif %}
         <ul class="service-list">
           {% for svc in services %}
             <li>

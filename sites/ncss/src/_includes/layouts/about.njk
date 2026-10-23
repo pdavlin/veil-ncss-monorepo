@@ -1,0 +1,13 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+  {% if hero %}
+    {% set hero = hero %}
+    {% include "hero-overlay.njk" %}
+  {% endif %}
+
+  <section class="page-section page-section--prose page-section--muted">
+    <div class="page-section__inner prose__body">
+      {{ content | safe }}
+    </div>
+  </section>
+{% endblock %}

@@ -36,6 +36,8 @@ export const aliasMap: Record<string, string> = {
   '--color-link': 'var(--color-ncss-link)',
   '--font-sans': bodyStack,
   '--font-display': displayStack,
+  // Portfolio grid runs wider than the default container so the tiles fill more of the page.
+  '--measure-wide': '84rem',
 };
 
 // Documented role pairings; build asserts AA. Phase 4 will revisit when real

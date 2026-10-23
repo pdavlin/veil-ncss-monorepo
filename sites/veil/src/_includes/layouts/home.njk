@@ -10,8 +10,11 @@
         {% set pageTitle = { text: recentProjects.heading or 'recent projects', as: 'h2' } %}
         {% include "page-title.njk" %}
         <ul class="project-grid">
-          {% for entry in collections.projects | take(recentProjects.count or 3) %}
-            {% if entry.data.cardImage %}
+          {# count only projects with a cardImage, so an image-less project never shrinks the row #}
+          {% set _shown = 0 %}
+          {% for entry in collections.projects %}
+            {% if entry.data.cardImage and _shown < (recentProjects.count or 3) %}
+              {% set _shown = _shown + 1 %}
               {% set project = {
                 title: entry.data.title,
                 href: entry.url,

@@ -1,0 +1,37 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+  <section class="page-section">
+    <div class="page-section__inner">
+      {% set pageTitle = { text: titleText or 'services', as: 'h1' } %}
+      {% include "page-title.njk" %}
+      {#- The sidebar rail renders only when intro or drawing is set; without
+         either, the service list takes the full width instead of an empty rail. #}
+      {%- set hasSidebar = intro or drawing %}
+      <div class="stack-grid{% if hasSidebar %} stack-grid--services{% endif %}" style="margin-block-start: var(--space-l);">
+        {%- if hasSidebar %}
+        <div class="services-sidebar">
+          {% if intro %}
+            <div class="services-sidebar__intro prose__body">{{ intro | safe }}</div>
+          {% endif %}
+          {% if drawing %}
+            {% set drawing = drawing %}
+            {% include "technical-drawing.njk" %}
+          {% endif %}
+        </div>
+        {%- endif %}
+        <ul class="service-list">
+          {% for svc in services %}
+            <li>
+              {% set service = svc %}
+              {% include "numbered-service-card.njk" %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {% if ctaBand %}
+    {% include "cta-band-link.njk" %}
+  {% endif %}
+{% endblock %}

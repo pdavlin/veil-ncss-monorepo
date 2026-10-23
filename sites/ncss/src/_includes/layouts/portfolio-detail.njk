@@ -8,6 +8,8 @@
     location?      string                       e.g. "Omaha, NE"
     cardImage      { src, alt }                 used by portfolio-grid + home recent-projects
     metadata?      [{ label, value }]           Architect / Engineer / etc.
+    featuredVideo? { src, poster?, alt }        featured-project video, plays at the
+                                                top of the page above the write-up
     media?         [{ type, src, poster?, alt }]   hero gallery for the detail page
     mediaCredit?   string
 
@@ -27,6 +29,20 @@
       {% include "page-title.njk" %}
 
       {% if location %}<p class="kicker" style="margin-block-start: var(--space-2xs);">{{ location }}</p>{% endif %}
+
+      {% if featuredVideo and featuredVideo.src %}
+        <div class="project-media project-media--single" data-component="project-media" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">
+          <video
+            class="project-media__video"
+            controls
+            preload="metadata"
+            {% if featuredVideo.poster %}poster="{{ featuredVideo.poster }}"{% endif %}
+            aria-label="{{ featuredVideo.alt or title }}"
+          >
+            <source src="{{ featuredVideo.src }}" type="video/mp4" />
+          </video>
+        </div>
+      {% endif %}
 
       {% if content %}
         <div class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">
