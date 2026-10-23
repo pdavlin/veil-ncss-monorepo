@@ -71,6 +71,6 @@ A unique dual-angled facade in the museum promenade utilizes a bespoke Guillaume
 
 The fully automated networked system enables the client to control the shades based on scheduled events, exhibits, and even tailor response specifically based on sun position. Many small-scale changes are continuously worked into the shading system as the design was tailored to react to the minute details of the daylighting study.
 
-NCSS has continued to service this project through a preventative maintenance plan with the owner and has been making consistent additions to the solar tracking system since opening, we are proud to partner with this owner for the life of the facility.
+NCSS has continued to service this project through a preventative maintenance plan with the owner and has been making consistent additions to the solar tracking system since opening. We are proud to partner with this owner for the life of the facility.
 
 Joslyn opened its doors to the public in 2024.
