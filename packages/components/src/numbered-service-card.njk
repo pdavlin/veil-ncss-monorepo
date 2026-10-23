@@ -3,7 +3,7 @@
   Expects: service = {
     number: number              1..8
     title: string               e.g. "consulting"
-    body: string                HTML allowed
+    body: string                markdown or HTML
     icon?: { src, alt }         optional small icon
     numberLabel?: string        screen-reader prefix before the number, default "Service"
   }
@@ -16,5 +16,5 @@
     <span class="numbered-service-card__name">{{ service.title }}</span>
   </h2>
   {% if service.icon %}<img class="numbered-service-card__icon" src="{{ service.icon.src }}" alt="{{ service.icon.alt }}" />{% endif %}
-  <div class="numbered-service-card__copy">{{ service.body | safe }}</div>
+  <div class="numbered-service-card__copy">{{ service.body | md | safe }}</div>
 </article>

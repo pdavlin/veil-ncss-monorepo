@@ -5,7 +5,7 @@
   Expects: hero = {
     eyebrow?: string
     heading: string             (often paired with title-mark identity)
-    body?: string               HTML allowed
+    body?: string               markdown or HTML
     image?: { src, alt }
     video?: { src, poster?, alt }
     overlayPosition?: 'left' | 'center'   default 'left'
@@ -29,6 +29,6 @@
     {% else %}
       <h1 class="hero-overlay__heading">{{ hero.heading }}</h1>
     {% endif %}
-    {% if hero.body %}<div class="hero-overlay__body">{{ hero.body | safe }}</div>{% endif %}
+    {% if hero.body %}<div class="hero-overlay__body">{{ hero.body | md | safe }}</div>{% endif %}
   </div>
 </section>

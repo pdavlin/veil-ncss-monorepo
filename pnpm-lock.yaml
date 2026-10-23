@@ -50,6 +50,10 @@ importers:
         version: 2.1.1
 
   packages/components:
+    dependencies:
+      markdown-it:
+        specifier: ^14.1.1
+        version: 14.2.0
     devDependencies:
       typescript:
         specifier: ^5.4.0

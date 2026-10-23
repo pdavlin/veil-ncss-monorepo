@@ -1,5 +1,9 @@
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import markdownIt from 'markdown-it';
+
+// `html: true` so the raw <p> HTML already in frontmatter passes through as-is.
+const markdown = markdownIt({ html: true });
 
 export function registerComponents(eleventyConfig) {
   const here = path.dirname(fileURLToPath(import.meta.url));
@@ -7,6 +11,11 @@ export function registerComponents(eleventyConfig) {
   const stylesDir = path.join(here, 'styles');
 
   eleventyConfig.addNunjucksGlobal('componentRoot', srcDir);
+
+  // `{{ field | md | safe }}` — renders a CMS markdown-widget field. Only plain
+  // strings render; anything else passes through unchanged, so a template that
+  // hands a component already-rendered HTML marks it `| safe` (a SafeString).
+  eleventyConfig.addFilter('md', (value) => (typeof value === 'string' ? markdown.render(value) : value));
 
   eleventyConfig.addPassthroughCopy({
     [stylesDir]: 'styles/components',

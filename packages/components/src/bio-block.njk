@@ -4,7 +4,7 @@
     name: string                    e.g. "Ben MacKenzie, PE"
     role?: string                   e.g. "Founder" (small, sits under name)
     credentials?: string            education / certifications block (small)
-    body?: string                   HTML allowed (main bio paragraph)
+    body?: string                   markdown or HTML (main bio paragraph)
     portrait?: { src, alt }         omitted -> body fills the row (bio-block--no-portrait)
     signature?: { src, alt }        optional handwritten-style signature image
     email?: string
@@ -25,7 +25,7 @@
   <div class="bio-block__body">
     <h2 class="bio-block__name">{{ bio.name }}</h2>
     {% if bio.role %}<p class="bio-block__role">{{ bio.role }}</p>{% endif %}
-    {% if bio.body %}<div class="bio-block__prose">{{ bio.body | safe }}</div>{% endif %}
+    {% if bio.body %}<div class="bio-block__prose">{{ bio.body | md | safe }}</div>{% endif %}
     {% if bio.signature and bio.signature.src %}<img class="bio-block__signature" src="{{ bio.signature.src }}" alt="" aria-hidden="true" />{% endif %}
     {% if bio.credentials %}<p class="bio-block__credentials">{{ bio.credentials }}</p>{% endif %}
     <ul class="bio-block__contact">

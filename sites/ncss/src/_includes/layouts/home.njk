@@ -42,7 +42,7 @@
               {% set pageTitle = { text: engineeredShading.heading, as: 'h2' } %}
               {% include "page-title.njk" %}
             {% endif %}
-            <div class="prose__body">{{ engineeredShading.body | safe }}</div>
+            <div class="prose__body">{{ engineeredShading.body | md | safe }}</div>
           </div>
           {% if engineeredShading.diagram %}
             <figure class="engineered-shading__diagram">
