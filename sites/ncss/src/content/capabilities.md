@@ -1,84 +1,46 @@
 ---
-layout: layouts/capabilities.njk
+layout: layouts/services.njk
 permalink: /capabilities/
 title: capabilities
-description: Research and articles from the NCSS team on commercial shading.
+description: Furnish and install, service and repair, maintenance, detailing, budgeting, and retrofit capabilities from NCSS.
 titleText: capabilities
-intro: |
-  <p>A curiosity for the science of the built environment is what originally led to the creation of NCSS. Research is a critical part of answering why and how people experience our spaces. Let's rewrite the definition of shading design.</p>
-articles:
-  - category: research
-    title: convention center design - peek behind the shade
-    author: Ben MacKenzie, PE
-    image:
-      src: /assets/img/innovation/convention-center.png
-      alt: Convention Center Design article
-    summary: |
-      <p><span class="kicker">2022 · large venue and convention center market sector · nashville, tn</span></p>
-      <p>As NCSS continues to expand shading consulting services into the venue market we have an opportunity to deliver this article on industry-wide challenges with roller shades on venue designs, and how the NCSS team extracts performance from these under-represented products.</p>
-      <p>This article will take a dive into industry-wide challenges with roller shades on venue designs, and how the NCSS team extracts performance from these under-represented products.</p>
-    takeaways:
-      - "Part I - Overview of an Engineered Shading System"
-      - "Part II - Sustainability and Energy Use"
-      - "Part III - Flexibility of Space"
-      - "Part IV - Improving the Outdoor Space"
-      - "Part V - Acoustic Benefits"
-    side: left
-  - category: article
-    title: healthcare design - the role of the roller shade
-    author: Ben MacKenzie, PE
-    image:
-      src: /assets/img/innovation/healthcare.jpg
-      alt: Healthcare Design article
-    summary: |
-      <p><span class="kicker">2022 · multiple healthcare systems · nashville, tn</span></p>
-      <p>How intelligent roller shade systems support patient comfort in the modern healthcare environment — and why they are consistently under-designed.</p>
-    takeaways:
-      - "Part I - Overview of an engineered shading system"
-      - "Part II - Acoustical considerations of roller shades"
-      - "Part III - Visual considerations of roller shades"
-      - "Part IV - Interior applications of roller shades"
-    side: right
-  - category: research
-    title: interior shading design at inpatient rehabilitation facilities
-    author: Adam MacKenzie, PE
-    image:
-      src: /assets/img/innovation/inpatient-rehab.jpg
-      alt: Interior shading design at inpatient rehabilitation
-    summary: |
-      <p><span class="kicker">2021 · multiple healthcare systems · omaha, ne</span></p>
-      <p>Due to the sensitivity of patients in a rehabilitation setting, the shading system is a critical - yet often overlooked - component of an inpatient rehabilitation facility. NCSS set out to understand how thoughtful roller shade design and control could help improve the patient experience in these facilities and understand how doctors/therapists interacted with shades on a daily basis.</p>
-      <p>Adam MacKenzie toured several rehabilitation and therapy facilities in Omaha to speak with the users about their experiences with the existing shading systems in their facilities. First hand user input is critical in understanding how to properly design these systems to curate the patient experience.</p>
-      <p>This report reviews our findings on a space-by-space basis and discusses system type, motorization, controls, and fabric selection.</p>
-    takeaways:
-      - "Space-by-space findings on motorization, controls, fabric selection"
-      - "PDF summary available; full report on request"
-    side: left
-  - category: case study
-    title: influence of engineered shading system control sequences on building mechanical systems
-    author: Ben MacKenzie, PE
-    image:
-      src: /assets/img/innovation/mechanical-systems.jpg
-      alt: Baxter Auto Group HQ case study
-    summary: |
-      <p><span class="kicker">2021 · baxter auto group - headquarters · omaha, ne</span></p>
-      <p>A real-world study of how NCSS's proprietary control sequences impact the performance of other building systems. Several shading control sequences will be tested against a manual-controlled baseline to understand true energy savings.</p>
-    takeaways:
-      - "Case study in progress - full results forthcoming."
-    side: right
-  - category: research
-    title: feasibility study of complex shading analysis
-    author: Adam MacKenzie, PE · Ben MacKenzie, PE · Nathan Vader, PE, LEED AP BD+C, WELL AP
-    image:
-      src: /assets/img/innovation/feasibility-study.jpg
-      alt: Sefaira feasibility study
-    summary: |
-      <p><span class="kicker">2019 · henderson engineers · lenexa, ks</span></p>
-      <p>This research project was delivered as a part of the Henderson Research Initiative. Reach out to discuss!</p>
-      <p>Abstract Excerpt:</p>
-      <p>Delivered as part of the Henderson Research Initiative. This project explored using Sefaira to more efficiently and accurately analyze the effect of shading systems on building mechanical sizing while simultaneously assessing daylight performance metrics through one cohesive, repeatable process.</p>
-    takeaways:
-      - "Sefaira vs. TRACE 700 for complex architectural geometries"
-      - "Integrated mechanical sizing + daylight performance analysis"
-    side: left
+services:
+  - number: 1
+    title: furnish & install
+    body: |
+      <p>NCSS prides itself in its commitment to self-perform every install – no subcontracted labor or out-of-town crews showing up on your job. We believe strongly that this is a differentiator between a dealer who just drops off product and a true partner who owns the shades over the life of the product. We furnish and install the full Division 12 scope on tenant fit-outs, ground-up construction, and phased renovations, with our licensed engineers coordinating pockets, backing, and power requirements long before product ships. Our own crews will close out the project, walk your team through operation, and hand over complete warranty and O&M documentation.</p>
+  - number: 2
+    title: service calls & repairs
+    body: |
+      <p>As durable as shading systems are, they are still a physical product moving many times throughout the day – things can break. NCSS services manual, motorized, and automated window treatments regardless of who installed them, from single-unit fabric, clutch, or motor replacements to building-wide control system troubleshooting. Use the Contact Us link below to speak with a member of our team – we will diagnose, source the right parts, and get a technician on site quickly (or even same-day when it's an emergency) to get your shades back in working shape.</p>
+      <p><a href="/contact/">Contact Us</a></p>
+  - number: 3
+    title: maintenance plans
+    body: |
+      <p>Motorized shading systems are truly interconnected networked building systems, and like any building system they need preventative care and maintenance over time. Batteries die, schedules fall behind the seasons, and sensors get damaged. NCSS maintenance plans start with a thorough walkthrough to document every product, location, and control zone in your facility, then set a visit cadence that fits how your building is actually used. Every plan is scoped to the building, and our local technicians who know your system are the ones who will continually care for your system.</p>
+  - number: 4
+    title: detailing
+    body: |
+      <p>Roller shade detailing may be the single most important aspect of a roller shade coordination effort. From simple manual shade pocket detailing through custom integrated systems, our team delivers project-specific detailing within each of our shop drawing packages, specifically addressing cross-trade coordination. We are happy to offer pre-bid or pre-construction design-assist services to building owners, architects, and contracting partners.</p>
+  - number: 5
+    title: system budgeting
+    body: |
+      <p>Understanding the needs of a design team and owner is a critical - and all too often ignored - step into properly estimating the cost of a shade system. As an experienced dealer and subcontractor, we are able to leverage our deep knowledge of shading systems to help design teams and contractors establish budget pricing throughout any design phase of a project.</p>
+      <p>With professional engineers on staff, our team's background in building system design allows NCSS to also evaluate costs for Division 26 (electrical) and Division 23 (mechanical) impacts from the shading and integration system selections.</p>
+  - number: 6
+    title: retro-commissioning
+    body: |
+      <p>If you are an owner or facility manager with existing motorized roller shades, chances are you have a system with significant room for improvement with the addition of intelligence and automation. NCSS offers existing system evaluation to provide recommendations and solutions to update your control system and shade programming to improve glare control and energy use. NCSS can analyze your system and execute a workplan to fine-tune your system.</p>
+  - number: 7
+    title: retro-motorization
+    body: |
+      <p>Limited budget on renovation work? No problem. Retrofitting existing manual roller shades is an easy way to bring a new level of performance and glare control to existing facilities at a fraction of the cost of a new automated system. Retrofitting motors brings basic motorized functionality into existing shades all the way up to sun-tracking automated performance.</p>
+      <p>Our team at NCSS can review existing building layouts to determine what power and communication requirements will be needed and then furnish and install the required parts to seamlessly upgrade your existing system.</p>
+ctaBand:
+  heading: capabilities statement
+  body: |
+    <p class="cta-band-link__subheading-sub">download the NCSS capabilities statement (PDF)</p>
+  cta:
+    label: Download PDF
+    href: /assets/docs/ncss-capabilities-statement.pdf
 ---
