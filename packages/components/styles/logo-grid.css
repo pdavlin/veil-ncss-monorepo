@@ -1,0 +1,44 @@
+@layer components {
+  /* auto-fill wall: column count follows the container width, so the same
+     grid works full-bleed or inside a card column. */
+  .logo-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fill, minmax(var(--space-4xl), 1fr));
+  }
+
+  /* fixed-height tiles keep mixed logo proportions (wide wordmarks vs.
+     stacked marks) on one baseline; the image scales down to fit. */
+  .logo-grid__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--space-3xl);
+    padding: var(--space-s);
+    background-color: var(--color-surface-default);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-s);
+  }
+
+  /* the responsive-image pipeline wraps the logo in <picture>; let the
+     wrapper fill the tile so the inner <img> can contain-fit against it. */
+  .logo-grid__item picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .logo-grid__image {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
