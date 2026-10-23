@@ -8,8 +8,10 @@
     location?      string                       e.g. "Omaha, NE"
     cardImage      { src, alt }                 used by portfolio-grid + home recent-projects
     metadata?      [{ label, value }]           Architect / Engineer / etc.
-    featuredVideo? { src, poster?, alt }        featured-project video, plays at the
-                                                top of the page above the write-up
+    featuredVideo? { src, poster?, alt, style? } featured-project video. style 'hero'
+                                                (default): full-bleed autoplay hero with the
+                                                title + location over it. style 'inline': a
+                                                prose-width player under the title
     media?         [{ type, src, poster?, alt }]   hero gallery for the detail page
     mediaCredit?   string                       under the gallery; after the metadata
                                                 when there is no gallery
@@ -20,18 +22,27 @@
   The markdown body becomes the project description (rendered as `content`).
 #}
 {% block content %}
+  {%- set _videoHero = featuredVideo and featuredVideo.src and featuredVideo.style != 'inline' %}
+  {%- if _videoHero %}
+    {% set hero = { heading: title, titleMark: true, eyebrow: location, video: featuredVideo, overlayPosition: 'left' } %}
+    {% include "hero-overlay.njk" %}
+  {% endif %}
+
   <section class="page-section">
     <div class="page-section__inner">
       {% set backLink = { label: 'Back', href: '/portfolio/' } %}
       {% include "back-link.njk" %}
 
-      <p class="kicker" style="margin-block-start: var(--space-m);">portfolio.</p>
-      {% set pageTitle = { text: title, as: 'h1' } %}
-      {% include "page-title.njk" %}
+      {#- the video hero already carries the title and location #}
+      {%- if not _videoHero %}
+        <p class="kicker" style="margin-block-start: var(--space-m);">portfolio.</p>
+        {% set pageTitle = { text: title, as: 'h1' } %}
+        {% include "page-title.njk" %}
 
-      {% if location %}<p class="kicker" style="margin-block-start: var(--space-2xs);">{{ location }}</p>{% endif %}
+        {% if location %}<p class="kicker" style="margin-block-start: var(--space-2xs);">{{ location }}</p>{% endif %}
+      {% endif %}
 
-      {% if featuredVideo and featuredVideo.src %}
+      {% if featuredVideo and featuredVideo.src and not _videoHero %}
         <div class="project-media project-media--single" data-component="project-media" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">
           <video
             class="project-media__video"

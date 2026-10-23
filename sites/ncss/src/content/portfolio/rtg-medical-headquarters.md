@@ -20,6 +20,7 @@ metadata:
 featuredVideo:
   src: "/assets/video/rtg-golf-sim.mp4"
   alt: "Golf sim blackout bar in motion"
+  style: inline
 ---
 
 This new $18M headquarters for Fremont-based RTG Medical gives workers over 54,000 SF of stellar new corporate office space. The building's floor-to-ceiling curtain wall is fully equipped with a state-of-the-art motorized shading system - perfectly suited to allow occupants stunning views of the adjacent lake. Motorized shades were also used in an interior golf simulator to provide privacy and golf ball control.
