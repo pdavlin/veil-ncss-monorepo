@@ -11,7 +11,8 @@
     featuredVideo? { src, poster?, alt }        featured-project video, plays at the
                                                 top of the page above the write-up
     media?         [{ type, src, poster?, alt }]   hero gallery for the detail page
-    mediaCredit?   string
+    mediaCredit?   string                       under the gallery; after the metadata
+                                                when there is no gallery
 
   Prev/next links are derived at render time from `collections.projects`
   (sorted by date desc — see .eleventy.js).
@@ -55,6 +56,11 @@
           {% set metadata = metadata %}
           {% include "project-metadata.njk" %}
         </div>
+      {% endif %}
+
+      {#- with no gallery the credit has nowhere else to go, so it follows the metadata #}
+      {%- if mediaCredit and not (media and media.length) %}
+        <p class="kicker" style="margin-block-start: var(--space-m);">{{ mediaCredit }}</p>
       {% endif %}
     </div>
   </section>
