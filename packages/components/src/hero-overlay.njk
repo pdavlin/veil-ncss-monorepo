@@ -1,6 +1,6 @@
 {#
   hero-overlay — full-bleed image/video with overlaid title + intro.
-  Used on about, team.
+  Used on about, sustainability, and featured-project detail pages.
 
   Expects: hero = {
     eyebrow?: string
@@ -10,6 +10,11 @@
     video?: { src, poster?, alt }
     overlayPosition?: 'left' | 'center'   default 'left'
   }
+
+  A video hero gets a pause/play toggle (WCAG 2.2.2: a muted loop runs past
+  5 seconds). The toggle stays hidden until its script runs. Under reduced
+  motion the script stops autoplay, so the poster shows until the visitor
+  presses play.
 #}
 <section class="hero-overlay" data-component="hero-overlay" data-position="{{ hero.overlayPosition or 'left' }}">
   <div class="hero-overlay__media" aria-hidden="true">
@@ -31,4 +36,41 @@
     {% endif %}
     {% if hero.body %}<div class="hero-overlay__body">{{ hero.body | md | safe }}</div>{% endif %}
   </div>
+  {% if hero.video %}
+    <button class="hero-overlay__toggle" type="button" data-state="paused" hidden>
+      <svg class="hero-overlay__toggle-icon hero-overlay__toggle-icon--pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 4h4v16H6zM14 4h4v16h-4z" fill="currentColor"/></svg>
+      <svg class="hero-overlay__toggle-icon hero-overlay__toggle-icon--play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4l13 8-13 8z" fill="currentColor"/></svg>
+      <span class="hero-overlay__toggle-label visually-hidden">Play background video</span>
+    </button>
+    <script>
+      (function () {
+        var host = document.currentScript && document.currentScript.closest('.hero-overlay');
+        if (!host) return;
+        var video = host.querySelector('.hero-overlay__video');
+        var toggle = host.querySelector('.hero-overlay__toggle');
+        var label = toggle.querySelector('.hero-overlay__toggle-label');
+        // reduced motion: stop autoplay before playback starts, so the poster shows
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          video.autoplay = false;
+          video.preload = 'none';
+          video.pause();
+        }
+        // the label names the action a press takes, and follows the real play state
+        function sync() {
+          toggle.setAttribute('data-state', video.paused ? 'paused' : 'playing');
+          label.textContent = video.paused ? 'Play background video' : 'Pause background video';
+        }
+        video.addEventListener('play', sync);
+        video.addEventListener('pause', sync);
+        toggle.addEventListener('click', function () {
+          if (!video.paused) return video.pause();
+          var playing = video.play();
+          if (playing) playing.catch(sync);
+        });
+        sync();
+        host.setAttribute('data-video-controls', '');
+        toggle.hidden = false;
+      })();
+    </script>
+  {% endif %}
 </section>
