@@ -1,7 +1,7 @@
 ---
 layout: layouts/portfolio-detail.njk
 title: "Omaha Central Library"
-date: 2026-05-01
+date: 2026-05-18
 location: "Omaha, NE"
 cardImage:
   src: "/assets/img/portfolio/omaha-central-library-card.jpg"

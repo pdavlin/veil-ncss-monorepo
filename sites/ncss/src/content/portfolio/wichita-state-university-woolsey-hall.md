@@ -1,7 +1,7 @@
 ---
 layout: layouts/portfolio-detail.njk
 title: "Wichita State University — Woolsey Hall"
-date: 2026-04-15
+date: 2026-03-30
 location: "Wichita, KS"
 cardImage:
   src: "/assets/img/portfolio/wichita-state-university-woolsey-hall-card.jpg"

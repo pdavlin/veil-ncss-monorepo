@@ -1,7 +1,7 @@
 ---
 layout: layouts/portfolio-detail.njk
 title: "Merriam Plaza Library"
-date: 2026-04-20
+date: 2026-03-23
 location: "Merriam, KS"
 cardImage:
   src: "/assets/img/portfolio/merriam-plaza-library-card.jpg"

@@ -1,7 +1,7 @@
 ---
 layout: layouts/portfolio-detail.njk
 title: "University of Nebraska — Scott Engineering Center"
-date: 2026-03-27
+date: 2026-03-02
 location: "Lincoln, NE"
 cardImage:
   src: "/assets/img/portfolio/university-of-nebraska-scott-engineering-center-card.jpg"

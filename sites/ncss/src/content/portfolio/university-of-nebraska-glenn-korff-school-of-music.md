@@ -1,8 +1,11 @@
 ---
 layout: layouts/portfolio-detail.njk
-title: "UNL Glenn Korff School of Music"
-date: 2026-03-04
+title: "University of Nebraska — Glenn Korff School of Music"
+date: 2026-04-06
 location: "Lincoln, NE"
+cardImage:
+  src: "/assets/img/portfolio/university-of-nebraska-glenn-korff-school-of-music-card.jpg"
+  alt: "University of Nebraska — Glenn Korff School of Music"
 metadata:
   - label: "Scope of Work"
     value: "12 24 13 - Roller Window Shades"
@@ -16,7 +19,13 @@ metadata:
     value: "Sinclair Hille"
   - label: "Engineer"
     value: "Morrissey"
-media: []
+media:
+  - type: image
+    src: "/assets/img/portfolio/university-of-nebraska-glenn-korff-school-of-music-card.jpg"
+    alt: "University of Nebraska — Glenn Korff School of Music"
+  - type: image
+    src: "/assets/img/portfolio/university-of-nebraska-glenn-korff-school-of-music-2.jpg"
+    alt: "University of Nebraska — Glenn Korff School of Music"
 mediaCredit: "Lyle Kwiatkowski & Nick Goodwin"
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: layouts/portfolio-detail.njk
 title: "University of Nebraska — Osborne Legacy Complex"
-date: 2026-05-11
+date: 2026-05-25
 location: "Lincoln, NE"
 cardImage:
   src: "/assets/img/portfolio/university-of-nebraska-osborne-legacy-complex-card.jpg"

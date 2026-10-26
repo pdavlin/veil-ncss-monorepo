@@ -1,7 +1,7 @@
 ---
 layout: layouts/portfolio-detail.njk
 title: "Aerie at Blue Sage"
-date: 2026-03-02
+date: 2026-03-16
 location: "Elkhorn, NE"
 cardImage:
   src: "/assets/img/portfolio/aerie-at-blue-sage-card.jpg"
