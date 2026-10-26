@@ -1,8 +1,11 @@
 ---
 layout: layouts/portfolio-detail.njk
 title: "The Arthur"
-date: 2026-03-05
+date: 2026-04-20
 location: "Omaha, NE"
+cardImage:
+  src: "/assets/img/portfolio/the-arthur-card.jpg"
+  alt: "The Arthur"
 metadata:
   - label: "Scope of Work"
     value: "12 24 13 - Roller Window Shades"
@@ -16,7 +19,34 @@ metadata:
     value: "Holland Basham Architects"
   - label: "Engineer"
     value: "Morrissey"
-media: []
+media:
+  - type: image
+    src: "/assets/img/portfolio/the-arthur-card.jpg"
+    alt: "The Arthur"
+  - type: image
+    src: "/assets/img/portfolio/the-arthur-2.jpg"
+    alt: "The Arthur"
+  - type: image
+    src: "/assets/img/portfolio/the-arthur-3.jpg"
+    alt: "The Arthur"
+  - type: image
+    src: "/assets/img/portfolio/the-arthur-4.jpg"
+    alt: "The Arthur"
+  - type: image
+    src: "/assets/img/portfolio/the-arthur-5.jpg"
+    alt: "The Arthur"
+  - type: image
+    src: "/assets/img/portfolio/the-arthur-6.jpg"
+    alt: "The Arthur"
+  - type: image
+    src: "/assets/img/portfolio/the-arthur-7.jpg"
+    alt: "The Arthur"
+  - type: image
+    src: "/assets/img/portfolio/the-arthur-8.jpg"
+    alt: "The Arthur"
+  - type: image
+    src: "/assets/img/portfolio/the-arthur-9.jpg"
+    alt: "The Arthur"
 mediaCredit: "Lyle Kwiatkowski & Nick Goodwin"
 ---
 

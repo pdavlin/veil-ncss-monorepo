@@ -1,7 +1,7 @@
 ---
 layout: layouts/portfolio-detail.njk
 title: "University of Nebraska — Strauss Performing Arts Center"
-date: 2026-04-03
+date: 2026-03-09
 location: "Omaha, NE"
 cardImage:
   src: "/assets/img/portfolio/university-of-nebraska-strauss-performing-arts-center-card.png"

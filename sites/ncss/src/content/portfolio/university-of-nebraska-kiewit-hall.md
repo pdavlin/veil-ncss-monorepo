@@ -1,7 +1,7 @@
 ---
 layout: layouts/portfolio-detail.njk
 title: "University of Nebraska — Kiewit Hall"
-date: 2026-05-04
+date: 2026-04-13
 location: "Lincoln, NE"
 cardImage:
   src: "/assets/img/portfolio/university-of-nebraska-kiewit-hall-card.jpg"

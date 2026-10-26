@@ -1,7 +1,7 @@
 ---
 layout: layouts/portfolio-detail.njk
-title: "Baxter Auto Group - Headquarters"
-date: 2026-03-06
+title: "Baxter Auto Group — Headquarters"
+date: 2026-02-16
 location: "Omaha, NE"
 cardImage:
   src: "/assets/img/portfolio/baxter-auto-group-headquarters-card.jpg"

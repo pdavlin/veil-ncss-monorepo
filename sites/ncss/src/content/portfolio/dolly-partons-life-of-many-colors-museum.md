@@ -1,7 +1,7 @@
 ---
 layout: layouts/portfolio-detail.njk
 title: "Dolly Parton's Life of Many Colors Museum"
-date: 2026-03-01
+date: 2026-04-27
 location: "Nashville, TN"
 cardImage:
   src: "/assets/img/portfolio/dolly-partons-life-of-many-colors-museum-card.jpg"

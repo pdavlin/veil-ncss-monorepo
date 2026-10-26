@@ -32,7 +32,7 @@ export default {
       {
         label: 'about.',
         children: [
-          { label: 'about.', href: '/about/' },
+          { label: 'our story.', href: '/about/' },
           { label: 'team.', href: '/team/' },
           { label: 'research.', href: '/research/' },
         ],

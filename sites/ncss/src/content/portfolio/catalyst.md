@@ -1,7 +1,7 @@
 ---
 layout: layouts/portfolio-detail.njk
 title: "Catalyst"
-date: 2026-04-27
+date: 2026-05-11
 location: "Omaha, NE"
 cardImage:
   src: "/assets/img/portfolio/catalyst-card.jpg"
