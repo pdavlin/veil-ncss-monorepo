@@ -245,8 +245,8 @@
   .office-card picture {
     display: block;
   }
-  /* 8 / 5 matches the client's stylized map tiles (1179x735) so their
-     edge labels and census attribution are not cropped */
+  /* 8 / 5 matches the client's stylized map tiles (1600x1000) so their
+     edge labels and coordinates are not cropped */
   .office-card__image {
     display: block;
     width: 100%;
@@ -263,6 +263,11 @@
     font-style: normal;
     font-size: var(--text-step--1);
     color: var(--color-text-muted);
+  }
+  /* the offices page sits on the muted surface; drop the footer's top
+     margin so no white band shows between the section and the footer */
+  main:has(.offices-grid) + .site-footer {
+    margin-block-start: 0;
   }
 
   /* numbered-service-cards list */
