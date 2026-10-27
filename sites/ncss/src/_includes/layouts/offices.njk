@@ -11,7 +11,7 @@
     offices     [{ name, image?: { src, alt? }, address?: string (multi-line) }]
 #}
 {% block content %}
-  <section class="page-section">
+  <section class="page-section page-section--muted">
     <div class="page-section__inner">
       {% set pageTitle = { text: titleText or 'offices', as: 'h1' } %}
       {% include "page-title.njk" %}

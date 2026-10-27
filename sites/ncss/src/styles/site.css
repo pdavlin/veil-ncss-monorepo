@@ -245,8 +245,8 @@
   .office-card picture {
     display: block;
   }
-  /* 8 / 5 matches the client's stylized map tiles (1179x735) so their
-     edge labels and census attribution are not cropped */
+  /* 8 / 5 matches the client's stylized map tiles (1600x1000) so their
+     edge labels and coordinates are not cropped */
   .office-card__image {
     display: block;
     width: 100%;
