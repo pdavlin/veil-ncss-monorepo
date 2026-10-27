@@ -264,6 +264,11 @@
     font-size: var(--text-step--1);
     color: var(--color-text-muted);
   }
+  /* the offices page sits on the muted surface; drop the footer's top
+     margin so no white band shows between the section and the footer */
+  main:has(.offices-grid) + .site-footer {
+    margin-block-start: 0;
+  }
 
   /* numbered-service-cards list */
   .service-list {
