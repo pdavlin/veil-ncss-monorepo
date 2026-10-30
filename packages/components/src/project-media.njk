@@ -4,6 +4,9 @@
   - 1 item: render the single image or video directly.
   - 2+ items: render as a horizontally-scrollable carousel with prev/next.
     Uses native scroll-snap; prev/next are anchor jumps so the page works without JS.
+  - Each image gets an expand button that opens a full-screen viewer (<dialog>) with
+    prev/next, arrow keys, and swipe. The buttons stay hidden until the script runs,
+    so without JS the gallery is unchanged.
 
   Expects: media = [
     { type: 'image', src, alt },
@@ -23,17 +26,25 @@
         >
           <source src="{{ item.src }}" type="video/mp4" />
         </video>
-      {% elif item.src.startsWith('http') %}
-        <img class="project-media__image" src="{{ item.src }}" alt="{{ item.alt }}" loading="lazy" decoding="async" />
       {% else %}
-        {% image item.src, item.alt, "(min-width: 1024px) 60rem, 100vw", "lazy", "project-media__image" %}
+        <div class="project-media__frame" data-media-image>
+          {% if item.src.startsWith('http') %}
+            <img class="project-media__image" src="{{ item.src }}" alt="{{ item.alt }}" loading="lazy" decoding="async" />
+          {% else %}
+            {% image item.src, item.alt, "(min-width: 1024px) 60rem, 100vw", "lazy", "project-media__image" %}
+          {% endif %}
+          <button class="project-media__expand" type="button" hidden>
+            <span class="visually-hidden">View image{% if media.length > 1 %} {{ loop.index }} of {{ media.length }}{% endif %} full screen</span>
+            <svg class="project-media__expand-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+        </div>
       {% endif %}
     </div>
   {% else %}
     <section class="project-media project-media--carousel" data-component="project-media" aria-roledescription="carousel" aria-label="Project images">
       <div class="project-media__viewport" role="group" aria-label="Slides" tabindex="0">
         {% for item in media %}
-          <figure class="project-media__slide" id="project-media-slide-{{ loop.index }}" aria-roledescription="slide" aria-label="{{ loop.index }} of {{ media.length }}">
+          <figure class="project-media__slide"{% if item.type != 'video' %} data-media-image{% endif %} id="project-media-slide-{{ loop.index }}" aria-roledescription="slide" aria-label="{{ loop.index }} of {{ media.length }}">
             {% if item.type == 'video' %}
               <video
                 controls
@@ -47,6 +58,12 @@
             {% else %}
               {% image item.src, item.alt, "(min-width: 768px) 30rem, 100vw", "lazy" %}
             {% endif %}
+            {% if item.type != 'video' %}
+            <button class="project-media__expand" type="button" hidden>
+            <span class="visually-hidden">View image{% if media.length > 1 %} {{ loop.index }} of {{ media.length }}{% endif %} full screen</span>
+            <svg class="project-media__expand-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+            {% endif %}
           </figure>
         {% endfor %}
       </div>
@@ -57,4 +74,98 @@
       </nav>
     </section>
   {% endif %}
+  <dialog class="project-media__viewer" aria-label="Project images">
+    <div class="project-media__stage" data-stage></div>
+    <p class="project-media__count" data-count aria-live="polite"></p>
+    <button class="project-media__nav project-media__nav--close" type="button" data-close>
+      <span class="visually-hidden">Close</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    </button>
+    <button class="project-media__nav project-media__nav--prev" type="button" data-step="-1">
+      <span class="visually-hidden">Previous image</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    </button>
+    <button class="project-media__nav project-media__nav--next" type="button" data-step="1">
+      <span class="visually-hidden">Next image</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    </button>
+  </dialog>
+  <script>
+    (function () {
+      var viewer = document.currentScript && document.currentScript.previousElementSibling;
+      var host = viewer && viewer.previousElementSibling;
+      if (!viewer || !host || typeof viewer.showModal !== 'function') return;
+      var frames = Array.prototype.slice.call(host.querySelectorAll('[data-media-image]'));
+      if (!frames.length) return;
+      var stage = viewer.querySelector('[data-stage]');
+      var count = viewer.querySelector('[data-count]');
+      var steps = viewer.querySelectorAll('[data-step]');
+      var current = 0;
+      var opener = null;
+
+      // one image: no prev/next or counter
+      if (frames.length < 2) {
+        Array.prototype.forEach.call(steps, function (b) { b.hidden = true; });
+        count.hidden = true;
+      }
+
+      // show frame i: clone its <picture>/<img> and let the browser pick the
+      // largest source for a full-viewport slot
+      function show(i) {
+        current = (i + frames.length) % frames.length;
+        var media = frames[current].querySelector('picture, img');
+        var clone = media.cloneNode(true);
+        Array.prototype.forEach.call(clone.querySelectorAll('[sizes]'), function (el) { el.setAttribute('sizes', '100vw'); });
+        if (clone.hasAttribute('sizes')) clone.setAttribute('sizes', '100vw');
+        var img = clone.tagName === 'IMG' ? clone : clone.querySelector('img');
+        img.removeAttribute('class');
+        img.loading = 'eager';
+        stage.replaceChildren(clone);
+        count.textContent = (current + 1) + ' / ' + frames.length;
+      }
+
+      frames.forEach(function (frame, i) {
+        var button = frame.querySelector('.project-media__expand');
+        button.hidden = false;
+        button.addEventListener('click', function () {
+          opener = button;
+          show(i);
+          viewer.showModal();
+        });
+      });
+
+      Array.prototype.forEach.call(steps, function (b) {
+        b.addEventListener('click', function () { show(current + Number(b.getAttribute('data-step'))); });
+      });
+      viewer.querySelector('[data-close]').addEventListener('click', function () { viewer.close(); });
+      // a click on the dark area around the image closes the viewer
+      viewer.addEventListener('click', function (e) {
+        if (e.target === viewer || e.target === stage) viewer.close();
+      });
+      viewer.addEventListener('keydown', function (e) {
+        if (frames.length < 2) return;
+        if (e.key === 'ArrowLeft') { e.preventDefault(); show(current - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+      });
+
+      // horizontal swipe on touch screens
+      var startX = null;
+      stage.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') startX = e.clientX; });
+      stage.addEventListener('pointerup', function (e) {
+        if (startX === null || frames.length < 2) return;
+        var dx = e.clientX - startX;
+        startX = null;
+        if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+      });
+
+      // on close, return focus and leave the carousel on the last image viewed
+      viewer.addEventListener('close', function () {
+        stage.replaceChildren();
+        var frame = frames[current];
+        if (frame.closest('.project-media__viewport')) frame.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'auto' });
+        var target = frame.querySelector('.project-media__expand') || opener;
+        if (target) target.focus({ preventScroll: true });
+      });
+    })();
+  </script>
 {% endif %}

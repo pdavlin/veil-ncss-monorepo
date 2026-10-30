@@ -17,7 +17,41 @@ metadata:
     value: "APMA"
   - label: "Engineer"
     value: "Morrissey Engineering"
-media: []
+featuredVideo:
+  src: "/assets/video/catalyst.mp4"
+  poster: "/assets/video/catalyst.jpg"
+  alt: "Catalyst aerial and interior video"
+media:
+  - type: image
+    src: "/assets/img/portfolio/catalyst-card.jpg"
+    alt: "Crane room with the original steel crane and cross-braced windows"
+  - type: image
+    src: "/assets/img/portfolio/catalyst-2.jpg"
+    alt: "Conference room with roller shades along the window wall"
+  - type: image
+    src: "/assets/img/portfolio/catalyst-3.jpg"
+    alt: "Event hall with roller shades along the window wall"
+  - type: image
+    src: "/assets/img/portfolio/catalyst-4.jpg"
+    alt: "Skylit corridor with steel columns and lounge seating"
+  - type: image
+    src: "/assets/img/portfolio/catalyst-5.jpg"
+    alt: "Brick wall and tall steel windows in the crane room"
+  - type: image
+    src: "/assets/img/portfolio/catalyst-6.jpg"
+    alt: "Crane room windows with exposed steel cross bracing"
+  - type: image
+    src: "/assets/img/portfolio/catalyst-7.jpg"
+    alt: "Lounge with full-height steel windows"
+  - type: image
+    src: "/assets/img/portfolio/catalyst-8.jpg"
+    alt: "Lounge with leather chairs under exposed steel framing"
+  - type: image
+    src: "/assets/img/portfolio/catalyst-9.jpg"
+    alt: "Roller shade along a glass wall"
+  - type: image
+    src: "/assets/img/portfolio/catalyst-10.jpg"
+    alt: "Close view of a roller shade fascia"
 mediaCredit: "Lyle Kwiatkowski & Nick Goodwin"
 ---
 

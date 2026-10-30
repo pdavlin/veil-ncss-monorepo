@@ -8,10 +8,12 @@
     location?      string                       e.g. "Omaha, NE"
     cardImage      { src, alt }                 used by portfolio-grid + home recent-projects
     metadata?      [{ label, value }]           Architect / Engineer / etc.
-    featuredVideo? { src, poster?, alt, style? } featured-project video. style 'hero'
-                                                (default): full-bleed autoplay hero with the
-                                                title + location over it. style 'inline': a
-                                                prose-width player under the title
+    featuredVideo? { src?, youtube?, poster?, alt, style? } featured-project video.
+                                                style 'hero' (default): full-bleed autoplay
+                                                hero with the title + location over it.
+                                                style 'inline': a prose-width player under
+                                                the title. youtube (a YouTube URL) shows an
+                                                inline YouTube player in place of src/style
     media?         [{ type, src, poster?, alt }]   hero gallery for the detail page
     mediaCredit?   string                       under the gallery; after the metadata
                                                 when there is no gallery
@@ -22,7 +24,8 @@
   The markdown body becomes the project description (rendered as `content`).
 #}
 {% block content %}
-  {%- set _videoHero = featuredVideo and featuredVideo.src and featuredVideo.style != 'inline' %}
+  {%- set _youtubeId = (featuredVideo.youtube if featuredVideo else '') | youtubeId %}
+  {%- set _videoHero = featuredVideo and featuredVideo.src and not _youtubeId and featuredVideo.style != 'inline' %}
   {%- if _videoHero %}
     {% set hero = { heading: title, titleMark: true, eyebrow: location, video: featuredVideo, overlayPosition: 'left', scrim: 'bottom' } %}
     {% include "hero-overlay.njk" %}
@@ -42,7 +45,19 @@
         {% if location %}<p class="kicker" style="margin-block-start: var(--space-2xs);">{{ location }}</p>{% endif %}
       {% endif %}
 
-      {% if featuredVideo and featuredVideo.src and not _videoHero %}
+      {% if _youtubeId %}
+        <div class="project-media project-media--single" data-component="project-media" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">
+          <iframe
+            class="project-media__embed"
+            src="https://www.youtube-nocookie.com/embed/{{ _youtubeId }}"
+            title="{{ featuredVideo.alt or title }}"
+            loading="lazy"
+            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        </div>
+      {% elif featuredVideo and featuredVideo.src and not _videoHero %}
         <div class="project-media project-media--single" data-component="project-media" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">
           <video
             class="project-media__video"

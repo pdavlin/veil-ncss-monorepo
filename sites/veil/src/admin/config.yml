@@ -297,9 +297,10 @@ collections:
         label: Featured video
         widget: object
         required: false
-        hint: 'Optional. Leave empty for no video. Display style sets how it shows at the top of the page.'
+        hint: 'Optional. Leave empty for no video. Upload an MP4, or paste a YouTube link. Display style sets how an MP4 shows at the top of the page.'
         fields:
-          - { name: src, label: Video, widget: file, choose_url: false, hint: 'MP4 (H.264) only. Keep it under 20 MB: every upload stays in the site repository.' }
+          - { name: src, label: Video, widget: file, choose_url: false, required: false, hint: 'MP4 (H.264) only. Keep it under 20 MB: every upload stays in the site repository.' }
+          - { name: youtube, label: YouTube link, widget: string, required: false, hint: 'Optional. Paste the link from the YouTube Share button. If set, the page shows a YouTube player under the title and ignores the MP4 and display style.' }
           - { name: poster, label: Poster image, widget: image, choose_url: false, required: false, hint: 'Shows before the video plays, and in place of the video for visitors who turn off motion.' }
           - { name: alt, label: Alt text, widget: string }
           - name: style

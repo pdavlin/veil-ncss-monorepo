@@ -17,6 +17,27 @@ export function registerComponents(eleventyConfig) {
   // hands a component already-rendered HTML marks it `| safe` (a SafeString).
   eleventyConfig.addFilter('md', (value) => (typeof value === 'string' ? markdown.render(value) : value));
 
+  // `{{ url | youtubeId }}` — the 11-character video id from a YouTube watch,
+  // share (youtu.be), shorts, live, or embed URL; '' for anything else, so a
+  // CMS typo renders no player instead of a broken one.
+  eleventyConfig.addFilter('youtubeId', (value) => {
+    if (typeof value !== 'string' || !value.trim()) return '';
+    let url;
+    try {
+      url = new URL(value.trim());
+    } catch {
+      return '';
+    }
+    const host = url.hostname.replace(/^(www\.|m\.)/, '');
+    let id = '';
+    if (host === 'youtu.be') {
+      id = url.pathname.slice(1);
+    } else if (host === 'youtube.com' || host === 'youtube-nocookie.com') {
+      id = url.searchParams.get('v') ?? url.pathname.match(/^\/(?:embed|shorts|live)\/([^/]+)/)?.[1] ?? '';
+    }
+    return /^[\w-]{11}$/.test(id) ? id : '';
+  });
+
   eleventyConfig.addPassthroughCopy({
     [stylesDir]: 'styles/components',
   });

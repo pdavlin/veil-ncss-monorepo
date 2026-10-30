@@ -3,18 +3,23 @@
   Expects: logoGrid = {
     label?: string                  accessible name for the list, e.g. "Roller shade manufacturers"
     logos: [{ src, alt }]           alt is the company name (logos carry meaning)
+    captions?: boolean              show the company name under each tile; the logo
+                                    image then takes an empty alt so the name is read once
   }
   Local images go through the responsive `image` shortcode; remote URLs render a plain <img>.
 #}
-<ul class="logo-grid" data-component="logo-grid"{% if logoGrid.label %} aria-label="{{ logoGrid.label }}"{% endif %}>
+<ul class="logo-grid{% if logoGrid.captions %} logo-grid--captioned{% endif %}" data-component="logo-grid"{% if logoGrid.label %} aria-label="{{ logoGrid.label }}"{% endif %}>
   {% for logo in logoGrid.logos %}
     {% if logo.src %}
+      {% set _alt = '' if logoGrid.captions else (logo.alt or '') %}
       <li class="logo-grid__item">
+        {% if logoGrid.captions %}<span class="logo-grid__tile">{% endif %}
         {% if logo.src.startsWith('http') %}
-          <img class="logo-grid__image" src="{{ logo.src }}" alt="{{ logo.alt }}" loading="lazy" decoding="async" />
+          <img class="logo-grid__image" src="{{ logo.src }}" alt="{{ _alt }}" loading="lazy" decoding="async" />
         {% else %}
-          {% image logo.src, logo.alt or '', "200px", "lazy", "logo-grid__image" %}
+          {% image logo.src, _alt, "200px", "lazy", "logo-grid__image" %}
         {% endif %}
+        {% if logoGrid.captions %}</span><span class="logo-grid__caption">{{ logo.alt }}</span>{% endif %}
       </li>
     {% endif %}
   {% endfor %}
