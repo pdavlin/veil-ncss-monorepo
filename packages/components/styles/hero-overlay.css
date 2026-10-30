@@ -26,6 +26,26 @@
     filter: brightness(0.5);
   }
 
+  /* cover without object-fit: Firefox on macOS can hand a playing video to
+     the system compositor, which letterboxes it and ignores object-fit. So
+     the element box itself is the cover size for 16:9 footage (the width
+     that fills both ways; the height follows the video's own ratio),
+     centered, with the overflow clipped by .hero-overlay. object-fit: cover
+     above still handles other ratios in browsers that honor it. */
+  .hero-overlay__media {
+    container-type: size;
+  }
+  .hero-overlay__video {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    width: max(100cqw, 100cqh * 16 / 9);
+    max-width: none;
+    height: auto;
+    min-height: 100cqh;
+    translate: -50% -50%;
+  }
+
   /* dark wash over media — gives the body copy comfortable contrast on
      bright architectural footage like the about-page Omaha video */
   .hero-overlay__media::after {
