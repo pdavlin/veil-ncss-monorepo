@@ -20,8 +20,7 @@ metadata:
 featuredVideo:
   src: "/assets/video/catalyst.mp4"
   poster: "/assets/video/catalyst.jpg"
-  alt: "Catalyst project video"
-  style: inline
+  alt: "Catalyst aerial and interior video"
 media:
   - type: image
     src: "/assets/img/portfolio/catalyst-card.jpg"

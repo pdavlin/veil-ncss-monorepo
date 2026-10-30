@@ -23,7 +23,6 @@ featuredVideo:
   src: "/assets/video/university-of-nebraska-glenn-korff-school-of-music.mp4"
   poster: "/assets/video/university-of-nebraska-glenn-korff-school-of-music.jpg"
   alt: "Motorized shades lowering along the glass wall"
-  style: inline
 media:
   - type: image
     src: "/assets/img/portfolio/university-of-nebraska-glenn-korff-school-of-music-card.jpg"
