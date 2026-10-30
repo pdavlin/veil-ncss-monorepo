@@ -19,6 +19,10 @@ metadata:
     value: "Holland Basham Architects"
   - label: "Engineer"
     value: "Morrissey"
+featuredVideo:
+  src: "/assets/video/the-arthur.mp4"
+  poster: "/assets/video/the-arthur.jpg"
+  alt: "The Arthur interior video"
 media:
   - type: image
     src: "/assets/img/portfolio/the-arthur-card.jpg"
