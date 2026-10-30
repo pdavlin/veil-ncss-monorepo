@@ -38,8 +38,8 @@ services:
       <p>Our team at NCSS can review existing building layouts to determine what power and communication requirements will be needed and then furnish and install the required parts to seamlessly upgrade your existing system.</p>
 ctaBand:
   heading: capabilities statement
-  body: |
-    <p class="cta-band-link__subheading-sub">download the NCSS capabilities statement (PDF)</p>
+  body: Download the NCSS capabilities statement (PDF)
+  position: top
   cta:
     label: Download PDF
     href: /assets/docs/ncss-capabilities-statement.pdf

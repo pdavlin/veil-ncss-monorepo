@@ -134,6 +134,15 @@ collections:
                 fields:
                   - { name: label, label: Label, widget: string }
                   - { name: href, label: URL (page or PDF), widget: string }
+              - name: position
+                label: Position
+                widget: select
+                required: false
+                default: bottom
+                hint: "Top shows a slim bar under the site header. Bottom shows a full band above the footer."
+                options:
+                  - { label: Bottom, value: bottom }
+                  - { label: Top, value: top }
 
       - file: sites/veil/src/content/team.md
         label: Team

@@ -1,5 +1,10 @@
 {% extends "layouts/base.njk" %}
 {% block content %}
+  {#- ctaBand.position 'top' puts the band directly under the site header #}
+  {%- if ctaBand and ctaBand.position == 'top' %}
+    {% include "cta-band-link.njk" %}
+  {% endif %}
+
   <section class="page-section">
     <div class="page-section__inner">
       {% set pageTitle = { text: titleText or 'services', as: 'h1' } %}
@@ -31,7 +36,7 @@
     </div>
   </section>
 
-  {% if ctaBand %}
+  {% if ctaBand and ctaBand.position != 'top' %}
     {% include "cta-band-link.njk" %}
   {% endif %}
 {% endblock %}

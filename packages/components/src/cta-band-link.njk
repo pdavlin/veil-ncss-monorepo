@@ -4,14 +4,26 @@
     heading: string         e.g. "let's work together"
     body?: string           markdown or HTML
     cta: { label, href }
+    position?: 'bottom' | 'top'   default 'bottom'. 'top' is a slim one-line
+                            bar under the site header; the layout decides
+                            where to include it, this only switches the look
   }
+  A PDF href gets a document icon, a download arrow, and the download attribute.
 #}
-<aside class="cta-band-link" data-component="cta-band-link" aria-labelledby="cta-band-heading">
+{%- set _bar = ctaBand.position == 'top' %}
+{%- set _pdf = (ctaBand.cta.href | lower).endsWith('.pdf') %}
+<aside class="cta-band-link{% if _bar %} cta-band-link--bar{% endif %}" data-component="cta-band-link" aria-labelledby="cta-band-heading">
   <div class="cta-band-link__inner">
     <div class="cta-band-link__content">
+      {% if _pdf %}
+        <svg class="cta-band-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 2.75h8l4 4V21.25H6z M14 2.75v4h4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      {% endif %}
       <h2 id="cta-band-heading" class="cta-band-link__heading">{{ ctaBand.heading }}</h2>
       {% if ctaBand.body %}<div class="cta-band-link__body">{{ ctaBand.body | md | safe }}</div>{% endif %}
     </div>
-    <a class="cta-band-link__cta button button--primary" href="{{ ctaBand.cta.href }}">{{ ctaBand.cta.label }}</a>
+    <a class="cta-band-link__cta button button--primary" href="{{ ctaBand.cta.href }}"{% if _pdf %} download{% endif %}>
+      {{- ctaBand.cta.label -}}
+      {% if _pdf %}<svg class="cta-band-link__arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v15m-6-6 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>{% endif %}
+    </a>
   </div>
 </aside>
