@@ -41,6 +41,25 @@
     pointer-events: none;
   }
 
+  /* bottom scrim — title-only heroes (featured project videos): the footage
+     keeps its full brightness and color, and a neutral shade rises from the
+     bottom edge only as far as the eyebrow + title need */
+  .hero-overlay[data-scrim="bottom"] {
+    padding-block-end: var(--space-l);
+  }
+  .hero-overlay[data-scrim="bottom"] .hero-overlay__image,
+  .hero-overlay[data-scrim="bottom"] .hero-overlay__video {
+    filter: none;
+  }
+  .hero-overlay[data-scrim="bottom"] .hero-overlay__media::after {
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--color-text-default) 80%, transparent) 0%,
+      color-mix(in srgb, var(--color-text-default) 55%, transparent) 35%,
+      transparent 70%
+    );
+  }
+
   .hero-overlay__content {
     width: 100%;
     max-width: var(--measure-container);
