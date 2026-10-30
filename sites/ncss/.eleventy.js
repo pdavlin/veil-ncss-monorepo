@@ -43,6 +43,12 @@ export default function (eleventyConfig) {
   // `arr | take(n)` — first n elements. Used to surface "recent projects" on home.
   eleventyConfig.addFilter('take', (arr, n) => (Array.isArray(arr) ? arr.slice(0, n) : []));
 
+  // `groups | itemCount` — total items across [{ items: [] }] groups. Used for
+  // the per-category counts in the manufacturers product-lines menu.
+  eleventyConfig.addFilter('itemCount', (groups) =>
+    Array.isArray(groups) ? groups.reduce((n, g) => n + (Array.isArray(g?.items) ? g.items.length : 0), 0) : 0,
+  );
+
   // Local-image responsive pipeline (avif/webp + srcset + width/height).
   // Shared logic lives in the components package so both brands stay in sync.
   registerImageShortcode(eleventyConfig, { eleventyImage, siteRoot: here });

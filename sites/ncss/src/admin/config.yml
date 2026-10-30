@@ -91,22 +91,24 @@ collections:
             summary: "{{fields.title}}"
             fields:
               - { name: title, label: Title, widget: string }
+              - { name: navLabel, label: Menu label, widget: string, required: false, hint: 'Optional shorter name for the product lines menu. Leave empty to use the title.' }
               - { name: body, label: Body, widget: markdown, required: false }
-              - name: lists
-                label: Manufacturer lists
+              - name: groups
+                label: Manufacturer groups
                 widget: list
                 required: false
+                summary: "{{fields.heading}}"
+                hint: 'Most categories need one group with no heading. Add a heading to split a category, for example Hardware and Fabric.'
                 fields:
-                  - { name: heading, label: 'Group heading (e.g. "Hardware:")', widget: string, required: false }
-                  - { name: items, label: Manufacturers, widget: list, field: { name: item, label: Manufacturer, widget: string } }
-              - name: logos
-                label: Logos
-                widget: list
-                required: false
-                summary: "{{fields.alt}}"
-                fields:
-                  - { name: src, label: Logo image, widget: image, choose_url: false }
-                  - { name: alt, label: Company name (alt text), widget: string }
+                  - { name: heading, label: 'Group heading (e.g. "Hardware")', widget: string, required: false }
+                  - name: items
+                    label: Manufacturers
+                    widget: list
+                    summary: "{{fields.name}}"
+                    fields:
+                      - { name: name, label: Company name, widget: string, hint: 'Shows under the logo.' }
+                      - { name: logo, label: Logo image, widget: image, choose_url: false }
+              - { name: note, label: Note under the logos, widget: string, required: false }
 
       - file: sites/ncss/src/content/research.md
         label: Research

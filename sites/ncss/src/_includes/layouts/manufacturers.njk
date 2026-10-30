@@ -1,59 +1,87 @@
 {% extends "layouts/base.njk" %}
 {#
-  Manufacturers page — services-style shell: intro rail on the left, numbered
-  category cards on the right. Each card holds the category copy, grouped
-  manufacturer name lists, and a logo wall.
+  Manufacturers page — intro across the top, then a sticky "product lines"
+  menu on the left and one section per category on the right. Each section
+  holds the category copy and captioned logo walls (one per group).
 
   Frontmatter contract (flat, top-level):
     title          string                             page <title>
     titleText?     string                             page-title text, default "manufacturers"
-    intro?         string (markdown)                  left-rail intro copy
+    intro?         string (markdown)                  intro copy above the menu
     categories?    [{
       title        string                             e.g. "roller shades"
+      navLabel?    string                             shorter menu label, default title
       body?        string (markdown)                  category description
-      lists?       [{ heading?, items: [string] }]    manufacturer names; heading labels a group (e.g. "Hardware:")
-      logos?       [{ src, alt }]                     logo-grid tiles; alt = company name
+      groups?      [{ heading?, items: [{ name, logo? }] }]
+                                                      manufacturers; heading labels a
+                                                      group (e.g. "Hardware")
+      note?        string                             line under the logos
     }]
 
-  Cards are numbered by position, so reordering categories renumbers them.
-  Built only from shared components (page-title, numbered-service-card,
-  logo-grid) and the services page shell, so any brand can adopt it unchanged.
+  The menu count for each category is the number of manufacturers across its
+  groups. Section ids come from the title, so menu links survive reordering.
 #}
 {% block content %}
   <section class="page-section">
     <div class="page-section__inner">
       {% set pageTitle = { text: titleText or 'manufacturers', as: 'h1' } %}
       {% include "page-title.njk" %}
-      <div class="stack-grid stack-grid--services" style="margin-block-start: var(--space-l);">
-        <div class="services-sidebar">
-          {% if intro %}
-            <div class="services-sidebar__intro prose__body">{{ intro | md | safe }}</div>
-          {% endif %}
-        </div>
-        <ul class="service-list">
+      {% if intro %}<div class="prose__body" style="max-width: var(--measure-prose); margin-block-start: var(--space-m);">{{ intro | md | safe }}</div>{% endif %}
+
+      <div class="product-lines">
+        <nav class="product-lines__nav" aria-labelledby="product-lines-heading">
+          <h2 class="product-lines__heading" id="product-lines-heading">product lines</h2>
+          <ul class="product-lines__list">
+            {% for category in categories %}
+              <li>
+                <a class="product-lines__link" href="#{{ category.title | slugify }}">
+                  <span>{{ category.navLabel or category.title }}</span>
+                  <span class="product-lines__count" aria-label="{{ category.groups | itemCount }} manufacturers">{{ category.groups | itemCount }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
+
+        <div class="product-lines__sections">
           {% for category in categories %}
-            {% set _body %}
-              {% if category.body %}{{ category.body | md | safe }}{% endif %}
-              {% for list in category.lists %}
-                {% if list.heading %}<p><strong>{{ list.heading }}</strong></p>{% endif %}
-                {% if list.items and list.items.length %}
-                  <div class="deliverables-list">
-                    {% for item in list.items %}<p>{{ item }}</p>{% endfor %}
-                  </div>
-                {% endif %}
-              {% endfor %}
-              {% if category.logos and category.logos.length %}
-                {% set logoGrid = { label: category.title ~ ' manufacturers', logos: category.logos } %}
+            {% set _id = category.title | slugify %}
+            <section class="product-line" id="{{ _id }}" aria-labelledby="{{ _id }}-title">
+              <h2 class="product-line__title" id="{{ _id }}-title"><span class="product-line__mark" aria-hidden="true">\</span>{{ category.title }}</h2>
+              {% if category.body %}<div class="prose__body product-line__body">{{ category.body | md | safe }}</div>{% endif %}
+              {% for group in category.groups %}
+                {% if group.heading %}<h3 class="product-line__group">{{ group.heading }}</h3>{% endif %}
+                {% set _logos = [] %}
+                {% for item in group.items %}
+                  {% set _ = _logos.push({ src: item.logo, alt: item.name }) %}
+                {% endfor %}
+                {% set logoGrid = { label: (group.heading or category.title) ~ ' manufacturers', logos: _logos, captions: true } %}
                 {% include "logo-grid.njk" %}
-              {% endif %}
-            {% endset %}
-            <li>
-              {% set service = { number: loop.index, title: category.title, body: _body | safe, numberLabel: 'Category' } %}
-              {% include "numbered-service-card.njk" %}
-            </li>
+              {% endfor %}
+              {% if category.note %}<p class="product-line__note">{{ category.note }}</p>{% endif %}
+            </section>
           {% endfor %}
-        </ul>
+        </div>
       </div>
     </div>
   </section>
+
+  <script>
+    // mark the menu link for the section in view
+    (function () {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.product-lines__link'));
+      if (!links.length || !('IntersectionObserver' in window)) return;
+      var byId = {};
+      links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+      function mark(id) {
+        links.forEach(function (a) { a.removeAttribute('aria-current'); });
+        if (byId[id]) byId[id].setAttribute('aria-current', 'true');
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) mark(e.target.id); });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+      document.querySelectorAll('.product-line').forEach(function (s) { observer.observe(s); });
+      mark(links[0].getAttribute('href').slice(1));
+    })();
+  </script>
 {% endblock %}

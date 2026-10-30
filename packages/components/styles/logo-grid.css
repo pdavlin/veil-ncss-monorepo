@@ -23,6 +23,34 @@
     border-radius: var(--radius-s);
   }
 
+  /* captioned: the tile moves to an inner span and the company name sits
+     under it */
+  .logo-grid--captioned .logo-grid__item {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2xs);
+    height: auto;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+  }
+  .logo-grid__tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--space-3xl);
+    padding: var(--space-s);
+    background-color: var(--color-surface-default);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-s);
+  }
+  .logo-grid__caption {
+    font-family: var(--font-display);
+    font-size: var(--text-step--1);
+    line-height: var(--leading-tight);
+    color: var(--color-text-default);
+  }
+
   /* the responsive-image pipeline wraps the logo in <picture>; let the
      wrapper fill the tile so the inner <img> can contain-fit against it. */
   .logo-grid__item picture {
