@@ -81,3 +81,135 @@
     .project-media__viewport { scroll-behavior: auto; }
   }
 }
+
+@layer components {
+  /* expand button: covers the whole image so a click anywhere on it opens
+     the viewer; the icon marks the corner */
+  .project-media__frame,
+  .project-media__slide[data-media-image] {
+    position: relative;
+  }
+  .project-media__expand {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: var(--space-xs);
+    border: 0;
+    border-radius: var(--radius-s);
+    background: transparent;
+    color: var(--color-text-on-brand);
+    cursor: zoom-in;
+  }
+  .project-media__expand[hidden] {
+    display: none;
+  }
+  .project-media__expand-icon {
+    width: var(--target-size-min);
+    height: var(--target-size-min);
+    padding: var(--space-3xs);
+    border-radius: var(--radius-s);
+    background-color: color-mix(in srgb, var(--color-text-default) 55%, transparent);
+    box-sizing: content-box;
+  }
+  .project-media__expand:focus-visible {
+    outline-offset: calc(var(--space-3xs) * -1);
+  }
+
+  /* full-screen viewer */
+  .project-media__viewer {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: var(--color-text-default);
+    color: var(--color-text-on-brand);
+    overflow: hidden;
+  }
+  .project-media__viewer::backdrop {
+    background-color: transparent;
+  }
+  :root:has(.project-media__viewer[open]) {
+    overflow: hidden;
+  }
+  .project-media__stage {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: var(--space-xl) var(--space-2xl);
+    touch-action: pan-y;
+  }
+  .project-media__stage picture {
+    display: contents;
+  }
+  .project-media__stage img {
+    max-width: 100%;
+    max-height: calc(100dvh - var(--space-xl) * 2);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .project-media__count {
+    position: absolute;
+    inset-block-start: var(--space-s);
+    inset-inline-start: var(--space-s);
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-step--1);
+  }
+  .project-media__nav {
+    position: absolute;
+    display: inline-grid;
+    place-items: center;
+    min-width: calc(var(--target-size-min) * 2);
+    min-height: calc(var(--target-size-min) * 2);
+    padding: var(--space-2xs);
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+  .project-media__nav svg {
+    width: var(--target-size-min);
+    height: var(--target-size-min);
+  }
+  .project-media__nav:focus-visible {
+    outline-color: currentColor;
+  }
+  .project-media__nav[hidden] {
+    display: none;
+  }
+  .project-media__nav--close {
+    inset-block-start: var(--space-2xs);
+    inset-inline-end: var(--space-2xs);
+  }
+  .project-media__nav--prev,
+  .project-media__nav--next {
+    inset-block-start: 50%;
+    translate: 0 -50%;
+  }
+  .project-media__nav--prev {
+    inset-inline-start: var(--space-2xs);
+  }
+  .project-media__nav--next {
+    inset-inline-end: var(--space-2xs);
+  }
+  @media (max-width: 640px) {
+    .project-media__stage {
+      padding-inline: 0;
+    }
+    .project-media__nav--prev,
+    .project-media__nav--next {
+      inset-block-start: auto;
+      inset-block-end: var(--space-s);
+      translate: none;
+    }
+  }
+}
