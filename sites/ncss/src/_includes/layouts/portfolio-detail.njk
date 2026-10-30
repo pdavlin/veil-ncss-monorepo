@@ -24,7 +24,7 @@
 {% block content %}
   {%- set _videoHero = featuredVideo and featuredVideo.src and featuredVideo.style != 'inline' %}
   {%- if _videoHero %}
-    {% set hero = { heading: title, titleMark: true, eyebrow: location, video: featuredVideo, overlayPosition: 'left' } %}
+    {% set hero = { heading: title, titleMark: true, eyebrow: location, video: featuredVideo, overlayPosition: 'left', scrim: 'bottom' } %}
     {% include "hero-overlay.njk" %}
   {% endif %}
 

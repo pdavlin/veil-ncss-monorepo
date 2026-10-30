@@ -9,6 +9,10 @@
     image?: { src, alt }
     video?: { src, poster?, alt }
     overlayPosition?: 'left' | 'center'   default 'left'
+    scrim?: 'wash' | 'bottom'           default 'wash': darkened media under a
+                                        brand-color gradient, for body copy.
+                                        'bottom': media at full brightness with a
+                                        neutral shade behind a bottom-set title.
   }
 
   A video hero gets a pause/play toggle (WCAG 2.2.2: a muted loop runs past
@@ -16,7 +20,7 @@
   motion the script stops autoplay, so the poster shows until the visitor
   presses play.
 #}
-<section class="hero-overlay" data-component="hero-overlay" data-position="{{ hero.overlayPosition or 'left' }}">
+<section class="hero-overlay" data-component="hero-overlay" data-position="{{ hero.overlayPosition or 'left' }}" data-scrim="{{ hero.scrim or 'wash' }}">
   <div class="hero-overlay__media" aria-hidden="true">
     {% if hero.video %}
       <video class="hero-overlay__video" autoplay muted playsinline loop {% if hero.video.poster %}poster="{{ hero.video.poster }}"{% endif %}>
